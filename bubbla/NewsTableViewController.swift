@@ -89,9 +89,11 @@ class NewsTableViewController: UITableViewController {
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "dd MMMM, HH:mm"
         cell.publicationDateLabel.text = dateFormatter.stringFromDate(newsItem.publicationDate).capitalizedString
+        cell.publicationDateLabel.text = newsItem.publicationDate.readableString
         cell.urlLabel.text = domain
         cell.categoryLabel.text = newsItem.category.rawValue
         cell.unreadIndicator.hidden = newsItem.isRead
+        
         return cell
     }
     
