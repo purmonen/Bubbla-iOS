@@ -35,7 +35,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		260DDA221BD59AE700E3DC5F /* bubbla.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bubbla.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		260DDA221BD59AE700E3DC5F /* bubb.la.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bubb.la.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		260DDA251BD59AE700E3DC5F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		260DDA2A1BD59AE700E3DC5F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		260DDA2C1BD59AE700E3DC5F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -72,7 +72,7 @@
 		260DDA231BD59AE700E3DC5F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				260DDA221BD59AE700E3DC5F /* bubbla.app */,
+				260DDA221BD59AE700E3DC5F /* bubb.la.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -98,9 +98,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		260DDA211BD59AE700E3DC5F /* bubbla */ = {
+		260DDA211BD59AE700E3DC5F /* bubb.la */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 260DDA341BD59AE700E3DC5F /* Build configuration list for PBXNativeTarget "bubbla" */;
+			buildConfigurationList = 260DDA341BD59AE700E3DC5F /* Build configuration list for PBXNativeTarget "bubb.la" */;
 			buildPhases = (
 				260DDA1E1BD59AE700E3DC5F /* Sources */,
 				260DDA1F1BD59AE700E3DC5F /* Frameworks */,
@@ -112,9 +112,9 @@
 			);
 			dependencies = (
 			);
-			name = bubbla;
+			name = bubb.la;
 			productName = bubbla;
-			productReference = 260DDA221BD59AE700E3DC5F /* bubbla.app */;
+			productReference = 260DDA221BD59AE700E3DC5F /* bubb.la.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -131,7 +131,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 260DDA1D1BD59AE700E3DC5F /* Build configuration list for PBXProject "bubbla" */;
+			buildConfigurationList = 260DDA1D1BD59AE700E3DC5F /* Build configuration list for PBXProject "bubb.la" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -144,7 +144,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				260DDA211BD59AE700E3DC5F /* bubbla */,
+				260DDA211BD59AE700E3DC5F /* bubb.la */,
 			);
 		};
 /* End PBXProject section */
@@ -306,7 +306,7 @@
 				INFOPLIST_FILE = bubbla/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Monafide.bubbla;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = bubb.la;
 			};
 			name = Debug;
 		};
@@ -321,14 +321,14 @@
 				INFOPLIST_FILE = bubbla/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Monafide.bubbla;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = bubb.la;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		260DDA1D1BD59AE700E3DC5F /* Build configuration list for PBXProject "bubbla" */ = {
+		260DDA1D1BD59AE700E3DC5F /* Build configuration list for PBXProject "bubb.la" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				260DDA321BD59AE700E3DC5F /* Debug */,
@@ -337,7 +337,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		260DDA341BD59AE700E3DC5F /* Build configuration list for PBXNativeTarget "bubbla" */ = {
+		260DDA341BD59AE700E3DC5F /* Build configuration list for PBXNativeTarget "bubb.la" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				260DDA351BD59AE700E3DC5F /* Debug */,

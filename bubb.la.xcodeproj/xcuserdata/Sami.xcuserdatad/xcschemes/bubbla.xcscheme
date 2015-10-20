@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "260DDA211BD59AE700E3DC5F"
-               BuildableName = "bubbla.app"
-               BlueprintName = "bubbla"
-               ReferencedContainer = "container:bubbla.xcodeproj">
+               BuildableName = "bubb.la.app"
+               BlueprintName = "bubb.la"
+               ReferencedContainer = "container:bubb.la.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "260DDA211BD59AE700E3DC5F"
-            BuildableName = "bubbla.app"
-            BlueprintName = "bubbla"
-            ReferencedContainer = "container:bubbla.xcodeproj">
+            BuildableName = "bubb.la.app"
+            BlueprintName = "bubb.la"
+            ReferencedContainer = "container:bubb.la.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -56,9 +56,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "260DDA211BD59AE700E3DC5F"
-            BuildableName = "bubbla.app"
-            BlueprintName = "bubbla"
-            ReferencedContainer = "container:bubbla.xcodeproj">
+            BuildableName = "bubb.la.app"
+            BlueprintName = "bubb.la"
+            ReferencedContainer = "container:bubb.la.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -75,9 +75,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "260DDA211BD59AE700E3DC5F"
-            BuildableName = "bubbla.app"
-            BlueprintName = "bubbla"
-            ReferencedContainer = "container:bubbla.xcodeproj">
+            BuildableName = "bubb.la.app"
+            BlueprintName = "bubb.la"
+            ReferencedContainer = "container:bubb.la.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
