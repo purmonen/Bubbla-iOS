@@ -1,12 +1,29 @@
 import UIKit
 
-class NewsTableViewController: UITableViewController, UIViewControllerPreviewingDelegate {
+class NewsTableViewController: UITableViewController {
     
-    var newsItems: [BubblaNews] = []
+    @IBOutlet weak var searchBar: UISearchBar!
+
+    var allNewsItems: [BubblaNews] = []
+    var newsItems: [BubblaNews] {
+        return allNewsItems.filter {
+            newsItem in
+            if let searchText = searchBar.text where !searchText.isEmpty {
+                let words = newsItem.title.lowercaseString.componentsSeparatedByString(" ")
+                for searchWord in searchText.lowercaseString.componentsSeparatedByString(" ") {
+                    if words.filter({ $0.hasPrefix(searchWord) }).isEmpty {
+                        return false
+                    }
+                }
+            }
+            return true
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         refresh()
+        searchBar.delegate = self
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 40, bottom: 0, right: 0)
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: "refresh:", forControlEvents: .ValueChanged)
@@ -16,6 +33,7 @@ class NewsTableViewController: UITableViewController, UIViewControllerPreviewing
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         title = _BubblaApi.selectedCategory.rawValue
+        searchBar.placeholder = "Sök \(_BubblaApi.selectedCategory.rawValue.lowercaseString)"
         tableView.reloadData()
     }
     
@@ -26,7 +44,7 @@ class NewsTableViewController: UITableViewController, UIViewControllerPreviewing
             NSOperationQueue.mainQueue().addOperationWithBlock {
                 switch response {
                 case .Success(let newsItems):
-                    self.newsItems = newsItems.sort { $1.publicationDate < $0.publicationDate }
+                    self.allNewsItems = newsItems.sort { $1.publicationDate < $0.publicationDate }
                     self.tableView.reloadData()
                 case .Error(let error):
                     print(error)
@@ -47,22 +65,6 @@ class NewsTableViewController: UITableViewController, UIViewControllerPreviewing
     
     var highlightedIndexPath: NSIndexPath?
     
-    func previewingContext(previewingContext: UIViewControllerPreviewing,
-        viewControllerForLocation location: CGPoint) -> UIViewController? {
-            guard let highlightedIndexPath = tableView.indexPathForRowAtPoint(location),
-                let cell = tableView.cellForRowAtIndexPath(highlightedIndexPath) else  { return nil }
-            self.highlightedIndexPath = highlightedIndexPath
-            
-            let newsItem = newsItems[highlightedIndexPath.row]
-            let viewController = storyboard!.instantiateViewControllerWithIdentifier("NewsViewController") as! NewsViewController
-            viewController.newsItem = newsItem
-                previewingContext.sourceRect = cell.frame
-            return viewController
-    }
-    
-    func previewingContext(previewingContext: UIViewControllerPreviewing, commitViewController viewControllerToCommit: UIViewController) {
-        self.performSegueWithIdentifier("NewsViewController", sender: self)
-    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -109,5 +111,30 @@ class NewsTableViewController: UITableViewController, UIViewControllerPreviewing
                 tableView.deselectRowAtIndexPath(indexPath, animated: false)
                 newsItem.read()
         }
+    }
+}
+
+extension NewsTableViewController: UIViewControllerPreviewingDelegate {
+    func previewingContext(previewingContext: UIViewControllerPreviewing,
+        viewControllerForLocation location: CGPoint) -> UIViewController? {
+            guard let highlightedIndexPath = tableView.indexPathForRowAtPoint(location),
+                let cell = tableView.cellForRowAtIndexPath(highlightedIndexPath) else  { return nil }
+            self.highlightedIndexPath = highlightedIndexPath
+            
+            let newsItem = newsItems[highlightedIndexPath.row]
+            let viewController = storyboard!.instantiateViewControllerWithIdentifier("NewsViewController") as! NewsViewController
+            viewController.newsItem = newsItem
+            previewingContext.sourceRect = cell.frame
+            return viewController
+    }
+    
+    func previewingContext(previewingContext: UIViewControllerPreviewing, commitViewController viewControllerToCommit: UIViewController) {
+        self.performSegueWithIdentifier("NewsViewController", sender: self)
+    }
+}
+
+extension NewsTableViewController: UISearchBarDelegate {
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        tableView.reloadData()
     }
 }
