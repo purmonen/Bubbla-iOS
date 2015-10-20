@@ -13,7 +13,7 @@ struct BubblaNews {
     }
     
     func read() {
-        _BubblaApi.readNewsItemIds += [id]
+        _BubblaApi.readNewsItemIds = Array(Set(_BubblaApi.readNewsItemIds + [id]))
     }
 }
 

@@ -4,8 +4,6 @@ class NewsTableViewController: UITableViewController, UIViewControllerPreviewing
     
     var newsItems: [BubblaNews] = []
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         refresh()
