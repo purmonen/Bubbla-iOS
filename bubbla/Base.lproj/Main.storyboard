@@ -97,7 +97,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Senaste" id="9nd-F1-s0l">
-                        <barButtonItem key="rightBarButtonItem" title="Kategorier" id="LIH-64-DKZ">
+                        <barButtonItem key="leftBarButtonItem" title="Kategorier" id="LIH-64-DKZ">
                             <connections>
                                 <segue destination="QFE-Fu-wXE" kind="presentation" id="jEL-cc-KcN"/>
                             </connections>

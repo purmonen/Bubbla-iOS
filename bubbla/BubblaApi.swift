@@ -83,7 +83,7 @@ class _BubblaApi {
     
     class var readNewsItemIds: [Int] {
         get {
-            return (NSUserDefaults.standardUserDefaults().valueForKey("readNewsItemsIds") as? [Int] ?? [])
+        return (NSUserDefaults.standardUserDefaults().valueForKey("readNewsItemsIds") as? [Int] ?? [])
         }
         
         set {
@@ -93,7 +93,7 @@ class _BubblaApi {
     
     class var selectedCategory: NewsCategory {
         get {
-            return NewsCategory(rawValue: (NSUserDefaults.standardUserDefaults().valueForKey("selectedCategory") as? String ?? "")) ?? .Recent
+        return NewsCategory(rawValue: (NSUserDefaults.standardUserDefaults().valueForKey("selectedCategory") as? String ?? "")) ?? .Recent
         }
         
         set {
@@ -124,24 +124,17 @@ class _BubblaApi {
     }
     
     func dateFromString(dateString: String) -> NSDate? {
-//        let month = dateString.componentsSeparatedByString(", ")[1].componentsSeparatedByString(" ")[0]
-//        let day = Int(dateString.componentsSeparatedByString(", ")[1].componentsSeparatedByString(" ")[1])
-//        
-//        let year = Int(dateString.componentsSeparatedByString(", ")[2].componentsSeparatedByString(" - ")[0])
-//        let hours = Int(dateString.componentsSeparatedByString(", ")[0].componentsSeparatedByString(" - ")[1].componentsSeparatedByString(":")[0])
-//        let seconds = Int(dateString.componentsSeparatedByString(", ")[0].componentsSeparatedByString(" - ")[1].componentsSeparatedByString(":")[1])
-        
-        
         let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "MMMM dd, yyyy - HH:mm"
         dateFormatter.locale = NSLocale(localeIdentifier: "en")
-        
-        
-        let components = dateString.componentsSeparatedByString(", ")
-        if components.count > 0 {
-            let dateStringNoDay = components[1..<components.count].joinWithSeparator(", ")
-            let date = dateFormatter.dateFromString(dateStringNoDay)
-            return date
+        for format in ["dd MMM yyyy HH:mm:ss +0200", "MMMM dd, yyyy - HH:mm"] {
+            dateFormatter.dateFormat = format
+            let components = dateString.componentsSeparatedByString(", ")
+            if components.count > 0 {
+                let dateStringNoDay = components[1..<components.count].joinWithSeparator(", ")
+                if let date = dateFormatter.dateFromString(dateStringNoDay) {
+                    return date
+                }
+            }
         }
         return nil
         
@@ -165,7 +158,7 @@ class _BubblaApi {
                     }
                 }
                 return .Success(newsItems)
-            })
+                })
             
         }
     }
