@@ -95,7 +95,6 @@ class _BubblaApi {
                 }
                 return .Success(newsItems)
                 })
-            
         }
     }
 }

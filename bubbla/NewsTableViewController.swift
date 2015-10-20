@@ -4,20 +4,21 @@ class NewsTableViewController: UITableViewController, UIViewControllerPreviewing
     
     var newsItems: [BubblaNews] = []
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        refresh()
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 40, bottom: 0, right: 0)
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: "refresh:", forControlEvents: .ValueChanged)
         registerForPreviewingWithDelegate(self, sourceView: view)
-
     }
-    
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         title = _BubblaApi.selectedCategory.rawValue
-        refresh()
+        tableView.reloadData()
     }
     
     func refresh(refreshControl: UIRefreshControl? = nil) {
@@ -38,7 +39,12 @@ class NewsTableViewController: UITableViewController, UIViewControllerPreviewing
     }
     
     @IBAction func unwind(segue: UIStoryboardSegue) {
-        
+        if let viewController = segue.sourceViewController as? CategoryTableViewController,
+            let category = viewController.selectedCategory  {
+            _BubblaApi.selectedCategory = category
+            title = _BubblaApi.selectedCategory.rawValue
+            refresh()
+        }
     }
     
     var highlightedIndexPath: NSIndexPath?

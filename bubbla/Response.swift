@@ -11,7 +11,6 @@ enum Response<T> {
         case .Error(let error):
             return .Error(error)
         }
-        
     }
     
     static func flatten<T>(response: Response<Response<T>>) -> Response<T> {

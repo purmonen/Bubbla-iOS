@@ -137,6 +137,9 @@
                                     <animations/>
                                 </tableViewCellContentView>
                                 <animations/>
+                                <connections>
+                                    <segue destination="3aj-GV-QaR" kind="unwind" unwindAction="unwind:" id="0jO-zI-szD"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
