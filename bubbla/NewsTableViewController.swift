@@ -23,7 +23,7 @@ class NewsTableViewController: UITableViewController, UIViewControllerPreviewing
     
     func refresh(refreshControl: UIRefreshControl? = nil) {
         refreshControl?.beginRefreshing()
-        BubblaApi.getNewsForCategory(_BubblaApi.selectedCategory) {
+        BubblaApi.newsForCategory(_BubblaApi.selectedCategory) {
             response in
             NSOperationQueue.mainQueue().addOperationWithBlock {
                 switch response {

@@ -101,7 +101,7 @@ class _BubblaApi {
         }
     }
     
-    func getData(url: NSURL, callback: Response<NSData> -> Void) {
+    func dataFromUrl(url: NSURL, callback: Response<NSData> -> Void) {
         let session = NSURLSession.sharedSession()
         let request = NSURLRequest(URL: url)
         let dataTask = session.dataTaskWithRequest(request) {
@@ -117,8 +117,8 @@ class _BubblaApi {
         dataTask.resume()
     }
     
-    func getXML(url: NSURL, callback: Response<XMLIndexer> -> Void) {
-        getData(url) {
+    func xmlFromUrl(url: NSURL, callback: Response<XMLIndexer> -> Void) {
+        dataFromUrl(url) {
             callback($0.map { SWXMLHash.parse($0) } )
         }
     }
@@ -140,8 +140,8 @@ class _BubblaApi {
         
     }
     
-    func getNewsForCategory(category: NewsCategory, callback: Response<[NewsItem]> -> Void) {
-        getXML(category.rssUrl) {
+    func newsForCategory(category: NewsCategory, callback: Response<[NewsItem]> -> Void) {
+        xmlFromUrl(category.rssUrl) {
             callback($0 >>= {
                 xml in
                 var newsItems = [NewsItem]()
