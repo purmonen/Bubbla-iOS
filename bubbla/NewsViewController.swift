@@ -12,7 +12,7 @@ class NewsViewController: UIViewController {
 
     @IBOutlet weak var webView: UIWebView!
     
-    var newsItem: _BubblaApi.NewsItem!
+    var newsItem: BubblaNews!
     
     
     

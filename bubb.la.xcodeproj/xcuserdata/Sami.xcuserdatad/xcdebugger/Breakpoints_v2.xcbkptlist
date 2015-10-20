@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "bubbla/BubblaApi.swift"
-            timestampString = "467065607.778427"
+            timestampString = "467070777.142606"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "133"
-            endingLineNumber = "133"
+            startingLineNumber = "71"
+            endingLineNumber = "71"
             landmarkName = "dateFromString(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -58,12 +58,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "bubbla/BubblaApi.swift"
-            timestampString = "467065607.778427"
+            timestampString = "467070777.142606"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "154"
-            endingLineNumber = "154"
-            landmarkName = "getNewsForCategory(_:callback:)"
+            startingLineNumber = "92"
+            endingLineNumber = "92"
+            landmarkName = "newsForCategory(_:callback:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "bubbla/BubblaApi.swift"
-            timestampString = "467065607.778427"
+            timestampString = "467070777.142606"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "135"
-            endingLineNumber = "135"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
             landmarkName = "dateFromString(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -90,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "bubbla/BubblaApi.swift"
-            timestampString = "467065607.778427"
+            timestampString = "467070777.142606"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "135"
-            endingLineNumber = "135"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
             landmarkName = "dateFromString(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -106,12 +106,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "bubbla/BubblaApi.swift"
-            timestampString = "467065607.778427"
+            timestampString = "467070777.142606"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "145"
-            endingLineNumber = "145"
-            landmarkName = "getNewsForCategory(_:callback:)"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
+            landmarkName = "newsForCategory(_:callback:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -122,12 +122,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "bubbla/BubblaApi.swift"
-            timestampString = "467065607.778427"
+            timestampString = "467070777.142606"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "144"
-            endingLineNumber = "144"
-            landmarkName = "getNewsForCategory(_:callback:)"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
+            landmarkName = "newsForCategory(_:callback:)"
             landmarkType = "5">
             <Locations>
                <Location
@@ -209,22 +209,6 @@
                   offsetFromSymbolStart = "28">
                </Location>
             </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "bubbla/BubblaApi.swift"
-            timestampString = "466999200.00016"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "77"
-            endingLineNumber = "77"
-            landmarkName = "_BubblaApi"
-            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

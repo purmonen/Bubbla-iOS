@@ -1,9 +1,8 @@
-
 import UIKit
 
 class NewsTableViewController: UITableViewController, UIViewControllerPreviewingDelegate {
     
-    var newsItems: [_BubblaApi.NewsItem] = []
+    var newsItems: [BubblaNews] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,7 +75,6 @@ class NewsTableViewController: UITableViewController, UIViewControllerPreviewing
         return newsItems.count
     }
     
-    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("NewsItemTableViewCell", forIndexPath: indexPath) as! NewsItemTableViewCell
         let newsItem = newsItems[indexPath.row]
@@ -86,7 +84,7 @@ class NewsTableViewController: UITableViewController, UIViewControllerPreviewing
         dateFormatter.dateFormat = "dd MMMM, HH:mm"
         cell.publicationDateLabel.text = dateFormatter.stringFromDate(newsItem.publicationDate).capitalizedString
         cell.urlLabel.text = domain
-        cell.categoryLabel.text = newsItem.category
+        cell.categoryLabel.text = newsItem.category.rawValue
         cell.unreadIndicator.hidden = newsItem.isRead
         return cell
     }
@@ -107,7 +105,5 @@ class NewsTableViewController: UITableViewController, UIViewControllerPreviewing
                 tableView.deselectRowAtIndexPath(indexPath, animated: false)
                 newsItem.read()
         }
-
     }
-
 }
