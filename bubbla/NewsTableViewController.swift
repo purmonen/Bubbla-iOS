@@ -1,5 +1,59 @@
 import UIKit
 
+
+extension UIView {
+    
+    func startActivityIndicator() {
+        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+        activityIndicator.center = center
+        activityIndicator.startAnimating()
+        addSubview(activityIndicator)
+        activityIndicator.didMoveToSuperview()
+        activityIndicator.tag = 1337
+        self.addConstraints([
+            NSLayoutConstraint(item: activityIndicator, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: activityIndicator, attribute: .CenterX, relatedBy: .Equal, toItem: self, attribute: .CenterX, multiplier: 1, constant: 0),
+            ])
+    }
+    
+    func stopActivityIndicator() {
+        for subview in subviews {
+            if let activityIndicator = subview as? UIActivityIndicatorView {
+                if activityIndicator.tag == 1337 {
+                    activityIndicator.stopAnimating()
+                    activityIndicator.removeFromSuperview()
+                }
+            }
+        }
+    }
+}
+
+extension UITableViewController {
+    
+    func showEmptyMessage(show: Bool, message: String) {
+        if show {
+            let label = UILabel(frame: CGRectMake(0, 0, view.bounds.size.width, view.bounds.size.height))
+            label.font = UIFont.systemFontOfSize(30)
+            label.text = message
+            label.numberOfLines = 2
+            label.textAlignment = .Center
+            label.sizeToFit()
+            label.textColor = UIColor.lightGrayColor()
+            tableView.backgroundView = label
+            tableView.separatorStyle = UITableViewCellSeparatorStyle.None
+        } else {
+            tableView.backgroundView = nil
+            tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
+        }
+    }
+    
+    func deselectSelectedCell() {
+        if let indexPath = tableView.indexPathForSelectedRow {
+            tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        }
+    }
+}
+
 class NewsTableViewController: UITableViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
@@ -25,6 +79,17 @@ class NewsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        showEmptyMessage(true, message: "")
+        searchBar.hidden = true
+
+        NSOperationQueue().addOperationWithBlock {
+            NSThread.sleepForTimeInterval(0.3)
+            NSOperationQueue.mainQueue().addOperationWithBlock {
+                if !self.contentRecieved {
+                    self.view.startActivityIndicator()
+                }
+            }
+        }
         refresh()
         searchBar.delegate = self
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 40, bottom: 0, right: 0)
@@ -40,6 +105,8 @@ class NewsTableViewController: UITableViewController {
         tableView.reloadData()
     }
     
+    var contentRecieved = false
+    
     func refresh(refreshControl: UIRefreshControl? = nil) {
         refreshControl?.beginRefreshing()
         BubblaApi.newsForCategory(category) {
@@ -48,18 +115,29 @@ class NewsTableViewController: UITableViewController {
                 switch response {
                 case .Success(let newsItems):
                     self.allNewsItems = newsItems.sort { $1.publicationDate < $0.publicationDate }
+                    self.searchBar.hidden = false
+                    self.showEmptyMessage(false, message: "")
                     self.tableView.reloadData()
                 case .Error(let error):
                     print(error)
-                    let alertController = UIAlertController(title: "Fel", message: (error as NSError).localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
+                    
+                    let errorMessage = (error as NSError).localizedDescription
+                    if self.newsItems.isEmpty {
+                        self.showEmptyMessage(true, message: errorMessage)
+                    } else {
+                        
+                    let alertController = UIAlertController(title: nil, message: errorMessage, preferredStyle: UIAlertControllerStyle.Alert)
                     alertController.addAction(UIAlertAction(title: "Ok", style: .Default) {
                         action in
                         alertController.dismissViewControllerAnimated(true, completion: nil)
                         })
                     self.presentViewController(alertController, animated: true, completion: nil)
+                    }
 
                 }
+                self.contentRecieved = true
                 self.refreshControl?.endRefreshing()
+                self.view.stopActivityIndicator()
             }
         }
     }
