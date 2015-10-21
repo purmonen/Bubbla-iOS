@@ -49,7 +49,7 @@ class NewsTableViewController: UITableViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         title = category.rawValue
-        searchBar.placeholder = "Sök \(category.rawValue.lowercaseString)"
+        searchBar.placeholder = "Sök i \(category.rawValue.lowercaseString)"
         tableView.reloadData()
     }
     
@@ -132,9 +132,9 @@ class NewsTableViewController: UITableViewController {
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "dd MMMM, HH:mm"
         cell.publicationDateLabel.text = dateFormatter.stringFromDate(newsItem.publicationDate).capitalizedString
-        cell.publicationDateLabel.text = newsItem.publicationDate.readableString
+        cell.publicationDateLabel.text = newsItem.publicationDate.readableString + (category == .Recent ? " - \(newsItem.category.rawValue)" : "")
         cell.urlLabel.text = domain
-        cell.categoryLabel.text = newsItem.category.rawValue
+//        cell.categoryLabel.text = newsItem.category.rawValue
         cell.unreadIndicator.hidden = newsItem.isRead
         
         return cell

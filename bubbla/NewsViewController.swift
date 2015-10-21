@@ -1,9 +1,8 @@
 import UIKit
+import WebKit
 
-class NewsViewController: UIViewController, UIWebViewDelegate {
+class NewsViewController: UIViewController, WKNavigationDelegate {
 
-    @IBOutlet weak var webView: UIWebView!
-    
     var newsItem: BubblaNews!
     
     func webViewDidFinishLoad(webView: UIWebView) {
@@ -11,11 +10,18 @@ class NewsViewController: UIViewController, UIWebViewDelegate {
             self.view.stopActivityIndicator()
         }
     }
+    
+    func webView(webView: WKWebView, didCommitNavigation navigation: WKNavigation!) {
+        view.stopActivityIndicator()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.startActivityIndicator()
-        webView.delegate = self
+        let webView = WKWebView(frame: view.frame)
+        webView.scrollView.contentInset = UIEdgeInsets(top: 64, left: 0, bottom: 0, right: 0)
         webView.loadRequest(NSURLRequest(URL: newsItem.url))
+        view.addSubview(webView)
+        webView.navigationDelegate = self
+        view.startActivityIndicator()
     }
 }

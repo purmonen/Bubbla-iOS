@@ -19,6 +19,7 @@
 		2635B5AF1BD5AAFE0016A702 /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2635B5AE1BD5AAFE0016A702 /* NewsViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		2635B5B11BD5D4380016A702 /* CategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2635B5B01BD5D4380016A702 /* CategoryTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		268DF8DB1BD72E8800F168FF /* SWXMLHash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 268DF8DA1BD72E8800F168FF /* SWXMLHash.framework */; };
+		26FB41BE1BD7CFB600560B74 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26FB41BD1BD7CFB600560B74 /* WebKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -49,6 +50,7 @@
 		2635B5AE1BD5AAFE0016A702 /* NewsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
 		2635B5B01BD5D4380016A702 /* CategoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryTableViewController.swift; sourceTree = "<group>"; };
 		268DF8DA1BD72E8800F168FF /* SWXMLHash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SWXMLHash.framework; path = Carthage/Build/iOS/SWXMLHash.framework; sourceTree = "<group>"; };
+		26FB41BD1BD7CFB600560B74 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26FB41BE1BD7CFB600560B74 /* WebKit.framework in Frameworks */,
 				268DF8DB1BD72E8800F168FF /* SWXMLHash.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -66,6 +69,7 @@
 		260DDA191BD59AE700E3DC5F = {
 			isa = PBXGroup;
 			children = (
+				26FB41BD1BD7CFB600560B74 /* WebKit.framework */,
 				268DF8DA1BD72E8800F168FF /* SWXMLHash.framework */,
 				260DDA241BD59AE700E3DC5F /* bubb.la */,
 				260DDA231BD59AE700E3DC5F /* Products */,
