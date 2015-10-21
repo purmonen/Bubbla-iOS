@@ -27,6 +27,8 @@ class NewsTableViewController: UITableViewController {
         super.viewDidLoad()
         showEmptyMessage(true, message: "")
         searchBar.hidden = true
+        
+        tableView.contentOffset = CGPoint(x: 0, y: searchBar.frame.height)
 
         NSOperationQueue().addOperationWithBlock {
             NSThread.sleepForTimeInterval(0.3)
@@ -119,7 +121,14 @@ class NewsTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("NewsItemTableViewCell", forIndexPath: indexPath) as! NewsItemTableViewCell
         let newsItem = newsItems[indexPath.row]
         cell.titleLabel.text = newsItem.title
-        let domain = newsItem.url.absoluteString.componentsSeparatedByString("/")[2]
+        
+        
+        let urlComponents = newsItem.url.absoluteString.componentsSeparatedByString("/")
+        var domain = ""
+        if urlComponents.count > 2 {
+            domain = urlComponents[2].stringByReplacingOccurrencesOfString("www.", withString: "")
+        }
+        
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "dd MMMM, HH:mm"
         cell.publicationDateLabel.text = dateFormatter.stringFromDate(newsItem.publicationDate).capitalizedString

@@ -12,14 +12,13 @@
 		260DDA2D1BD59AE700E3DC5F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 260DDA2C1BD59AE700E3DC5F /* Assets.xcassets */; };
 		260DDA301BD59AE700E3DC5F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 260DDA2E1BD59AE700E3DC5F /* LaunchScreen.storyboard */; };
 		260DDA381BD59B0700E3DC5F /* BubblaApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 260DDA371BD59B0700E3DC5F /* BubblaApi.swift */; settings = {ASSET_TAGS = (); }; };
-		260DDA3D1BD5A0DD00E3DC5F /* SWXMLHash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 260DDA391BD59CD000E3DC5F /* SWXMLHash.framework */; };
-		260DDA3E1BD5A0DD00E3DC5F /* SWXMLHash.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 260DDA391BD59CD000E3DC5F /* SWXMLHash.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		260DDA411BD5A38000E3DC5F /* NewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 260DDA401BD5A38000E3DC5F /* NewsTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		260DDA431BD5A4F100E3DC5F /* NewsItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 260DDA421BD5A4F100E3DC5F /* NewsItemTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 		26233E471BD6EB0A00C754C8 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26233E461BD6EB0A00C754C8 /* Response.swift */; settings = {ASSET_TAGS = (); }; };
 		26233E491BD6EBC900C754C8 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26233E481BD6EBC900C754C8 /* Extensions.swift */; settings = {ASSET_TAGS = (); }; };
 		2635B5AF1BD5AAFE0016A702 /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2635B5AE1BD5AAFE0016A702 /* NewsViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		2635B5B11BD5D4380016A702 /* CategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2635B5B01BD5D4380016A702 /* CategoryTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		268DF8DB1BD72E8800F168FF /* SWXMLHash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 268DF8DA1BD72E8800F168FF /* SWXMLHash.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -29,7 +28,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				260DDA3E1BD5A0DD00E3DC5F /* SWXMLHash.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -44,13 +42,13 @@
 		260DDA2F1BD59AE700E3DC5F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		260DDA311BD59AE700E3DC5F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		260DDA371BD59B0700E3DC5F /* BubblaApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubblaApi.swift; sourceTree = "<group>"; };
-		260DDA391BD59CD000E3DC5F /* SWXMLHash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SWXMLHash.framework; sourceTree = "<group>"; };
 		260DDA401BD5A38000E3DC5F /* NewsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsTableViewController.swift; sourceTree = "<group>"; };
 		260DDA421BD5A4F100E3DC5F /* NewsItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsItemTableViewCell.swift; sourceTree = "<group>"; };
 		26233E461BD6EB0A00C754C8 /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		26233E481BD6EBC900C754C8 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		2635B5AE1BD5AAFE0016A702 /* NewsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
 		2635B5B01BD5D4380016A702 /* CategoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryTableViewController.swift; sourceTree = "<group>"; };
+		268DF8DA1BD72E8800F168FF /* SWXMLHash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SWXMLHash.framework; path = Carthage/Build/iOS/SWXMLHash.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,7 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				260DDA3D1BD5A0DD00E3DC5F /* SWXMLHash.framework in Frameworks */,
+				268DF8DB1BD72E8800F168FF /* SWXMLHash.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,7 +66,8 @@
 		260DDA191BD59AE700E3DC5F = {
 			isa = PBXGroup;
 			children = (
-				260DDA241BD59AE700E3DC5F /* bubbla */,
+				268DF8DA1BD72E8800F168FF /* SWXMLHash.framework */,
+				260DDA241BD59AE700E3DC5F /* bubb.la */,
 				260DDA231BD59AE700E3DC5F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -81,11 +80,10 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		260DDA241BD59AE700E3DC5F /* bubbla */ = {
+		260DDA241BD59AE700E3DC5F /* bubb.la */ = {
 			isa = PBXGroup;
 			children = (
 				260DDA251BD59AE700E3DC5F /* AppDelegate.swift */,
-				260DDA391BD59CD000E3DC5F /* SWXMLHash.framework */,
 				260DDA371BD59B0700E3DC5F /* BubblaApi.swift */,
 				26233E481BD6EBC900C754C8 /* Extensions.swift */,
 				26233E461BD6EB0A00C754C8 /* Response.swift */,
@@ -98,6 +96,7 @@
 				260DDA2E1BD59AE700E3DC5F /* LaunchScreen.storyboard */,
 				260DDA311BD59AE700E3DC5F /* Info.plist */,
 			);
+			name = bubb.la;
 			path = bubbla;
 			sourceTree = "<group>";
 		};
@@ -134,6 +133,7 @@
 				TargetAttributes = {
 					260DDA211BD59AE700E3DC5F = {
 						CreatedOnToolsVersion = 7.0.1;
+						DevelopmentTeam = U8JUVSFVME;
 					};
 				};
 			};
@@ -175,12 +175,13 @@
 			files = (
 			);
 			inputPaths = (
+				/Users/Sami/Desktop/bubbla/Carthage/Build/iOS/SWXMLHash.framework,
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -242,6 +243,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -286,6 +288,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -307,9 +310,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/bubbla",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = bubbla/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -322,9 +327,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/bubbla",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = bubbla/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
