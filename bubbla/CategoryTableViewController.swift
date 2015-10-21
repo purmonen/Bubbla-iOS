@@ -4,6 +4,8 @@ class CategoryTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        performSegueWithIdentifier("NewsSegue", sender: self)
+        
     }
     
     var selectedCategory: BubblaNewsCategory?
@@ -29,8 +31,18 @@ class CategoryTableViewController: UITableViewController {
         return cell
     }
     
-    override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
-        selectedCategory = BubblaNewsCategory.All[indexPath.row]
-        return indexPath
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let viewController = segue.destinationViewController as? NewsTableViewController {
+            let category: BubblaNewsCategory
+            if let indexPath = tableView.indexPathForSelectedRow {
+                category = BubblaNewsCategory.All[indexPath.row]
+                tableView.deselectRowAtIndexPath(indexPath, animated: false)
+            } else {
+                category = _BubblaApi.selectedCategory
+            }
+            viewController.category = category
+            _BubblaApi.selectedCategory = category
+
+        }
     }
 }

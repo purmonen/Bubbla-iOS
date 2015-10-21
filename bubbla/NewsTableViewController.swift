@@ -20,6 +20,9 @@ class NewsTableViewController: UITableViewController {
         }
     }
     
+    
+    var category: BubblaNewsCategory!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         refresh()
@@ -32,14 +35,14 @@ class NewsTableViewController: UITableViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        title = _BubblaApi.selectedCategory.rawValue
-        searchBar.placeholder = "Sök \(_BubblaApi.selectedCategory.rawValue.lowercaseString)"
+        title = category.rawValue
+        searchBar.placeholder = "Sök \(category.rawValue.lowercaseString)"
         tableView.reloadData()
     }
     
     func refresh(refreshControl: UIRefreshControl? = nil) {
         refreshControl?.beginRefreshing()
-        BubblaApi.newsForCategory(_BubblaApi.selectedCategory) {
+        BubblaApi.newsForCategory(category) {
             response in
             NSOperationQueue.mainQueue().addOperationWithBlock {
                 switch response {
@@ -48,6 +51,13 @@ class NewsTableViewController: UITableViewController {
                     self.tableView.reloadData()
                 case .Error(let error):
                     print(error)
+                    let alertController = UIAlertController(title: "Fel", message: (error as NSError).localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
+                    alertController.addAction(UIAlertAction(title: "Ok", style: .Default) {
+                        action in
+                        alertController.dismissViewControllerAnimated(true, completion: nil)
+                        })
+                    self.presentViewController(alertController, animated: true, completion: nil)
+
                 }
                 self.refreshControl?.endRefreshing()
             }
@@ -58,7 +68,7 @@ class NewsTableViewController: UITableViewController {
         if let viewController = segue.sourceViewController as? CategoryTableViewController,
             let category = viewController.selectedCategory  {
             _BubblaApi.selectedCategory = category
-            title = _BubblaApi.selectedCategory.rawValue
+            title = category.rawValue
             refresh()
         }
     }

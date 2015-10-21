@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Qd8-Ec-If6">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="QFE-Fu-wXE">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -102,20 +102,14 @@
                             <outlet property="delegate" destination="B2L-xe-bur" id="l4m-Up-Fld"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Senaste" id="9nd-F1-s0l">
-                        <barButtonItem key="leftBarButtonItem" title="Kategorier" id="LIH-64-DKZ">
-                            <connections>
-                                <segue destination="QFE-Fu-wXE" kind="presentation" id="jEL-cc-KcN"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Senaste" id="9nd-F1-s0l"/>
                     <connections>
                         <outlet property="searchBar" destination="iPu-L9-jSk" id="UMJ-vA-SAI"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hA6-z8-LJF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1148" y="71"/>
+            <point key="canvasLocation" x="1575" y="332"/>
         </scene>
         <!--Kategorier-->
         <scene sceneID="bxo-QO-2KL">
@@ -127,15 +121,15 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CategoryCell" textLabel="1c9-Lb-t71" style="IBUITableViewCellStyleDefault" id="BKL-A0-uUj">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="CategoryCell" textLabel="1c9-Lb-t71" style="IBUITableViewCellStyleDefault" id="BKL-A0-uUj">
                                 <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BKL-A0-uUj" id="5Ya-hA-hvk">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="567" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1c9-Lb-t71">
-                                            <rect key="frame" x="15" y="0.0" width="570" height="43"/>
+                                            <rect key="frame" x="15" y="0.0" width="550" height="43"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -147,7 +141,7 @@
                                 </tableViewCellContentView>
                                 <animations/>
                                 <connections>
-                                    <segue destination="3aj-GV-QaR" kind="unwind" unwindAction="unwind:" id="0jO-zI-szD"/>
+                                    <segue destination="B2L-xe-bur" kind="show" identifier="" id="45y-8F-mGB"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -156,18 +150,14 @@
                             <outlet property="delegate" destination="p88-4E-vPe" id="yih-bX-yia"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Kategorier" id="iTS-K4-v95">
-                        <barButtonItem key="leftBarButtonItem" title="Avbryt" id="cQ1-r4-TLT">
-                            <connections>
-                                <segue destination="3aj-GV-QaR" kind="unwind" unwindAction="unwind:" id="Hd9-Se-pQ9"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Kategorier" id="iTS-K4-v95"/>
+                    <connections>
+                        <segue destination="B2L-xe-bur" kind="show" identifier="NewsSegue" animates="NO" id="Jfh-un-2L7"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gUb-Zi-XHu" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="3aj-GV-QaR" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2578" y="-518"/>
+            <point key="canvasLocation" x="2463" y="299"/>
         </scene>
         <!--News View Controller-->
         <scene sceneID="QSf-C1-W2e">
@@ -205,25 +195,6 @@
             <point key="canvasLocation" x="3171" y="188"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="nel-4s-sNc">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Qd8-Ec-If6" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="iL1-qu-R8N">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <animations/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="B2L-xe-bur" kind="relationship" relationship="rootViewController" id="0sx-Dp-JrB"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="PKk-JL-eWb" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="411" y="-18"/>
-        </scene>
-        <!--Navigation Controller-->
         <scene sceneID="bIZ-lf-lJH">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="QFE-Fu-wXE" sceneMemberID="viewController">
@@ -243,5 +214,8 @@
             <point key="canvasLocation" x="1766" y="-518"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="Jfh-un-2L7"/>
+    </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.80000000000000004" green="0.3921568627" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
 </document>
