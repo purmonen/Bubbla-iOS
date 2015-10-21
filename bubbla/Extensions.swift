@@ -103,13 +103,14 @@ extension UIViewController {
             action in
             alertController.dismissViewControllerAnimated(true, completion: nil)
             })
+        presentViewController(alertController, animated: true, completion: nil)
     }
     
 }
 
 extension UIView {
     
-
+    
     func startActivityIndicator() {
         let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
         activityIndicator.center = center

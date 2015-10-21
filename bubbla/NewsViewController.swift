@@ -11,13 +11,15 @@ class NewsViewController: UIViewController, WKNavigationDelegate {
         }
     }
     
-    func webView(webView: WKWebView, didCommitNavigation navigation: WKNavigation!) {
+    func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
         view.stopActivityIndicator()
     }
     
     func webView(webView: WKWebView, didFailNavigation navigation: WKNavigation!, withError error: NSError) {
         showErrorAlert(error)
+        view.stopActivityIndicator()
     }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
