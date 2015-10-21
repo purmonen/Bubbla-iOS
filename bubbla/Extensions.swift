@@ -95,10 +95,21 @@ extension NSDate {
     }
 }
 
-
+extension UIViewController {
+    func showErrorAlert(error: ErrorType) {
+        let errorMessage = (error as NSError).localizedDescription
+        let alertController = UIAlertController(title: nil, message: errorMessage, preferredStyle: UIAlertControllerStyle.Alert)
+        alertController.addAction(UIAlertAction(title: "Ok", style: .Default) {
+            action in
+            alertController.dismissViewControllerAnimated(true, completion: nil)
+            })
+    }
+    
+}
 
 extension UIView {
     
+
     func startActivityIndicator() {
         let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
         activityIndicator.center = center

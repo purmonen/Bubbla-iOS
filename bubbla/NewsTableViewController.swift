@@ -68,18 +68,12 @@ class NewsTableViewController: UITableViewController {
                     self.tableView.reloadData()
                 case .Error(let error):
                     print(error)
-                    
-                    let errorMessage = (error as NSError).localizedDescription
                     if self.newsItems.isEmpty {
+                        let errorMessage = (error as NSError).localizedDescription
                         self.showEmptyMessage(true, message: errorMessage)
                     } else {
+                        self.showErrorAlert(error)
                         
-                    let alertController = UIAlertController(title: nil, message: errorMessage, preferredStyle: UIAlertControllerStyle.Alert)
-                    alertController.addAction(UIAlertAction(title: "Ok", style: .Default) {
-                        action in
-                        alertController.dismissViewControllerAnimated(true, completion: nil)
-                        })
-                    self.presentViewController(alertController, animated: true, completion: nil)
                     }
 
                 }
