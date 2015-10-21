@@ -1,59 +1,5 @@
 import UIKit
 
-
-extension UIView {
-    
-    func startActivityIndicator() {
-        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
-        activityIndicator.center = center
-        activityIndicator.startAnimating()
-        addSubview(activityIndicator)
-        activityIndicator.didMoveToSuperview()
-        activityIndicator.tag = 1337
-        self.addConstraints([
-            NSLayoutConstraint(item: activityIndicator, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: activityIndicator, attribute: .CenterX, relatedBy: .Equal, toItem: self, attribute: .CenterX, multiplier: 1, constant: 0),
-            ])
-    }
-    
-    func stopActivityIndicator() {
-        for subview in subviews {
-            if let activityIndicator = subview as? UIActivityIndicatorView {
-                if activityIndicator.tag == 1337 {
-                    activityIndicator.stopAnimating()
-                    activityIndicator.removeFromSuperview()
-                }
-            }
-        }
-    }
-}
-
-extension UITableViewController {
-    
-    func showEmptyMessage(show: Bool, message: String) {
-        if show {
-            let label = UILabel(frame: CGRectMake(0, 0, view.bounds.size.width, view.bounds.size.height))
-            label.font = UIFont.systemFontOfSize(30)
-            label.text = message
-            label.numberOfLines = 2
-            label.textAlignment = .Center
-            label.sizeToFit()
-            label.textColor = UIColor.lightGrayColor()
-            tableView.backgroundView = label
-            tableView.separatorStyle = UITableViewCellSeparatorStyle.None
-        } else {
-            tableView.backgroundView = nil
-            tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
-        }
-    }
-    
-    func deselectSelectedCell() {
-        if let indexPath = tableView.indexPathForSelectedRow {
-            tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        }
-    }
-}
-
 class NewsTableViewController: UITableViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
@@ -201,6 +147,21 @@ class NewsTableViewController: UITableViewController {
                 tableView.deselectRowAtIndexPath(indexPath, animated: false)
                 newsItem.read()
         }
+    }
+    
+    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        let newsItem = newsItems[indexPath.row]
+        return [UITableViewRowAction(style: UITableViewRowActionStyle.Normal, title: newsItem.isRead ? "Oläst" : "Läst") {
+            (action, indexPath) in
+            if newsItem.isRead {
+                newsItem.unread()
+            } else {
+                newsItem.read()
+            }
+            tableView.setEditing(false, animated: true)
+            (tableView.cellForRowAtIndexPath(indexPath) as! NewsItemTableViewCell).unreadIndicator.hidden = newsItem.isRead
+//            tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+        }]
     }
 }
 

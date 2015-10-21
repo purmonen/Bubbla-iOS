@@ -15,6 +15,10 @@ struct BubblaNews {
     func read() {
         _BubblaApi.readNewsItemIds = Array(Set(_BubblaApi.readNewsItemIds + [id]))
     }
+    
+    func unread() {
+        _BubblaApi.readNewsItemIds = Array(Set(_BubblaApi.readNewsItemIds.filter { $0 != id }))
+    }
 }
 
 enum BubblaNewsCategory: String {
