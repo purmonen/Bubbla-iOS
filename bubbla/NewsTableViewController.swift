@@ -3,7 +3,7 @@ import UIKit
 class NewsTableViewController: UITableViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
-
+    
     var allNewsItems: [BubblaNews] = []
     var newsItems: [BubblaNews] {
         return allNewsItems.filter {
@@ -21,7 +21,7 @@ class NewsTableViewController: UITableViewController {
     }
     
     
-    var category: BubblaNewsCategory!
+    var category: BubblaNewsCategory = .Recent
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +29,7 @@ class NewsTableViewController: UITableViewController {
         searchBar.hidden = true
         
         tableView.contentOffset = CGPoint(x: 0, y: searchBar.frame.height)
-
+        
         NSOperationQueue().addOperationWithBlock {
             NSThread.sleepForTimeInterval(0.3)
             NSOperationQueue.mainQueue().addOperationWithBlock {
@@ -75,7 +75,7 @@ class NewsTableViewController: UITableViewController {
                         self.showErrorAlert(error)
                         
                     }
-
+                    
                 }
                 self.contentRecieved = true
                 self.refreshControl?.endRefreshing()
@@ -87,9 +87,9 @@ class NewsTableViewController: UITableViewController {
     @IBAction func unwind(segue: UIStoryboardSegue) {
         if let viewController = segue.sourceViewController as? CategoryTableViewController,
             let category = viewController.selectedCategory  {
-            _BubblaApi.selectedCategory = category
-            title = category.rawValue
-            refresh()
+                _BubblaApi.selectedCategory = category
+                title = category.rawValue
+                refresh()
         }
     }
     
@@ -128,8 +128,9 @@ class NewsTableViewController: UITableViewController {
         cell.publicationDateLabel.text = dateFormatter.stringFromDate(newsItem.publicationDate).capitalizedString
         cell.publicationDateLabel.text = newsItem.publicationDate.readableString + (category == .Recent ? " - \(newsItem.category.rawValue)" : "")
         cell.urlLabel.text = domain
-//        cell.categoryLabel.text = newsItem.category.rawValue
+        //        cell.categoryLabel.text = newsItem.category.rawValue
         cell.unreadIndicator.hidden = newsItem.isRead
+        splitViewController?.delegate
         
         return cell
     }
@@ -142,6 +143,18 @@ class NewsTableViewController: UITableViewController {
         return UITableViewAutomaticDimension
     }
     
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if let newsViewController = storyboard?.instantiateViewControllerWithIdentifier("NewsViewController") as? NewsViewController {
+            let newsItem = newsItems[indexPath.row]
+            newsViewController.newsItem = newsItem
+            newsItem.read()
+            showDetailViewController(newsViewController, sender: self)
+        }
+        
+    }
+    
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let viewController = segue.destinationViewController as? NewsViewController,
             let indexPath = tableView.indexPathForSelectedRow ?? highlightedIndexPath {
@@ -149,6 +162,8 @@ class NewsTableViewController: UITableViewController {
                 viewController.newsItem = newsItem
                 tableView.deselectRowAtIndexPath(indexPath, animated: false)
                 newsItem.read()
+                (tableView.cellForRowAtIndexPath(indexPath) as! NewsItemTableViewCell).unreadIndicator.hidden = newsItem.isRead
+
         }
     }
     
@@ -163,8 +178,8 @@ class NewsTableViewController: UITableViewController {
             }
             tableView.setEditing(false, animated: true)
             (tableView.cellForRowAtIndexPath(indexPath) as! NewsItemTableViewCell).unreadIndicator.hidden = newsItem.isRead
-//            tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
-        }]
+            //            tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+            }]
     }
 }
 

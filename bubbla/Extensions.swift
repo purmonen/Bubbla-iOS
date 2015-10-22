@@ -113,15 +113,25 @@ extension UIView {
     
     func startActivityIndicator() {
         let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
-        activityIndicator.center = center
-        activityIndicator.startAnimating()
+        activityIndicator.frame = frame
         addSubview(activityIndicator)
-        activityIndicator.didMoveToSuperview()
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+
+//        activityIndicator.backgroundColor = UIColor.redColor()
+//        
+        centerXAnchor.constraintEqualToAnchor(activityIndicator.centerXAnchor).active = true
+        centerYAnchor.constraintEqualToAnchor(activityIndicator.centerYAnchor).active = true
+        
+//        activityIndicator.centerYAnchor.constraintEqualToAnchor(centerYAnchor)
+//        activityIndicator.widthAnchor.constraintEqualToAnchor(widthAnchor)
+        
+        
+//        activityIndicator.center = center
+        activityIndicator.startAnimating()
+
+
+        layoutIfNeeded()
         activityIndicator.tag = 1337
-        self.addConstraints([
-            NSLayoutConstraint(item: activityIndicator, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: activityIndicator, attribute: .CenterX, relatedBy: .Equal, toItem: self, attribute: .CenterX, multiplier: 1, constant: 0),
-            ])
     }
     
     func stopActivityIndicator() {

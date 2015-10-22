@@ -1,19 +1,27 @@
 import UIKit
 
-class CategoryTableViewController: UITableViewController {
+class CategoryTableViewController: UITableViewController, UISplitViewControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         performSegueWithIdentifier("NewsSegue", sender: self)
         
+//        showViewController(storyboard!.instantiateViewControllerWithIdentifier("NewsTableViewController"), sender: self)
+        splitViewController?.maximumPrimaryColumnWidth = 350
+        splitViewController?.delegate = self
     }
     
-    var selectedCategory: BubblaNewsCategory?
+    func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController: UIViewController, ontoPrimaryViewController primaryViewController: UIViewController) -> Bool {
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        if let newsViewController = (secondaryViewController as? NewsViewController) {
+            return newsViewController.newsItem == nil
+        }
+        
+        return true
     }
+    
+    
+    var selectedCategory: BubblaNewsCategory?
 
     // MARK: - Table view data source
 
@@ -32,7 +40,7 @@ class CategoryTableViewController: UITableViewController {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let viewController = segue.destinationViewController as? NewsTableViewController {
+        if let viewController = segue.destinationViewController.childViewControllers.first as? NewsTableViewController {
             let category: BubblaNewsCategory
             if let indexPath = tableView.indexPathForSelectedRow {
                 category = BubblaNewsCategory.All[indexPath.row]
