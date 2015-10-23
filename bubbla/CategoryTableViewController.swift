@@ -15,6 +15,7 @@ class CategoryTableViewController: UITableViewController, UISplitViewControllerD
 //        showViewController(storyboard!.instantiateViewControllerWithIdentifier("NewsTableViewController"), sender: self)
         splitViewController?.maximumPrimaryColumnWidth = 350
         splitViewController?.delegate = self
+        splitViewController?.preferredDisplayMode = .AllVisible
     }
     
     func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController: UIViewController, ontoPrimaryViewController primaryViewController: UIViewController) -> Bool {
