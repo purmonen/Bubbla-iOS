@@ -24,6 +24,7 @@ class NewsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         showEmptyMessage(true, message: "")
         searchBar.hidden = true
         
@@ -50,6 +51,24 @@ class NewsTableViewController: UITableViewController {
         title = category.rawValue
         searchBar.placeholder = "Sök i \(category.rawValue.lowercaseString)"
         tableView.reloadData()
+        
+
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        print(splitViewController?.collapsed)
+        
+        if !(splitViewController?.collapsed ?? false) && !(splitViewController?.viewControllers.last is NewsViewController) {
+            
+            if let newsViewController = self.storyboard?.instantiateViewControllerWithIdentifier("NewsViewController") as? NewsViewController {
+//                if let newsItem = newsItems.first {
+//                    newsViewController.newsItem = newsItem
+//                    newsItem.read()
+//                }
+                self.showDetailViewController(newsViewController, sender: self)
+            }
+        }
     }
     
     var contentRecieved = false
@@ -65,6 +84,12 @@ class NewsTableViewController: UITableViewController {
                     self.searchBar.hidden = false
                     self.showEmptyMessage(false, message: "")
                     self.tableView.reloadData()
+                    if let newsViewController = self.storyboard?.instantiateViewControllerWithIdentifier("NewsViewController") as? NewsViewController {
+                        let newsItem = newsItems[0]
+                        newsViewController.newsItem = newsItem
+                        newsItem.read()
+//                        self.showDetailViewController(newsViewController, sender: self)
+                    }
                 case .Error(let error):
                     print(error)
                     if self.newsItems.isEmpty {

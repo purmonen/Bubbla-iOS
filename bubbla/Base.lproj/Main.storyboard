@@ -11,12 +11,12 @@
                 <splitViewController id="ImP-OF-jAc" sceneMemberID="viewController">
                     <connections>
                         <segue destination="QFE-Fu-wXE" kind="relationship" relationship="masterViewController" id="5Bt-0r-bSY"/>
-                        <segue destination="Ph4-yN-uXP" kind="relationship" relationship="detailViewController" id="avq-Nj-Qna"/>
+                        <segue destination="Ph4-yN-uXP" kind="relationship" relationship="detailViewController" id="wZu-4J-vuO"/>
                     </connections>
                 </splitViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4tk-NJ-I9V" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="590" y="-623"/>
+            <point key="canvasLocation" x="602" y="-461"/>
         </scene>
         <!--Senaste-->
         <scene sceneID="HMP-p1-eJB">
@@ -175,8 +175,21 @@
                     <view key="view" contentMode="scaleToFill" id="enD-MV-jYf">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Ingen nyhet vald" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LRe-Vh-Z2N">
+                                <rect key="frame" x="189" y="250" width="126" height="21"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="LRe-Vh-Z2N" firstAttribute="centerY" secondItem="enD-MV-jYf" secondAttribute="centerY" id="4sc-xB-BjR"/>
+                            <constraint firstItem="LRe-Vh-Z2N" firstAttribute="centerX" secondItem="enD-MV-jYf" secondAttribute="centerX" id="Vy0-rn-OiM"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ths-J1-D9i" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -204,7 +217,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="xkD-Wo-ddc"/>
+        <segue reference="wZu-4J-vuO"/>
         <segue reference="mfx-ua-CfZ"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.80000000000000004" green="0.3921568627" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
