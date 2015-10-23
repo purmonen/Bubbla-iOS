@@ -10,7 +10,7 @@ class NewsTableViewController: UITableViewController {
             newsItem in
             if let searchText = searchBar.text where !searchText.isEmpty {
                 let words = newsItem.title.lowercaseString.componentsSeparatedByString(" ")
-                for searchWord in searchText.lowercaseString.componentsSeparatedByString(" ") {
+                for searchWord in searchText.lowercaseString.componentsSeparatedByString(" ").filter({ !$0.isEmpty }) {
                     if words.filter({ $0.hasPrefix(searchWord) }).isEmpty {
                         return false
                     }
