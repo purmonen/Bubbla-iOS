@@ -105,11 +105,25 @@ extension UIViewController {
             })
         presentViewController(alertController, animated: true, completion: nil)
     }
-    
 }
 
 extension UIView {
     
+    func showMessageLabel(message: String) {
+        let label = UILabel()
+        label.text = message
+        label.numberOfLines = 0
+        label.font = UIFont.systemFontOfSize(30)
+        label.textColor = UIColor.lightGrayColor()
+        label.textAlignment = .Center
+        addSubview(label)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        label.centerYAnchor.constraintEqualToAnchor(centerYAnchor).active = true
+        label.centerXAnchor.constraintEqualToAnchor(centerXAnchor).active = true
+        label.widthAnchor.constraintEqualToAnchor(widthAnchor, constant: -100).active = true
+    }
     
     func startActivityIndicator() {
         let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
@@ -146,6 +160,8 @@ extension UIView {
     }
 }
 
+
+
 extension UITableViewController {
     
     func showEmptyMessage(show: Bool, message: String) {
@@ -153,7 +169,7 @@ extension UITableViewController {
             let label = UILabel(frame: CGRectMake(0, 0, view.bounds.size.width, view.bounds.size.height))
             label.font = UIFont.systemFontOfSize(30)
             label.text = message
-            label.numberOfLines = 2
+            label.numberOfLines = 0
             label.textAlignment = .Center
             label.sizeToFit()
             label.textColor = UIColor.lightGrayColor()

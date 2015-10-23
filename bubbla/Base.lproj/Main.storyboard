@@ -21,7 +21,7 @@
         <!--Senaste-->
         <scene sceneID="HMP-p1-eJB">
             <objects>
-                <tableViewController storyboardIdentifier="NewsTableViewController" id="B2L-xe-bur" customClass="NewsTableViewController" customModule="bubb_la" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="NewsTableViewController" id="B2L-xe-bur" customClass="NewsTableViewController" customModule="Bubbla" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="117" sectionHeaderHeight="28" sectionFooterHeight="28" id="c9h-xZ-jUj">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -34,7 +34,7 @@
                             <textInputTraits key="textInputTraits"/>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewsItemTableViewCell" rowHeight="117" id="g5e-fV-6RV" customClass="NewsItemTableViewCell" customModule="bubb_la" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewsItemTableViewCell" rowHeight="117" id="g5e-fV-6RV" customClass="NewsItemTableViewCell" customModule="Bubbla" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="136" width="600" height="117"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="g5e-fV-6RV" id="TTb-jL-UNo">
@@ -119,7 +119,7 @@
         <!--Kategorier-->
         <scene sceneID="bxo-QO-2KL">
             <objects>
-                <tableViewController id="p88-4E-vPe" customClass="CategoryTableViewController" customModule="bubb_la" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="p88-4E-vPe" customClass="CategoryTableViewController" customModule="Bubbla" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="aeP-jA-41a">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -167,7 +167,7 @@
         <!--News View Controller-->
         <scene sceneID="QSf-C1-W2e">
             <objects>
-                <viewController storyboardIdentifier="NewsViewController" id="Ph4-yN-uXP" customClass="NewsViewController" customModule="bubb_la" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NewsViewController" id="Ph4-yN-uXP" customClass="NewsViewController" customModule="Bubbla" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="3Q4-we-q9N"/>
                         <viewControllerLayoutGuide type="bottom" id="glW-b3-mwF"/>
@@ -179,7 +179,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Ingen nyhet vald" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LRe-Vh-Z2N">
                                 <rect key="frame" x="189" y="250" width="126" height="21"/>
                                 <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>

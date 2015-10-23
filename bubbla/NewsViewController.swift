@@ -12,14 +12,24 @@ class NewsViewController: UIViewController, WKNavigationDelegate {
     }
     
     func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
-        view.stopActivityIndicator()
+        NSOperationQueue.mainQueue().addOperationWithBlock {
+            self.view.stopActivityIndicator()
+        }
     }
     
     func webView(webView: WKWebView, didFailNavigation navigation: WKNavigation!, withError error: NSError) {
-        showErrorAlert(error)
-        view.stopActivityIndicator()
+        NSOperationQueue.mainQueue().addOperationWithBlock {
+            self.view.showMessageLabel(error.localizedDescription)
+            self.view.stopActivityIndicator()
+        }
     }
     
+    
+    func webView(webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: NSError) {
+        NSOperationQueue.mainQueue().addOperationWithBlock {
+            self.view.stopActivityIndicator()
+            self.view.showMessageLabel(error.localizedDescription)
+        }    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

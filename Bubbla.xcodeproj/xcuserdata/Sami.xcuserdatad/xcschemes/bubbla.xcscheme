@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "260DDA211BD59AE700E3DC5F"
-               BuildableName = "bubb.la.app"
+               BuildableName = "Bubbla.app"
                BlueprintName = "Bubbla"
                ReferencedContainer = "container:Bubbla.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "260DDA211BD59AE700E3DC5F"
-            BuildableName = "bubb.la.app"
+            BuildableName = "Bubbla.app"
             BlueprintName = "Bubbla"
             ReferencedContainer = "container:Bubbla.xcodeproj">
          </BuildableReference>
@@ -56,7 +56,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "260DDA211BD59AE700E3DC5F"
-            BuildableName = "bubb.la.app"
+            BuildableName = "Bubbla.app"
             BlueprintName = "Bubbla"
             ReferencedContainer = "container:Bubbla.xcodeproj">
          </BuildableReference>
@@ -75,7 +75,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "260DDA211BD59AE700E3DC5F"
-            BuildableName = "bubb.la.app"
+            BuildableName = "Bubbla.app"
             BlueprintName = "Bubbla"
             ReferencedContainer = "container:Bubbla.xcodeproj">
          </BuildableReference>
