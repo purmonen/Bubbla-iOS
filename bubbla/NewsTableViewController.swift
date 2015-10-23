@@ -20,7 +20,6 @@ class NewsTableViewController: UITableViewController {
         }
     }
     
-    
     var category: BubblaNewsCategory = .Recent
     
     override func viewDidLoad() {
