@@ -71,6 +71,8 @@ class NewsTableViewController: UITableViewController {
         }
     }
     
+    
+    
     var contentRecieved = false
     
     func refresh(refreshControl: UIRefreshControl? = nil) {
@@ -84,12 +86,6 @@ class NewsTableViewController: UITableViewController {
                     self.searchBar.hidden = false
                     self.showEmptyMessage(false, message: "")
                     self.tableView.reloadData()
-                    if let newsViewController = self.storyboard?.instantiateViewControllerWithIdentifier("NewsViewController") as? NewsViewController {
-                        let newsItem = newsItems[0]
-                        newsViewController.newsItem = newsItem
-                        newsItem.read()
-//                        self.showDetailViewController(newsViewController, sender: self)
-                    }
                 case .Error(let error):
                     print(error)
                     if self.newsItems.isEmpty {
@@ -173,6 +169,7 @@ class NewsTableViewController: UITableViewController {
             let newsItem = newsItems[indexPath.row]
             newsViewController.newsItem = newsItem
             newsItem.read()
+            (tableView.cellForRowAtIndexPath(indexPath) as! NewsItemTableViewCell).unreadIndicator.hidden = newsItem.isRead
             showDetailViewController(newsViewController, sender: self)
         }
         
