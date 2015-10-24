@@ -28,6 +28,31 @@ extension NSURL {
     }
 }
 
+extension UITableView {
+    func updateFromItems<T: Equatable>(items: [T], oldItems: [T]) {
+                self.beginUpdates()
+        let newItems = items.filter { !oldItems.contains($0) }
+        let newIndexPaths = newItems.map { return NSIndexPath(forRow: items.indexOf($0)!, inSection: 0)  }
+        let removedItems = oldItems.filter { !items.contains($0) }
+        let removedIndexPaths = removedItems.map { return NSIndexPath(forRow: oldItems.indexOf($0)!, inSection: 0)  }
+        let persistentItems = items.filter { !newItems.contains($0) && !removedItems.contains($0)  }
+        for item in persistentItems {
+            let startIndex = oldItems.indexOf(item)!
+            let endIndex = items.indexOf(item)!
+            if startIndex != endIndex {
+                self.moveRowAtIndexPath(NSIndexPath(forRow: startIndex, inSection: 0), toIndexPath: NSIndexPath(forRow: endIndex, inSection: 0))
+            }
+        }
+        self.insertRowsAtIndexPaths(newIndexPaths, withRowAnimation: .Automatic)
+        self.deleteRowsAtIndexPaths(removedIndexPaths, withRowAnimation: .Automatic)
+                self.endUpdates()
+    }
+    
+    
+    
+}
+
+
 extension NSUserDefaults {
     subscript(key: String) -> AnyObject? {
         get { return valueForKey(key) }

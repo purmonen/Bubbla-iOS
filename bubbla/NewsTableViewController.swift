@@ -24,12 +24,11 @@ class NewsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshDummy:", name: UIApplicationWillEnterForegroundNotification, object: nil)
         showEmptyMessage(true, message: "")
         searchBar.hidden = true
         
         tableView.contentOffset = CGPoint(x: 0, y: searchBar.frame.height)
-        
         NSOperationQueue().addOperationWithBlock {
             NSThread.sleepForTimeInterval(0.3)
             NSOperationQueue.mainQueue().addOperationWithBlock {
@@ -38,7 +37,6 @@ class NewsTableViewController: UITableViewController {
                 }
             }
         }
-        refresh()
         searchBar.delegate = self
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 40, bottom: 0, right: 0)
         refreshControl = UIRefreshControl()
@@ -50,9 +48,8 @@ class NewsTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         title = category.rawValue
         searchBar.placeholder = "Sök i \(category.rawValue.lowercaseString)"
-        tableView.reloadData()
-        
-
+//        tableView.reloadData()
+        refresh()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -65,9 +62,10 @@ class NewsTableViewController: UITableViewController {
         }
     }
     
-    
-    
     var contentRecieved = false
+    func refreshDummy(wtf: AnyObject) {
+        refresh()
+    }
     
     func refresh(refreshControl: UIRefreshControl? = nil) {
         refreshControl?.beginRefreshing()
@@ -76,10 +74,15 @@ class NewsTableViewController: UITableViewController {
             NSOperationQueue.mainQueue().addOperationWithBlock {
                 switch response {
                 case .Success(let newsItems):
-                    self.allNewsItems = newsItems.sort { $1.publicationDate < $0.publicationDate }
                     self.searchBar.hidden = false
                     self.showEmptyMessage(false, message: "")
-                    self.tableView.reloadData()
+                    let oldItems = self.allNewsItems
+                    self.allNewsItems = newsItems.sort { $1.publicationDate < $0.publicationDate }
+                    if oldItems.isEmpty {
+                        self.tableView.reloadData()
+                    } else {
+                        self.tableView.updateFromItems(self.allNewsItems.map { $0.id }, oldItems: oldItems.map({ $0.id }))
+                    }
                 case .Error(let error):
                     if self.newsItems.isEmpty {
                         let errorMessage = (error as NSError).localizedDescription
@@ -192,8 +195,7 @@ class NewsTableViewController: UITableViewController {
             }
             tableView.setEditing(false, animated: true)
             (tableView.cellForRowAtIndexPath(indexPath) as! NewsItemTableViewCell).unreadIndicator.hidden = newsItem.isRead
-            //            tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
-            }]
+        }]
     }
 }
 

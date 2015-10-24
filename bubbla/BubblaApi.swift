@@ -1,6 +1,6 @@
 import UIKit
 
-struct BubblaNews {
+public struct BubblaNews {
     let title: String
     let url: NSURL
     let publicationDateString: String
@@ -19,6 +19,10 @@ struct BubblaNews {
     func unread() {
         _BubblaApi.readNewsItemIds = Array(Set(_BubblaApi.readNewsItemIds.filter { $0 != id }))
     }
+}
+
+public func ==(x: BubblaNews, y: BubblaNews) -> Bool {
+    return x.id == y.id
 }
 
 enum BubblaNewsCategory: String {
