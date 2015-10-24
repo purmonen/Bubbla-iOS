@@ -57,15 +57,9 @@ class NewsTableViewController: UITableViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        print(splitViewController?.collapsed)
-        
+        title = category.rawValue
         if !(splitViewController?.collapsed ?? false) && !(splitViewController?.viewControllers.last is NewsViewController) {
-            
             if let newsViewController = self.storyboard?.instantiateViewControllerWithIdentifier("NewsViewController") as? NewsViewController {
-//                if let newsItem = newsItems.first {
-//                    newsViewController.newsItem = newsItem
-//                    newsItem.read()
-//                }
                 self.showDetailViewController(newsViewController, sender: self)
             }
         }
@@ -87,7 +81,6 @@ class NewsTableViewController: UITableViewController {
                     self.showEmptyMessage(false, message: "")
                     self.tableView.reloadData()
                 case .Error(let error):
-                    print(error)
                     if self.newsItems.isEmpty {
                         let errorMessage = (error as NSError).localizedDescription
                         self.showEmptyMessage(true, message: errorMessage)

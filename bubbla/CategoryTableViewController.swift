@@ -5,14 +5,6 @@ class CategoryTableViewController: UITableViewController, UISplitViewControllerD
     override func viewDidLoad() {
         super.viewDidLoad()
         performSegueWithIdentifier("NewsSegue", sender: self)
-        
-//        if let viewController = storyboard?.instantiateViewControllerWithIdentifier("NewsTableViewController") {
-////            navigationController?.pushViewController(viewController, animated: false)
-//            showViewController(viewController, sender: self)
-//            
-//        }
-        
-//        showViewController(storyboard!.instantiateViewControllerWithIdentifier("NewsTableViewController"), sender: self)
         splitViewController?.maximumPrimaryColumnWidth = 350
         splitViewController?.delegate = self
         splitViewController?.preferredDisplayMode = .AllVisible
@@ -26,30 +18,9 @@ class CategoryTableViewController: UITableViewController, UISplitViewControllerD
         
         return true
     }
-    
-    func splitViewController(splitViewController: UISplitViewController, showDetailViewController vc: UIViewController, sender: AnyObject?) -> Bool {
-//        print(splitViewController.collapsed)
-//        if splitViewController.collapsed {
-//            showViewController(vc, sender: self)
-//            
-//            return true
-//        } else {
-//            let navController = splitViewController.viewControllers[1] as! UINavigationController
-//            
-//            let topDetailViewController = navController.viewControllers.last!;
-//            if topDetailViewController is NewsTableViewController || (vc.respondsToSelector("shouldReplaceDetailedView") && vc.performSelector("shouldReplaceDetailedView") != nil) {
-//                navController.setViewControllers([vc], animated: false)
-//            } else {
-//                navController.pushViewController(vc, animated: true)
-//            }
-//
-//        }
-        return false
-    }
 
     override func viewWillAppear(animated: Bool) {
         deselectSelectedCell()
-
     }
 
     var selectedCategory: BubblaNewsCategory?
