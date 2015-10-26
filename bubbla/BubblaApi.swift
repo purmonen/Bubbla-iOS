@@ -1,12 +1,14 @@
 import UIKit
 
-public struct BubblaNews {
+public struct BubblaNews: Hashable {
     let title: String
     let url: NSURL
     let publicationDateString: String
     let publicationDate: NSDate
     let category: BubblaNewsCategory
     let id: Int
+    
+    public var hashValue: Int { return id }
     
     var isRead: Bool {
         return _BubblaApi.readNewsItemIds.contains(id)

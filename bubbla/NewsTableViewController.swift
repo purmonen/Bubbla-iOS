@@ -78,13 +78,12 @@ class NewsTableViewController: UITableViewController {
                     self.showEmptyMessage(false, message: "")
                     
                     let oldItems = self.allNewsItems
-                    self.allNewsItems = newsItems.sort { $1.publicationDate < $0.publicationDate }
+                    self.allNewsItems = Array(Set(newsItems)).sort { $1.publicationDate < $0.publicationDate }
                     if oldItems.isEmpty {
                         self.tableView.reloadData()
                     } else {
                         self.tableView.updateFromItems(self.allNewsItems.map { $0.id }, oldItems: oldItems.map({ $0.id }))
                     }
-                    self.tableView.endUpdates()
                 case .Error(let error):
                     if self.newsItems.isEmpty {
                         let errorMessage = (error as NSError).localizedDescription
