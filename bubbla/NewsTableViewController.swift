@@ -48,7 +48,7 @@ class NewsTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         title = category.rawValue
         searchBar.placeholder = "Sök i \(category.rawValue.lowercaseString)"
-//        tableView.reloadData()
+        deselectSelectedCell()
         refresh()
     }
     
@@ -76,6 +76,7 @@ class NewsTableViewController: UITableViewController {
                 case .Success(let newsItems):
                     self.searchBar.hidden = false
                     self.showEmptyMessage(false, message: "")
+                    
                     let oldItems = self.allNewsItems
                     self.allNewsItems = newsItems.sort { $1.publicationDate < $0.publicationDate }
                     if oldItems.isEmpty {
@@ -83,6 +84,7 @@ class NewsTableViewController: UITableViewController {
                     } else {
                         self.tableView.updateFromItems(self.allNewsItems.map { $0.id }, oldItems: oldItems.map({ $0.id }))
                     }
+                    self.tableView.endUpdates()
                 case .Error(let error):
                     if self.newsItems.isEmpty {
                         let errorMessage = (error as NSError).localizedDescription

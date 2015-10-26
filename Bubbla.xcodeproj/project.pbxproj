@@ -18,6 +18,7 @@
 		26233E491BD6EBC900C754C8 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26233E481BD6EBC900C754C8 /* Extensions.swift */; };
 		2635B5AF1BD5AAFE0016A702 /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2635B5AE1BD5AAFE0016A702 /* NewsViewController.swift */; };
 		2635B5B11BD5D4380016A702 /* CategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2635B5B01BD5D4380016A702 /* CategoryTableViewController.swift */; };
+		26A9A54E1BDE7BCC00140E67 /* NewCategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A9A54D1BDE7BCC00140E67 /* NewCategoryTableViewController.swift */; };
 		26FB41BE1BD7CFB600560B74 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26FB41BD1BD7CFB600560B74 /* WebKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -35,6 +36,7 @@
 		26233E481BD6EBC900C754C8 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		2635B5AE1BD5AAFE0016A702 /* NewsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
 		2635B5B01BD5D4380016A702 /* CategoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryTableViewController.swift; sourceTree = "<group>"; };
+		26A9A54D1BDE7BCC00140E67 /* NewCategoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewCategoryTableViewController.swift; sourceTree = "<group>"; };
 		26BCEA3A1BD87C3400F77FA6 /* SWXMLHash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SWXMLHash.framework; path = Carthage/Build/iOS/SWXMLHash.framework; sourceTree = "<group>"; };
 		26FB41BD1BD7CFB600560B74 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -79,6 +81,7 @@
 				260DDA401BD5A38000E3DC5F /* NewsTableViewController.swift */,
 				2635B5AE1BD5AAFE0016A702 /* NewsViewController.swift */,
 				2635B5B01BD5D4380016A702 /* CategoryTableViewController.swift */,
+				26A9A54D1BDE7BCC00140E67 /* NewCategoryTableViewController.swift */,
 				260DDA421BD5A4F100E3DC5F /* NewsItemTableViewCell.swift */,
 				260DDA291BD59AE700E3DC5F /* Main.storyboard */,
 				260DDA2C1BD59AE700E3DC5F /* Assets.xcassets */,
@@ -179,6 +182,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				260DDA261BD59AE700E3DC5F /* AppDelegate.swift in Sources */,
+				26A9A54E1BDE7BCC00140E67 /* NewCategoryTableViewController.swift in Sources */,
 				260DDA431BD5A4F100E3DC5F /* NewsItemTableViewCell.swift in Sources */,
 				260DDA381BD59B0700E3DC5F /* BubblaApi.swift in Sources */,
 				26233E491BD6EBC900C754C8 /* Extensions.swift in Sources */,

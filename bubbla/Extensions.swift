@@ -30,7 +30,7 @@ extension NSURL {
 
 extension UITableView {
     func updateFromItems<T: Equatable>(items: [T], oldItems: [T]) {
-                self.beginUpdates()
+        self.beginUpdates()
         let newItems = items.filter { !oldItems.contains($0) }
         let newIndexPaths = newItems.map { return NSIndexPath(forRow: items.indexOf($0)!, inSection: 0)  }
         let removedItems = oldItems.filter { !items.contains($0) }
@@ -45,11 +45,8 @@ extension UITableView {
         }
         self.insertRowsAtIndexPaths(newIndexPaths, withRowAnimation: .Automatic)
         self.deleteRowsAtIndexPaths(removedIndexPaths, withRowAnimation: .Automatic)
-                self.endUpdates()
+        self.endUpdates()
     }
-    
-    
-    
 }
 
 
