@@ -25,6 +25,7 @@ class NewsViewController: UIViewController, WKNavigationDelegate {
             self.view.showMessageLabel("Ingen nyhet vald")
             return
         }
+        title = newsItem.domain
         let webView = WKWebView(frame: view.frame)
         webView.loadRequest(NSURLRequest(URL: newsItem.url))
         view.addSubview(webView)

@@ -21,6 +21,15 @@ public struct BubblaNews: Hashable {
     func unread() {
         _BubblaApi.readNewsItemIds = Array(Set(_BubblaApi.readNewsItemIds.filter { $0 != id }))
     }
+    
+    var domain: String {
+        let urlComponents = url.absoluteString.componentsSeparatedByString("/")
+        var domain = ""
+        if urlComponents.count > 2 {
+            domain = urlComponents[2].stringByReplacingOccurrencesOfString("www.", withString: "")
+        }
+        return domain
+    }
 }
 
 public func ==(x: BubblaNews, y: BubblaNews) -> Bool {
@@ -50,7 +59,7 @@ class _BubblaApi {
     
     private class var readNewsItemIds: [Int] {
         get {
-            return (NSUserDefaults.standardUserDefaults()["readNewsItemsIds"] as? [Int] ?? [])
+        return (NSUserDefaults.standardUserDefaults()["readNewsItemsIds"] as? [Int] ?? [])
         }
         
         set {
@@ -60,7 +69,7 @@ class _BubblaApi {
     
     class var selectedCategory: BubblaNewsCategory {
         get {
-            return BubblaNewsCategory(rawValue: (NSUserDefaults.standardUserDefaults()["selectedCategory"] as? String ?? "")) ?? .Recent
+        return BubblaNewsCategory(rawValue: (NSUserDefaults.standardUserDefaults()["selectedCategory"] as? String ?? "")) ?? .Recent
         }
         
         set {

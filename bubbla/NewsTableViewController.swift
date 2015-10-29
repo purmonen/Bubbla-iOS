@@ -133,18 +133,11 @@ class NewsTableViewController: UITableViewController {
         let newsItem = newsItems[indexPath.row]
         cell.titleLabel.text = newsItem.title
         
-        
-        let urlComponents = newsItem.url.absoluteString.componentsSeparatedByString("/")
-        var domain = ""
-        if urlComponents.count > 2 {
-            domain = urlComponents[2].stringByReplacingOccurrencesOfString("www.", withString: "")
-        }
-        
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "dd MMMM, HH:mm"
         cell.publicationDateLabel.text = dateFormatter.stringFromDate(newsItem.publicationDate).capitalizedString
         cell.publicationDateLabel.text = newsItem.publicationDate.readableString + (category == .Recent ? " - \(newsItem.category.rawValue)" : "")
-        cell.urlLabel.text = domain
+        cell.urlLabel.text = newsItem.domain
         //        cell.categoryLabel.text = newsItem.category.rawValue
         cell.unreadIndicator.hidden = newsItem.isRead
         splitViewController?.delegate
