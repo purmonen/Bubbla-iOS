@@ -47,6 +47,7 @@ let BubblaApi = _BubblaApi()
 class _BubblaApi {
     private init() {}
     
+    
     private class var readNewsItemIds: [Int] {
         get {
             return (NSUserDefaults.standardUserDefaults()["readNewsItemsIds"] as? [Int] ?? [])
@@ -67,12 +68,19 @@ class _BubblaApi {
         }
     }
     
+    func registerDevice(deviceToken: String, callback: Response<Void> -> Void) {
+        NSURL(string: "http://54.93.109.96:8001/registerDevice?token=\(deviceToken)")!.data({
+            print($0)
+            callback($0.map( {_ in return }))
+        })
+    }
+    
     private func dateFromString(dateString: String) -> NSDate? {
         let dateFormatter = NSDateFormatter()
         dateFormatter.locale = NSLocale(localeIdentifier: "en")
         
         // For some reason the server uses two different date formats for different categories!
-        for format in ["dd MMM yyyy HH:mm:ss +0200", "MMMM dd, yyyy - HH:mm"] {
+        for format in ["dd MMM yyyy HH:mm:ss +02    00", "MMMM dd, yyyy - HH:mm"] {
             dateFormatter.dateFormat = format
             let components = dateString.componentsSeparatedByString(", ")
             if components.count > 0 {
