@@ -269,7 +269,7 @@
         <!--Navigation Controller-->
         <scene sceneID="7S8-db-fig">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="QWZ-Ha-HST" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NavigationNewsViewController" automaticallyAdjustsScrollViewInsets="NO" id="QWZ-Ha-HST" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="VJ5-1v-YV5">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

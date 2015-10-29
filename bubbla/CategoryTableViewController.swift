@@ -12,7 +12,7 @@ class CategoryTableViewController: UITableViewController, UISplitViewControllerD
     
     func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController: UIViewController, ontoPrimaryViewController primaryViewController: UIViewController) -> Bool {
         
-        if let newsViewController = (secondaryViewController as? NewsViewController) {
+        if let newsViewController = secondaryViewController.childViewControllers.first as? NewsViewController {
             return newsViewController.newsItem == nil
         }
         
@@ -30,7 +30,6 @@ class CategoryTableViewController: UITableViewController, UISplitViewControllerD
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return sections.count
     }
-    
     
     let sections: [[BubblaNewsCategory]] = [
         [.Recent],

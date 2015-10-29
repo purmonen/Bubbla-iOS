@@ -155,15 +155,14 @@ class NewsTableViewController: UITableViewController {
     
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if let newsViewController = storyboard?.instantiateViewControllerWithIdentifier("NewsViewController") as? NewsViewController {
+        if let navigationNewsViewController = storyboard?.instantiateViewControllerWithIdentifier("NavigationNewsViewController") as? UINavigationController,
+            let newsViewController = navigationNewsViewController.childViewControllers.first as? NewsViewController {
             var newsItem = newsItems[indexPath.row]
             newsViewController.newsItem = newsItem
             newsItem.isRead = true
             (tableView.cellForRowAtIndexPath(indexPath) as! NewsItemTableViewCell).unreadIndicator.hidden = newsItem.isRead
-            
             if Settings.browser == .Bubbla {
-                
-                showDetailViewController(UINavigationController(rootViewController: newsViewController), sender: self)
+                showDetailViewController(navigationNewsViewController, sender: self)
             } else {
                 UIApplication.sharedApplication().openURL(newsItem.url)
             }
