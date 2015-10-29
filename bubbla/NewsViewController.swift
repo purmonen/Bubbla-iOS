@@ -25,6 +25,8 @@ class NewsViewController: UIViewController, WKNavigationDelegate {
             self.view.showMessageLabel("Ingen nyhet vald")
             return
         }
+
+        
         title = newsItem.domain
         let webView = WKWebView(frame: view.frame)
         webView.loadRequest(NSURLRequest(URL: newsItem.url))
@@ -36,5 +38,9 @@ class NewsViewController: UIViewController, WKNavigationDelegate {
         webView.bottomAnchor.constraintEqualToAnchor(view.bottomAnchor).active = true
         webView.topAnchor.constraintEqualToAnchor(topLayoutGuide.topAnchor).active = true
         view.startActivityIndicator()
+    }
+    @IBAction func shareButtonClicked(sender: AnyObject) {
+        let activityViewController = UIActivityViewController(activityItems: [newsItem.url], applicationActivities: nil)
+        presentViewController(activityViewController, animated: true, completion: nil)
     }
 }

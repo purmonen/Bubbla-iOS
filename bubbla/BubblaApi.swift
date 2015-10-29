@@ -11,15 +11,17 @@ public struct BubblaNews: Hashable {
     public var hashValue: Int { return id }
     
     var isRead: Bool {
-        return _BubblaApi.readNewsItemIds.contains(id)
-    }
-    
-    func read() {
-        _BubblaApi.readNewsItemIds = Array(Set(_BubblaApi.readNewsItemIds + [id]))
-    }
-    
-    func unread() {
-        _BubblaApi.readNewsItemIds = Array(Set(_BubblaApi.readNewsItemIds.filter { $0 != id }))
+        get {
+            return _BubblaApi.readNewsItemIds.contains(id)
+        }
+        set {
+            if newValue {
+                _BubblaApi.readNewsItemIds = Array(Set(_BubblaApi.readNewsItemIds + [id]))
+
+            } else {
+                _BubblaApi.readNewsItemIds = Array(Set(_BubblaApi.readNewsItemIds.filter { $0 != id }))
+            }
+        }
     }
     
     var domain: String {

@@ -156,37 +156,38 @@ class NewsTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if let newsViewController = storyboard?.instantiateViewControllerWithIdentifier("NewsViewController") as? NewsViewController {
-            let newsItem = newsItems[indexPath.row]
+            var newsItem = newsItems[indexPath.row]
             newsViewController.newsItem = newsItem
-            newsItem.read()
+            newsItem.isRead = true
             (tableView.cellForRowAtIndexPath(indexPath) as! NewsItemTableViewCell).unreadIndicator.hidden = newsItem.isRead
-            showDetailViewController(newsViewController, sender: self)
+            
+            if Settings.browser == .Bubbla {
+                
+                showDetailViewController(UINavigationController(rootViewController: newsViewController), sender: self)
+            } else {
+                UIApplication.sharedApplication().openURL(newsItem.url)
+            }
         }
-        
     }
     
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let viewController = segue.destinationViewController as? NewsViewController,
+        if let viewController = segue.destinationViewController.childViewControllers.first as? NewsViewController,
             let indexPath = tableView.indexPathForSelectedRow ?? highlightedIndexPath {
-                let newsItem = newsItems[indexPath.row]
+                var newsItem = newsItems[indexPath.row]
                 viewController.newsItem = newsItem
                 tableView.deselectRowAtIndexPath(indexPath, animated: false)
-                newsItem.read()
+                newsItem.isRead = true
                 (tableView.cellForRowAtIndexPath(indexPath) as! NewsItemTableViewCell).unreadIndicator.hidden = newsItem.isRead
 
         }
     }
     
     override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
-        let newsItem = newsItems[indexPath.row]
+        var newsItem = newsItems[indexPath.row]
         return [UITableViewRowAction(style: UITableViewRowActionStyle.Normal, title: newsItem.isRead ? "Oläst" : "Läst") {
             (action, indexPath) in
-            if newsItem.isRead {
-                newsItem.unread()
-            } else {
-                newsItem.read()
-            }
+            newsItem.isRead = !newsItem.isRead
             tableView.setEditing(false, animated: true)
             (tableView.cellForRowAtIndexPath(indexPath) as! NewsItemTableViewCell).unreadIndicator.hidden = newsItem.isRead
         }]
@@ -208,7 +209,15 @@ extension NewsTableViewController: UIViewControllerPreviewingDelegate {
     }
     
     func previewingContext(previewingContext: UIViewControllerPreviewing, commitViewController viewControllerToCommit: UIViewController) {
-        self.performSegueWithIdentifier("NewsViewController", sender: self)
+        if Settings.browser == .Bubbla {
+            self.performSegueWithIdentifier("NewsViewController", sender: self)
+        } else {
+            if let highlightedIndexPath = highlightedIndexPath {
+                UIApplication.sharedApplication().openURL(newsItems[highlightedIndexPath.row].url)
+            }
+            
+        }
+
     }
 }
 
