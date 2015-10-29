@@ -91,7 +91,7 @@ class _BubblaApi {
         dateFormatter.locale = NSLocale(localeIdentifier: "en")
         
         // For some reason the server uses two different date formats for different categories!
-        for format in ["dd MMM yyyy HH:mm:ss +02    00", "MMMM dd, yyyy - HH:mm"] {
+        for format in ["dd MMM yyyy HH:mm:ss Z", "MMMM dd, yyyy - HH:mm"] {
             dateFormatter.dateFormat = format
             let components = dateString.componentsSeparatedByString(", ")
             if components.count > 0 {
