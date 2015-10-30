@@ -44,6 +44,8 @@ class NewsViewController: UIViewController, WKNavigationDelegate {
     
     @IBAction func shareButtonClicked(sender: AnyObject) {
         let activityViewController = UIActivityViewController(activityItems: [newsItem.url], applicationActivities: nil)
+        
+        activityViewController.popoverPresentationController?.sourceView = view
         presentViewController(activityViewController, animated: true, completion: nil)
     }
 }

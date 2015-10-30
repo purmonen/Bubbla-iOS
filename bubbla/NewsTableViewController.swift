@@ -43,14 +43,17 @@ class NewsTableViewController: UITableViewController {
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: "refresh:", forControlEvents: .ValueChanged)
         registerForPreviewingWithDelegate(self, sourceView: view)
+        title = category.rawValue
+        searchBar.placeholder = "Sök i \(category.rawValue.lowercaseString)"
+        refresh()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        title = category.rawValue
-        searchBar.placeholder = "Sök i \(category.rawValue.lowercaseString)"
         deselectSelectedCell()
-        refresh()
+        if !allNewsItems.isEmpty {
+            refresh()
+        }
     }
     
     override func viewDidAppear(animated: Bool) {
