@@ -22,6 +22,7 @@ class NewsViewController: UIViewController, WKNavigationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         if newsItem == nil {
+            navigationItem.rightBarButtonItem = nil
             self.view.showMessageLabel("Ingen nyhet vald")
             return
         }
@@ -39,6 +40,7 @@ class NewsViewController: UIViewController, WKNavigationDelegate {
         webView.topAnchor.constraintEqualToAnchor(topLayoutGuide.topAnchor).active = true
         view.startActivityIndicator()
     }
+    
     @IBAction func shareButtonClicked(sender: AnyObject) {
         let activityViewController = UIActivityViewController(activityItems: [newsItem.url], applicationActivities: nil)
         presentViewController(activityViewController, animated: true, completion: nil)

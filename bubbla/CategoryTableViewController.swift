@@ -19,6 +19,17 @@ class CategoryTableViewController: UITableViewController, UISplitViewControllerD
         return true
     }
     
+    func splitViewController(splitViewController: UISplitViewController, separateSecondaryViewControllerFromPrimaryViewController primaryViewController: UIViewController) -> UIViewController? {
+        print(primaryViewController.childViewControllers)
+        
+        if !(primaryViewController.childViewControllers.last is UINavigationController) {
+            if let newsViewController = self.storyboard?.instantiateViewControllerWithIdentifier("NewsViewController") as? NewsViewController {
+                return UINavigationController(rootViewController: newsViewController)
+            }
+        }
+        return nil
+    }
+    
     override func viewWillAppear(animated: Bool) {
         deselectSelectedCell()
     }

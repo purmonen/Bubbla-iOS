@@ -55,11 +55,11 @@ class NewsTableViewController: UITableViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         title = category.rawValue
-        if !(splitViewController?.collapsed ?? false) && !(splitViewController?.viewControllers.last is NewsViewController) {
-            if let newsViewController = self.storyboard?.instantiateViewControllerWithIdentifier("NewsViewController") as? NewsViewController {
-                self.showDetailViewController(newsViewController, sender: self)
-            }
-        }
+//        if !(splitViewController?.collapsed ?? false) && !(splitViewController?.viewControllers.last is NewsViewController) {
+//            if let newsViewController = self.storyboard?.instantiateViewControllerWithIdentifier("NewsViewController") as? NewsViewController {
+//                self.showDetailViewController(newsViewController, sender: self)
+//            }
+//        }
     }
     
     var contentRecieved = false
