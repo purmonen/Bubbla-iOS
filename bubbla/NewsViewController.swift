@@ -18,7 +18,7 @@ class NewsViewController: UIViewController, WKNavigationDelegate {
             webView.hidden = true
         }
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         if newsItem == nil {
@@ -27,13 +27,14 @@ class NewsViewController: UIViewController, WKNavigationDelegate {
             return
         }
 
-        
         title = newsItem.domain
         let webView = WKWebView(frame: view.frame)
         webView.loadRequest(NSURLRequest(URL: newsItem.url))
         view.addSubview(webView)
         webView.translatesAutoresizingMaskIntoConstraints = false
         webView.navigationDelegate = self
+        webView.allowsLinkPreview = true
+        webView.allowsBackForwardNavigationGestures = true
         webView.leadingAnchor.constraintEqualToAnchor(view.leadingAnchor).active = true
         webView.trailingAnchor.constraintEqualToAnchor(view.trailingAnchor).active = true
         webView.bottomAnchor.constraintEqualToAnchor(view.bottomAnchor).active = true
