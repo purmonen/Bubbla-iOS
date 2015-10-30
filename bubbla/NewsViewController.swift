@@ -1,5 +1,6 @@
 import UIKit
 import WebKit
+import SafariServices
 
 class NewsViewController: UIViewController, WKNavigationDelegate {
 
@@ -26,7 +27,6 @@ class NewsViewController: UIViewController, WKNavigationDelegate {
             self.view.showMessageLabel("Ingen nyhet vald")
             return
         }
-
         title = newsItem.domain
         let webView = WKWebView(frame: view.frame)
         webView.loadRequest(NSURLRequest(URL: newsItem.url))

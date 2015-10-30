@@ -20,7 +20,6 @@ class CategoryTableViewController: UITableViewController, UISplitViewControllerD
     }
     
     func splitViewController(splitViewController: UISplitViewController, separateSecondaryViewControllerFromPrimaryViewController primaryViewController: UIViewController) -> UIViewController? {
-        print(primaryViewController.childViewControllers)
         
         if !(primaryViewController.childViewControllers.last is UINavigationController) {
             if let newsViewController = self.storyboard?.instantiateViewControllerWithIdentifier("NewsViewController") as? NewsViewController {

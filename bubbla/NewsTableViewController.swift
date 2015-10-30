@@ -1,4 +1,5 @@
 import UIKit
+import SafariServices
 
 class NewsTableViewController: UITableViewController {
     
@@ -76,7 +77,6 @@ class NewsTableViewController: UITableViewController {
                 case .Success(let newsItems):
                     self.searchBar.hidden = false
                     self.showEmptyMessage(false, message: "")
-                    
                     let oldItems = self.allNewsItems
                     self.allNewsItems = Array(Set(newsItems)).sort { $1.publicationDate < $0.publicationDate }
                     if oldItems.isEmpty {
@@ -89,8 +89,8 @@ class NewsTableViewController: UITableViewController {
                         let errorMessage = (error as NSError).localizedDescription
                         self.showEmptyMessage(true, message: errorMessage)
                     } else {
-                        self.showErrorAlert(error)
-                        
+//                        self.showErrorAlert(error)
+                        print(error)
                     }
                     
                 }

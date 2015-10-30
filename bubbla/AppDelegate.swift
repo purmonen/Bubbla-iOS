@@ -1,11 +1,3 @@
-//
-//  AppDelegate.swift
-//  bubbla
-//
-//  Created by Sami Purmonen on 19/10/15.
-//  Copyright © 2015 Sami Purmonen. All rights reserved.
-//
-
 import UIKit
 
 @UIApplicationMain
