@@ -194,6 +194,7 @@ class NewsTableViewController: UITableViewController {
             (tableView.cellForRowAtIndexPath(indexPath) as! NewsItemTableViewCell).unreadIndicator.hidden = newsItem.isRead
         }]
     }
+
 }
 
 extension NewsTableViewController: UIViewControllerPreviewingDelegate {
