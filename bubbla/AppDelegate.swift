@@ -13,6 +13,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.registerUserNotificationSettings(settings)
         application.registerForRemoteNotifications()
         application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Sound, .Alert, .Badge], categories: nil))
+        
+        
+        
+//        UINavigationBar.appearance().barTintColor = UIColor.whiteColor()
         return true
     }
     

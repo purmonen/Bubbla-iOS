@@ -20,6 +20,26 @@ class NewsViewController: UIViewController, WKNavigationDelegate {
         }
     }
     
+    
+    
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+                print("Initing news!")
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        print("Initing news!")
+    }
+    
+    
+
+    
+    deinit {
+        print("DEINITING NEWS!")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         if newsItem == nil {
@@ -44,7 +64,6 @@ class NewsViewController: UIViewController, WKNavigationDelegate {
     
     @IBAction func shareButtonClicked(sender: AnyObject) {
         let activityViewController = UIActivityViewController(activityItems: [newsItem.url], applicationActivities: nil)
-        
         activityViewController.popoverPresentationController?.sourceView = view
         presentViewController(activityViewController, animated: true, completion: nil)
     }

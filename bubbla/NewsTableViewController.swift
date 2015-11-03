@@ -51,19 +51,16 @@ class NewsTableViewController: UITableViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         deselectSelectedCell()
-        if !allNewsItems.isEmpty {
-            refresh()
-        }
+
+
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         title = category.rawValue
-//        if !(splitViewController?.collapsed ?? false) && !(splitViewController?.viewControllers.last is NewsViewController) {
-//            if let newsViewController = self.storyboard?.instantiateViewControllerWithIdentifier("NewsViewController") as? NewsViewController {
-//                self.showDetailViewController(newsViewController, sender: self)
-//            }
-//        }
+        if !allNewsItems.isEmpty {
+            refresh()
+        }
     }
     
     var contentRecieved = false
@@ -81,18 +78,25 @@ class NewsTableViewController: UITableViewController {
                     self.searchBar.hidden = false
                     self.showEmptyMessage(false, message: "")
                     let oldItems = self.allNewsItems
+                    
                     self.allNewsItems = Array(Set(newsItems)).sort { $1.publicationDate < $0.publicationDate }
+                    
+                    
+                    
                     if oldItems.isEmpty {
                         self.tableView.reloadData()
                     } else {
+
+                        print("Updating table")
                         self.tableView.updateFromItems(self.allNewsItems.map { $0.id }, oldItems: oldItems.map({ $0.id }))
+                        
                     }
                 case .Error(let error):
                     if self.newsItems.isEmpty {
                         let errorMessage = (error as NSError).localizedDescription
                         self.showEmptyMessage(true, message: errorMessage)
                     } else {
-//                        self.showErrorAlert(error)
+                        //                        self.showErrorAlert(error)
                         print(error)
                     }
                     
@@ -143,8 +147,6 @@ class NewsTableViewController: UITableViewController {
         cell.urlLabel.text = newsItem.domain
         //        cell.categoryLabel.text = newsItem.category.rawValue
         cell.unreadIndicator.hidden = newsItem.isRead
-        splitViewController?.delegate
-        
         return cell
     }
     
@@ -160,15 +162,15 @@ class NewsTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if let navigationNewsViewController = storyboard?.instantiateViewControllerWithIdentifier("NavigationNewsViewController") as? UINavigationController,
             let newsViewController = navigationNewsViewController.childViewControllers.first as? NewsViewController {
-            var newsItem = newsItems[indexPath.row]
-            newsViewController.newsItem = newsItem
-            newsItem.isRead = true
-            (tableView.cellForRowAtIndexPath(indexPath) as! NewsItemTableViewCell).unreadIndicator.hidden = newsItem.isRead
-            if Settings.browser == .Bubbla {
-                showDetailViewController(navigationNewsViewController, sender: self)
-            } else {
-                UIApplication.sharedApplication().openURL(newsItem.url)
-            }
+                var newsItem = newsItems[indexPath.row]
+                newsViewController.newsItem = newsItem
+                newsItem.isRead = true
+                (tableView.cellForRowAtIndexPath(indexPath) as! NewsItemTableViewCell).unreadIndicator.hidden = newsItem.isRead
+                if Settings.browser == .Bubbla {
+                    showDetailViewController(navigationNewsViewController, sender: self)
+                } else {
+                    UIApplication.sharedApplication().openURL(newsItem.url)
+                }
         }
     }
     
@@ -181,7 +183,7 @@ class NewsTableViewController: UITableViewController {
                 tableView.deselectRowAtIndexPath(indexPath, animated: false)
                 newsItem.isRead = true
                 (tableView.cellForRowAtIndexPath(indexPath) as! NewsItemTableViewCell).unreadIndicator.hidden = newsItem.isRead
-
+                
         }
     }
     
@@ -192,9 +194,9 @@ class NewsTableViewController: UITableViewController {
             newsItem.isRead = !newsItem.isRead
             tableView.setEditing(false, animated: true)
             (tableView.cellForRowAtIndexPath(indexPath) as! NewsItemTableViewCell).unreadIndicator.hidden = newsItem.isRead
-        }]
+            }]
     }
-
+    
 }
 
 extension NewsTableViewController: UIViewControllerPreviewingDelegate {
@@ -220,7 +222,7 @@ extension NewsTableViewController: UIViewControllerPreviewingDelegate {
             }
             
         }
-
+        
     }
 }
 
