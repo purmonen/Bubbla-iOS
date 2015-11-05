@@ -40,11 +40,11 @@ extension UITableView {
             let startIndex = oldItems.indexOf(item)!
             let endIndex = items.indexOf(item)!
             if startIndex != endIndex {
-//                self.moveRowAtIndexPath(NSIndexPath(forRow: startIndex, inSection: 0), toIndexPath: NSIndexPath(forRow: endIndex, inSection: 0))
+                self.moveRowAtIndexPath(NSIndexPath(forRow: startIndex, inSection: 0), toIndexPath: NSIndexPath(forRow: endIndex, inSection: 0))
             }
         }
-//        self.insertRowsAtIndexPaths(newIndexPaths, withRowAnimation: .Automatic)
-//        self.deleteRowsAtIndexPaths(removedIndexPaths, withRowAnimation: .Automatic)
+        self.insertRowsAtIndexPaths(newIndexPaths, withRowAnimation: .Automatic)
+        self.deleteRowsAtIndexPaths(removedIndexPaths, withRowAnimation: .Automatic)
         self.endUpdates()
     }
 }
