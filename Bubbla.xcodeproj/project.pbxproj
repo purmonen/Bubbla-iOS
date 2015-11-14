@@ -17,9 +17,8 @@
 		26233E471BD6EB0A00C754C8 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26233E461BD6EB0A00C754C8 /* Response.swift */; };
 		26233E491BD6EBC900C754C8 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26233E481BD6EBC900C754C8 /* Extensions.swift */; };
 		2635B5AF1BD5AAFE0016A702 /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2635B5AE1BD5AAFE0016A702 /* NewsViewController.swift */; };
-		264655871BE222FA00A41E24 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 264655861BE222FA00A41E24 /* Settings.swift */; };
-		2646558B1BE2253D00A41E24 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2646558A1BE2253D00A41E24 /* SettingsTableViewController.swift */; };
 		26A9A54E1BDE7BCC00140E67 /* CategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A9A54D1BDE7BCC00140E67 /* CategoryTableViewController.swift */; };
+		26E231671BF6FF1300639E70 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26E231661BF6FF1300639E70 /* SafariServices.framework */; };
 		26FB41BE1BD7CFB600560B74 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26FB41BD1BD7CFB600560B74 /* WebKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -36,10 +35,9 @@
 		26233E461BD6EB0A00C754C8 /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		26233E481BD6EBC900C754C8 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		2635B5AE1BD5AAFE0016A702 /* NewsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
-		264655861BE222FA00A41E24 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
-		2646558A1BE2253D00A41E24 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		26A9A54D1BDE7BCC00140E67 /* CategoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryTableViewController.swift; sourceTree = "<group>"; };
 		26BCEA3A1BD87C3400F77FA6 /* SWXMLHash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SWXMLHash.framework; path = Carthage/Build/iOS/SWXMLHash.framework; sourceTree = "<group>"; };
+		26E231661BF6FF1300639E70 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		26FB41BD1BD7CFB600560B74 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -48,6 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26E231671BF6FF1300639E70 /* SafariServices.framework in Frameworks */,
 				26FB41BE1BD7CFB600560B74 /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -58,6 +57,7 @@
 		260DDA191BD59AE700E3DC5F = {
 			isa = PBXGroup;
 			children = (
+				26E231661BF6FF1300639E70 /* SafariServices.framework */,
 				26BCEA3A1BD87C3400F77FA6 /* SWXMLHash.framework */,
 				26FB41BD1BD7CFB600560B74 /* WebKit.framework */,
 				260DDA241BD59AE700E3DC5F /* bubb.la */,
@@ -78,12 +78,10 @@
 			children = (
 				260DDA251BD59AE700E3DC5F /* AppDelegate.swift */,
 				260DDA371BD59B0700E3DC5F /* BubblaApi.swift */,
-				264655861BE222FA00A41E24 /* Settings.swift */,
 				26233E481BD6EBC900C754C8 /* Extensions.swift */,
 				26233E461BD6EB0A00C754C8 /* Response.swift */,
 				260DDA401BD5A38000E3DC5F /* NewsTableViewController.swift */,
 				2635B5AE1BD5AAFE0016A702 /* NewsViewController.swift */,
-				2646558A1BE2253D00A41E24 /* SettingsTableViewController.swift */,
 				26A9A54D1BDE7BCC00140E67 /* CategoryTableViewController.swift */,
 				260DDA421BD5A4F100E3DC5F /* NewsItemTableViewCell.swift */,
 				260DDA291BD59AE700E3DC5F /* Main.storyboard */,
@@ -195,8 +193,6 @@
 				260DDA381BD59B0700E3DC5F /* BubblaApi.swift in Sources */,
 				26233E491BD6EBC900C754C8 /* Extensions.swift in Sources */,
 				2635B5AF1BD5AAFE0016A702 /* NewsViewController.swift in Sources */,
-				2646558B1BE2253D00A41E24 /* SettingsTableViewController.swift in Sources */,
-				264655871BE222FA00A41E24 /* Settings.swift in Sources */,
 				260DDA411BD5A38000E3DC5F /* NewsTableViewController.swift in Sources */,
 				26233E471BD6EB0A00C754C8 /* Response.swift in Sources */,
 			);

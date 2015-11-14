@@ -1,4 +1,5 @@
 import UIKit
+import SafariServices
 
 class CategoryTableViewController: UITableViewController, UISplitViewControllerDelegate {
     
@@ -11,9 +12,8 @@ class CategoryTableViewController: UITableViewController, UISplitViewControllerD
     }
     
     func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController: UIViewController, ontoPrimaryViewController primaryViewController: UIViewController) -> Bool {
-        
-        if let newsViewController = secondaryViewController.childViewControllers.first as? NewsViewController {
-            return newsViewController.newsItem == nil
+        if let newsViewController = secondaryViewController as? SFSafariViewController {
+            return false
         }
         
         return true
@@ -21,10 +21,15 @@ class CategoryTableViewController: UITableViewController, UISplitViewControllerD
     
     func splitViewController(splitViewController: UISplitViewController, separateSecondaryViewControllerFromPrimaryViewController primaryViewController: UIViewController) -> UIViewController? {
         
-        if !(primaryViewController.childViewControllers.last is UINavigationController) {
-            if let newsViewController = self.storyboard?.instantiateViewControllerWithIdentifier("NewsViewController") as? NewsViewController {
-                return UINavigationController(rootViewController: newsViewController)
-            }
+        if !(primaryViewController.childViewControllers.last is SFSafariViewController) {
+            
+            let viewController = UIViewController()
+            viewController.view.backgroundColor = UIColor.whiteColor()
+            viewController.view.showMessageLabel("Ingen nyhet vald")
+            return viewController
+//            if let newsViewController = self.storyboard?.instantiateViewControllerWithIdentifier("NewsViewController") as? NewsViewController {
+//                return UINavigationController(rootViewController: newsViewController)
+//            }
         }
         return nil
     }

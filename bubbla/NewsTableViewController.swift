@@ -42,7 +42,7 @@ class NewsTableViewController: UITableViewController {
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 40, bottom: 0, right: 0)
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: "refresh:", forControlEvents: .ValueChanged)
-        registerForPreviewingWithDelegate(self, sourceView: view)
+//        registerForPreviewingWithDelegate(self, sourceView: view)
         title = category.rawValue
         searchBar.placeholder = "Sök i \(category.rawValue.lowercaseString)"
         refresh()
@@ -160,31 +160,30 @@ class NewsTableViewController: UITableViewController {
     
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if let navigationNewsViewController = storyboard?.instantiateViewControllerWithIdentifier("NavigationNewsViewController") as? UINavigationController,
-            let newsViewController = navigationNewsViewController.childViewControllers.first as? NewsViewController {
+//        if let navigationNewsViewController = storyboard?.instantiateViewControllerWithIdentifier("NavigationNewsViewController") as? UINavigationController,
+//            let newsViewController = navigationNewsViewController.childViewControllers.first as? NewsViewController {
                 var newsItem = newsItems[indexPath.row]
-                newsViewController.newsItem = newsItem
+//                newsViewController.newsItem = newsItem
                 newsItem.isRead = true
                 (tableView.cellForRowAtIndexPath(indexPath) as! NewsItemTableViewCell).unreadIndicator.hidden = newsItem.isRead
-                if Settings.browser == .Bubbla {
-                    showDetailViewController(navigationNewsViewController, sender: self)
-                } else {
-                    UIApplication.sharedApplication().openURL(newsItem.url)
-                }
-        }
+                let safariViewController = SFSafariViewController(URL: newsItems[indexPath.row].url)
+//                splitViewController?.showViewController(safariViewController, sender: self)
+                splitViewController?.showDetailViewController(safariViewController, sender: self)
+        
+//        }
     }
     
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let viewController = segue.destinationViewController.childViewControllers.first as? NewsViewController,
-            let indexPath = tableView.indexPathForSelectedRow ?? highlightedIndexPath {
-                var newsItem = newsItems[indexPath.row]
-                viewController.newsItem = newsItem
-                tableView.deselectRowAtIndexPath(indexPath, animated: false)
-                newsItem.isRead = true
-                (tableView.cellForRowAtIndexPath(indexPath) as! NewsItemTableViewCell).unreadIndicator.hidden = newsItem.isRead
-                
-        }
+//        if let viewController = segue.destinationViewController.childViewControllers.first as? NewsViewController,
+//            let indexPath = tableView.indexPathForSelectedRow ?? highlightedIndexPath {
+//                var newsItem = newsItems[indexPath.row]
+//                viewController.newsItem = newsItem
+//                tableView.deselectRowAtIndexPath(indexPath, animated: false)
+//                newsItem.isRead = true
+//                (tableView.cellForRowAtIndexPath(indexPath) as! NewsItemTableViewCell).unreadIndicator.hidden = newsItem.isRead
+//                
+//        }
     }
     
     override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
@@ -199,32 +198,38 @@ class NewsTableViewController: UITableViewController {
     
 }
 
-extension NewsTableViewController: UIViewControllerPreviewingDelegate {
-    func previewingContext(previewingContext: UIViewControllerPreviewing,
-        viewControllerForLocation location: CGPoint) -> UIViewController? {
-            guard let highlightedIndexPath = tableView.indexPathForRowAtPoint(location),
-                let cell = tableView.cellForRowAtIndexPath(highlightedIndexPath) else  { return nil }
-            self.highlightedIndexPath = highlightedIndexPath
-            
-            let newsItem = newsItems[highlightedIndexPath.row]
-            let viewController = storyboard!.instantiateViewControllerWithIdentifier("NewsViewController") as! NewsViewController
-            viewController.newsItem = newsItem
-            previewingContext.sourceRect = cell.frame
-            return viewController
-    }
-    
-    func previewingContext(previewingContext: UIViewControllerPreviewing, commitViewController viewControllerToCommit: UIViewController) {
-        if Settings.browser == .Bubbla {
-            self.performSegueWithIdentifier("NewsViewController", sender: self)
-        } else {
-            if let highlightedIndexPath = highlightedIndexPath {
-                UIApplication.sharedApplication().openURL(newsItems[highlightedIndexPath.row].url)
-            }
-            
-        }
-        
-    }
-}
+//
+//extension NewsTableViewController: UIViewControllerPreviewingDelegate {
+//    func previewingContext(previewingContext: UIViewControllerPreviewing,
+//        viewControllerForLocation location: CGPoint) -> UIViewController? {
+//            guard let highlightedIndexPath = tableView.indexPathForRowAtPoint(location),
+//                let cell = tableView.cellForRowAtIndexPath(highlightedIndexPath) else  { return nil }
+//            self.highlightedIndexPath = highlightedIndexPath
+//            
+//            let newsItem = newsItems[highlightedIndexPath.row]
+//            let viewController = storyboard!.instantiateViewControllerWithIdentifier("NewsViewController") as! NewsViewController
+//            viewController.newsItem = newsItem
+//            previewingContext.sourceRect = cell.frame
+//            return viewController
+//    }
+//    
+//    func previewingContext(previewingContext: UIViewControllerPreviewing, commitViewController viewControllerToCommit: UIViewController) {
+//        if Settings.browser == .Bubbla {
+//            self.performSegueWithIdentifier("NewsViewController", sender: self)
+//
+//            
+//            
+//        } else {
+//            if let highlightedIndexPath = highlightedIndexPath {
+////                UIApplication.sharedApplication().openURL(newsItems[highlightedIndexPath.row].url)
+//                let safariViewController = SFSafariViewController(URL: newsItems[highlightedIndexPath.row].url)
+//                splitViewController?.showDetailViewController(safariViewController, sender: self)
+//            }
+//            
+//        }
+//        
+//    }
+//}
 
 extension NewsTableViewController: UISearchBarDelegate {
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
