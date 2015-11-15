@@ -9,24 +9,24 @@ class CategoryTableViewController: UITableViewController, UISplitViewControllerD
         splitViewController?.maximumPrimaryColumnWidth = 350
         splitViewController?.delegate = self
         splitViewController?.preferredDisplayMode = .AllVisible
+        let viewController = UIViewController()
+        viewController.view.backgroundColor = UIColor.whiteColor()
     }
     
     func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController: UIViewController, ontoPrimaryViewController primaryViewController: UIViewController) -> Bool {
         if secondaryViewController is SFSafariViewController {
             return false
         }
-        
         return true
     }
     
+    func noNewsChosenViewController() -> UIViewController {
+        return storyboard!.instantiateViewControllerWithIdentifier("NoNewsChosenViewController")
+    }
+    
     func splitViewController(splitViewController: UISplitViewController, separateSecondaryViewControllerFromPrimaryViewController primaryViewController: UIViewController) -> UIViewController? {
-        
         if !(primaryViewController.childViewControllers.last is SFSafariViewController) {
-            
-            let viewController = UIViewController()
-            viewController.view.backgroundColor = UIColor.whiteColor()
-            viewController.view.showMessageLabel("Ingen nyhet vald")
-            return UINavigationController(rootViewController: viewController)
+            return noNewsChosenViewController()
         }
         return nil
     }

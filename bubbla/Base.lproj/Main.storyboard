@@ -11,12 +11,45 @@
                 <splitViewController id="ImP-OF-jAc" sceneMemberID="viewController">
                     <connections>
                         <segue destination="1jo-v4-MSi" kind="relationship" relationship="masterViewController" id="wvi-i6-Vs8"/>
-                        <segue destination="QWZ-Ha-HST" kind="relationship" relationship="detailViewController" id="s5E-ci-JpR"/>
+                        <segue destination="e7Q-Y5-IhD" kind="relationship" relationship="detailViewController" id="UWl-tQ-e0X"/>
                     </connections>
                 </splitViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4tk-NJ-I9V" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="500" y="-493"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="T6M-XD-nja">
+            <objects>
+                <viewController id="Fy0-71-lOF" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="6Wy-Cu-Q9b"/>
+                        <viewControllerLayoutGuide type="bottom" id="vt7-Vo-Uv0"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="vAH-3y-lrU">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Ingen nyhet vald" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B2J-eR-GAJ">
+                                <rect key="frame" x="191" y="282" width="220" height="36"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="B2J-eR-GAJ" firstAttribute="centerY" secondItem="vAH-3y-lrU" secondAttribute="centerY" id="7eQ-FG-KvG"/>
+                            <constraint firstItem="B2J-eR-GAJ" firstAttribute="centerX" secondItem="vAH-3y-lrU" secondAttribute="centerX" id="LaL-NQ-zKK"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="VLu-co-OO2"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vkM-dc-QXA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1922" y="524"/>
         </scene>
         <!--Senaste-->
         <scene sceneID="HMP-p1-eJB">
@@ -109,12 +142,11 @@
                     <navigationItem key="navigationItem" title="Senaste" id="9nd-F1-s0l"/>
                     <connections>
                         <outlet property="searchBar" destination="iPu-L9-jSk" id="UMJ-vA-SAI"/>
-                        <segue destination="QWZ-Ha-HST" kind="show" identifier="NewsViewController" id="aHR-KM-TmI"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hA6-z8-LJF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1932" y="263"/>
+            <point key="canvasLocation" x="2744" y="263"/>
         </scene>
         <!--Kategorier-->
         <scene sceneID="8eY-vD-RO7">
@@ -154,32 +186,6 @@
             </objects>
             <point key="canvasLocation" x="1932" y="-493"/>
         </scene>
-        <!--News View Controller-->
-        <scene sceneID="QSf-C1-W2e">
-            <objects>
-                <viewController storyboardIdentifier="NewsViewController" id="Ph4-yN-uXP" customClass="NewsViewController" customModule="Bubbla" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="3Q4-we-q9N"/>
-                        <viewControllerLayoutGuide type="bottom" id="glW-b3-mwF"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="enD-MV-jYf">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="hMZ-aq-S7b">
-                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="kD9-6H-2Nk">
-                            <connections>
-                                <action selector="shareButtonClicked:" destination="Ph4-yN-uXP" id="P2F-2S-alz"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ths-J1-D9i" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2342" y="1062"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="KGk-aC-aQd">
             <objects>
@@ -200,27 +206,26 @@
             <point key="canvasLocation" x="1246" y="-493"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="7S8-db-fig">
+        <scene sceneID="Gy9-1P-FKO">
             <objects>
-                <navigationController storyboardIdentifier="NavigationNewsViewController" automaticallyAdjustsScrollViewInsets="NO" id="QWZ-Ha-HST" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NoNewsChosenViewController" automaticallyAdjustsScrollViewInsets="NO" id="e7Q-Y5-IhD" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="VJ5-1v-YV5">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="3s2-Zh-EgF">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="Ph4-yN-uXP" kind="relationship" relationship="rootViewController" id="93f-N5-hd8"/>
+                        <segue destination="Fy0-71-lOF" kind="relationship" relationship="rootViewController" id="vQu-Da-MJH"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="3aG-d6-iFG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="134-44-6gh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1530" y="1062"/>
+            <point key="canvasLocation" x="1110" y="524"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="aHR-KM-TmI"/>
         <segue reference="Uic-3g-ps3"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.80000000000000004" green="0.3921568627" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
