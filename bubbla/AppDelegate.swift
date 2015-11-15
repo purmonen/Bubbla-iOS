@@ -7,16 +7,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
         let types: UIUserNotificationType = [UIUserNotificationType.Badge, UIUserNotificationType.Alert, UIUserNotificationType.Sound]
         let settings: UIUserNotificationSettings = UIUserNotificationSettings( forTypes: types, categories: nil )
         application.registerUserNotificationSettings(settings)
         application.registerForRemoteNotifications()
         application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Sound, .Alert, .Badge], categories: nil))
-        
-        
-        
-//        UINavigationBar.appearance().barTintColor = UIColor.whiteColor()
         return true
     }
     

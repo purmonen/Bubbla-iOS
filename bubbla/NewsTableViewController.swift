@@ -42,7 +42,7 @@ class NewsTableViewController: UITableViewController {
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 40, bottom: 0, right: 0)
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: "refresh:", forControlEvents: .ValueChanged)
-//        registerForPreviewingWithDelegate(self, sourceView: view)
+        registerForPreviewingWithDelegate(self, sourceView: view)
         title = category.rawValue
         searchBar.placeholder = "Sök i \(category.rawValue.lowercaseString)"
         refresh()
@@ -51,8 +51,8 @@ class NewsTableViewController: UITableViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         deselectSelectedCell()
-
-
+        
+        
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -78,25 +78,22 @@ class NewsTableViewController: UITableViewController {
                     self.searchBar.hidden = false
                     self.showEmptyMessage(false, message: "")
                     let oldItems = self.allNewsItems
-                    
                     self.allNewsItems = Array(Set(newsItems)).sort { $1.publicationDate < $0.publicationDate }
-                    
-                    
-                    
                     if oldItems.isEmpty {
                         self.tableView.reloadData()
                     } else {
-
                         print("Updating table")
                         self.tableView.updateFromItems(self.allNewsItems.map { $0.id }, oldItems: oldItems.map({ $0.id }))
-                        
+   
+                    }
+                    if self.category == .Recent {
+                        UIApplication.sharedApplication().applicationIconBadgeNumber = 0
                     }
                 case .Error(let error):
                     if self.newsItems.isEmpty {
                         let errorMessage = (error as NSError).localizedDescription
                         self.showEmptyMessage(true, message: errorMessage)
                     } else {
-                        //                        self.showErrorAlert(error)
                         print(error)
                     }
                     
@@ -104,6 +101,8 @@ class NewsTableViewController: UITableViewController {
                 self.contentRecieved = true
                 self.refreshControl?.endRefreshing()
                 self.view.stopActivityIndicator()
+                
+
             }
         }
     }
@@ -116,9 +115,6 @@ class NewsTableViewController: UITableViewController {
                 refresh()
         }
     }
-    
-    var highlightedIndexPath: NSIndexPath?
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -145,7 +141,6 @@ class NewsTableViewController: UITableViewController {
         cell.publicationDateLabel.text = dateFormatter.stringFromDate(newsItem.publicationDate).capitalizedString
         cell.publicationDateLabel.text = newsItem.publicationDate.readableString + (category == .Recent ? " - \(newsItem.category.rawValue)" : "")
         cell.urlLabel.text = newsItem.domain
-        //        cell.categoryLabel.text = newsItem.category.rawValue
         cell.unreadIndicator.hidden = newsItem.isRead
         return cell
     }
@@ -160,32 +155,18 @@ class NewsTableViewController: UITableViewController {
     
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-//        if let navigationNewsViewController = storyboard?.instantiateViewControllerWithIdentifier("NavigationNewsViewController") as? UINavigationController,
-//            let newsViewController = navigationNewsViewController.childViewControllers.first as? NewsViewController {
-                var newsItem = newsItems[indexPath.row]
-//                newsViewController.newsItem = newsItem
-                newsItem.isRead = true
-                (tableView.cellForRowAtIndexPath(indexPath) as! NewsItemTableViewCell).unreadIndicator.hidden = newsItem.isRead
-                let safariViewController = SFSafariViewController(URL: newsItems[indexPath.row].url)
-//                splitViewController?.showViewController(safariViewController, sender: self)
-                splitViewController?.showDetailViewController(safariViewController, sender: self)
+        var newsItem = newsItems[indexPath.row]
+        newsItem.isRead = true
+        (tableView.cellForRowAtIndexPath(indexPath) as! NewsItemTableViewCell).unreadIndicator.hidden = newsItem.isRead
+        let safariViewController = SFSafariViewController(URL: newsItems[indexPath.row].url)
+        safariViewController.modalInPopover = true
         
-//        }
+        if splitViewController!.collapsed {
+            presentViewController(safariViewController, animated: true, completion: nil)
+        } else {
+            splitViewController?.showDetailViewController(safariViewController, sender: self)
+        }
     }
-    
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        if let viewController = segue.destinationViewController.childViewControllers.first as? NewsViewController,
-//            let indexPath = tableView.indexPathForSelectedRow ?? highlightedIndexPath {
-//                var newsItem = newsItems[indexPath.row]
-//                viewController.newsItem = newsItem
-//                tableView.deselectRowAtIndexPath(indexPath, animated: false)
-//                newsItem.isRead = true
-//                (tableView.cellForRowAtIndexPath(indexPath) as! NewsItemTableViewCell).unreadIndicator.hidden = newsItem.isRead
-//                
-//        }
-    }
-    
     override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         var newsItem = newsItems[indexPath.row]
         return [UITableViewRowAction(style: UITableViewRowActionStyle.Normal, title: newsItem.isRead ? "Oläst" : "Läst") {
@@ -196,40 +177,24 @@ class NewsTableViewController: UITableViewController {
             }]
     }
     
+    func safariViewControllerForIndexPath(indexPath: NSIndexPath) -> SFSafariViewController {
+        return SFSafariViewController(URL: newsItems[indexPath.row].url)
+    }
 }
 
-//
-//extension NewsTableViewController: UIViewControllerPreviewingDelegate {
-//    func previewingContext(previewingContext: UIViewControllerPreviewing,
-//        viewControllerForLocation location: CGPoint) -> UIViewController? {
-//            guard let highlightedIndexPath = tableView.indexPathForRowAtPoint(location),
-//                let cell = tableView.cellForRowAtIndexPath(highlightedIndexPath) else  { return nil }
-//            self.highlightedIndexPath = highlightedIndexPath
-//            
-//            let newsItem = newsItems[highlightedIndexPath.row]
-//            let viewController = storyboard!.instantiateViewControllerWithIdentifier("NewsViewController") as! NewsViewController
-//            viewController.newsItem = newsItem
-//            previewingContext.sourceRect = cell.frame
-//            return viewController
-//    }
-//    
-//    func previewingContext(previewingContext: UIViewControllerPreviewing, commitViewController viewControllerToCommit: UIViewController) {
-//        if Settings.browser == .Bubbla {
-//            self.performSegueWithIdentifier("NewsViewController", sender: self)
-//
-//            
-//            
-//        } else {
-//            if let highlightedIndexPath = highlightedIndexPath {
-////                UIApplication.sharedApplication().openURL(newsItems[highlightedIndexPath.row].url)
-//                let safariViewController = SFSafariViewController(URL: newsItems[highlightedIndexPath.row].url)
-//                splitViewController?.showDetailViewController(safariViewController, sender: self)
-//            }
-//            
-//        }
-//        
-//    }
-//}
+extension NewsTableViewController: UIViewControllerPreviewingDelegate {
+    func previewingContext(previewingContext: UIViewControllerPreviewing,
+        viewControllerForLocation location: CGPoint) -> UIViewController? {
+            guard let highlightedIndexPath = tableView.indexPathForRowAtPoint(location),
+                let cell = tableView.cellForRowAtIndexPath(highlightedIndexPath) else  { return nil }
+            previewingContext.sourceRect = cell.frame
+            return safariViewControllerForIndexPath(highlightedIndexPath)
+    }
+
+    func previewingContext(previewingContext: UIViewControllerPreviewing, commitViewController viewControllerToCommit: UIViewController) {
+        presentViewController(viewControllerToCommit, animated: true, completion: nil)
+    }
+}
 
 extension NewsTableViewController: UISearchBarDelegate {
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {

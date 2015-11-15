@@ -12,7 +12,7 @@ class CategoryTableViewController: UITableViewController, UISplitViewControllerD
     }
     
     func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController: UIViewController, ontoPrimaryViewController primaryViewController: UIViewController) -> Bool {
-        if let newsViewController = secondaryViewController as? SFSafariViewController {
+        if secondaryViewController is SFSafariViewController {
             return false
         }
         
@@ -26,10 +26,7 @@ class CategoryTableViewController: UITableViewController, UISplitViewControllerD
             let viewController = UIViewController()
             viewController.view.backgroundColor = UIColor.whiteColor()
             viewController.view.showMessageLabel("Ingen nyhet vald")
-            return viewController
-//            if let newsViewController = self.storyboard?.instantiateViewControllerWithIdentifier("NewsViewController") as? NewsViewController {
-//                return UINavigationController(rootViewController: newsViewController)
-//            }
+            return UINavigationController(rootViewController: viewController)
         }
         return nil
     }
