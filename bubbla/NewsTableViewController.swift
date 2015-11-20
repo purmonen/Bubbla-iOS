@@ -153,14 +153,15 @@ class NewsTableViewController: UITableViewController {
         return UITableViewAutomaticDimension
     }
     
+    func newsForIndexPath(indexPath: NSIndexPath, isRead: Bool) {
+        var newsItem = newsItems[indexPath.row]
+        newsItem.isRead = isRead
+        (tableView.cellForRowAtIndexPath(indexPath) as? NewsItemTableViewCell)?.unreadIndicator.hidden = newsItem.isRead
+    }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        var newsItem = newsItems[indexPath.row]
-        newsItem.isRead = true
-        (tableView.cellForRowAtIndexPath(indexPath) as! NewsItemTableViewCell).unreadIndicator.hidden = newsItem.isRead
-        let safariViewController = SFSafariViewController(URL: newsItems[indexPath.row].url)
-        safariViewController.modalInPopover = true
-        
+        newsForIndexPath(indexPath, isRead: true)
+        let safariViewController = safariViewControllerForIndexPath(indexPath)
         if splitViewController!.collapsed {
             presentViewController(safariViewController, animated: true, completion: nil)
         } else {
@@ -171,14 +172,14 @@ class NewsTableViewController: UITableViewController {
         var newsItem = newsItems[indexPath.row]
         return [UITableViewRowAction(style: UITableViewRowActionStyle.Normal, title: newsItem.isRead ? "Oläst" : "Läst") {
             (action, indexPath) in
-            newsItem.isRead = !newsItem.isRead
+            self.newsForIndexPath(indexPath, isRead: !newsItem.isRead)
             tableView.setEditing(false, animated: true)
-            (tableView.cellForRowAtIndexPath(indexPath) as! NewsItemTableViewCell).unreadIndicator.hidden = newsItem.isRead
             }]
     }
     
     func safariViewControllerForIndexPath(indexPath: NSIndexPath) -> SFSafariViewController {
-        return SFSafariViewController(URL: newsItems[indexPath.row].url)
+        let viewController = SFSafariViewController(URL: newsItems[indexPath.row].url)
+        return viewController
     }
 }
 
@@ -188,6 +189,7 @@ extension NewsTableViewController: UIViewControllerPreviewingDelegate {
             guard let highlightedIndexPath = tableView.indexPathForRowAtPoint(location),
                 let cell = tableView.cellForRowAtIndexPath(highlightedIndexPath) else  { return nil }
             previewingContext.sourceRect = cell.frame
+            self.newsForIndexPath(highlightedIndexPath, isRead: true)
             return safariViewControllerForIndexPath(highlightedIndexPath)
     }
 
