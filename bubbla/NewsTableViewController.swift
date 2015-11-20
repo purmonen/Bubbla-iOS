@@ -1,6 +1,8 @@
 import UIKit
 import SafariServices
 
+let pinkColor = UIColor(red: 204/255.0, green: 100/255.0, blue: 237/255.0, alpha: 1)
+
 class NewsTableViewController: UITableViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
@@ -179,6 +181,7 @@ class NewsTableViewController: UITableViewController {
     
     func safariViewControllerForIndexPath(indexPath: NSIndexPath) -> SFSafariViewController {
         let viewController = SFSafariViewController(URL: newsItems[indexPath.row].url)
+        viewController.view.tintColor = pinkColor
         return viewController
     }
 }
