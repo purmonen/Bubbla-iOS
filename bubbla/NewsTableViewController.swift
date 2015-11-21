@@ -27,6 +27,8 @@ class NewsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshDummy:", name: UIApplicationWillEnterForegroundNotification, object: nil)
         showEmptyMessage(true, message: "")
         searchBar.hidden = true
@@ -178,11 +180,20 @@ class NewsTableViewController: UITableViewController {
             tableView.setEditing(false, animated: true)
             }]
     }
-    
-    func safariViewControllerForIndexPath(indexPath: NSIndexPath) -> SFSafariViewController {
-        let viewController = SFSafariViewController(URL: newsItems[indexPath.row].url)
+
+    func safariViewControllerForIndexPath(indexPath: NSIndexPath) -> UIViewController {
+        let viewController = SFSafariViewController(URL: newsItems[indexPath.row].url, entersReaderIfAvailable: true)
+        viewController.delegate = self
         viewController.view.tintColor = pinkColor
         return viewController
+    }
+}
+
+extension NewsTableViewController: SFSafariViewControllerDelegate {
+    func safariViewControllerDidFinish(controller: SFSafariViewController) {
+        let barButtonItem = splitViewController!.displayModeButtonItem()
+        UIApplication.sharedApplication().sendAction(barButtonItem.action, to: barButtonItem.target, from: nil, forEvent: nil)
+
     }
 }
 

@@ -8,9 +8,6 @@ class CategoryTableViewController: UITableViewController, UISplitViewControllerD
         performSegueWithIdentifier("NewsSegue", sender: self)
         splitViewController?.maximumPrimaryColumnWidth = 350
         splitViewController?.delegate = self
-        splitViewController?.preferredDisplayMode = .AllVisible
-        let viewController = UIViewController()
-        viewController.view.backgroundColor = UIColor.whiteColor()
     }
     
     func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController: UIViewController, ontoPrimaryViewController primaryViewController: UIViewController) -> Bool {

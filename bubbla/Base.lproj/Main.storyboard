@@ -18,10 +18,10 @@
             </objects>
             <point key="canvasLocation" x="500" y="-493"/>
         </scene>
-        <!--View Controller-->
+        <!--Web View Controller-->
         <scene sceneID="T6M-XD-nja">
             <objects>
-                <viewController id="Fy0-71-lOF" sceneMemberID="viewController">
+                <viewController id="Fy0-71-lOF" customClass="WebViewController" customModule="Bubbla" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="6Wy-Cu-Q9b"/>
                         <viewControllerLayoutGuide type="bottom" id="vt7-Vo-Uv0"/>
@@ -49,7 +49,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vkM-dc-QXA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1922" y="524"/>
+            <point key="canvasLocation" x="1844" y="952"/>
         </scene>
         <!--Senaste-->
         <scene sceneID="HMP-p1-eJB">
@@ -146,7 +146,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hA6-z8-LJF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2744" y="263"/>
+            <point key="canvasLocation" x="2237" y="165"/>
         </scene>
         <!--Kategorier-->
         <scene sceneID="8eY-vD-RO7">
@@ -222,7 +222,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="134-44-6gh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1110" y="524"/>
+            <point key="canvasLocation" x="931" y="708"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
