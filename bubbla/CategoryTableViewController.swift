@@ -63,6 +63,7 @@ class CategoryTableViewController: UITableViewController, UISplitViewControllerD
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let viewController = segue.destinationViewController as? NewsTableViewController {
+            viewController.categoryTableViewController = self
             let category: BubblaNewsCategory
             if let indexPath = tableView.indexPathForSelectedRow {
                 category = sections[indexPath.section][indexPath.row]
@@ -74,5 +75,14 @@ class CategoryTableViewController: UITableViewController, UISplitViewControllerD
             _BubblaApi.selectedCategory = category
             
         }
+    }
+}
+
+
+extension CategoryTableViewController: SFSafariViewControllerDelegate {
+    func safariViewControllerDidFinish(controller: SFSafariViewController) {
+        let barButtonItem = splitViewController!.displayModeButtonItem()
+        UIApplication.sharedApplication().sendAction(barButtonItem.action, to: barButtonItem.target, from: nil, forEvent: nil)
+        
     }
 }

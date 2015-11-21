@@ -7,6 +7,8 @@ class NewsTableViewController: UITableViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
     
+    var categoryTableViewController: CategoryTableViewController? = nil
+    
     var allNewsItems: [BubblaNews] = []
     var newsItems: [BubblaNews] {
         return allNewsItems.filter {
@@ -183,19 +185,13 @@ class NewsTableViewController: UITableViewController {
 
     func safariViewControllerForIndexPath(indexPath: NSIndexPath) -> UIViewController {
         let viewController = SFSafariViewController(URL: newsItems[indexPath.row].url, entersReaderIfAvailable: true)
-        viewController.delegate = self
+        viewController.delegate = categoryTableViewController
         viewController.view.tintColor = pinkColor
         return viewController
     }
 }
 
-extension NewsTableViewController: SFSafariViewControllerDelegate {
-    func safariViewControllerDidFinish(controller: SFSafariViewController) {
-        let barButtonItem = splitViewController!.displayModeButtonItem()
-        UIApplication.sharedApplication().sendAction(barButtonItem.action, to: barButtonItem.target, from: nil, forEvent: nil)
 
-    }
-}
 
 extension NewsTableViewController: UIViewControllerPreviewingDelegate {
     func previewingContext(previewingContext: UIViewControllerPreviewing,
