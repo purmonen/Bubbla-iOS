@@ -17,10 +17,26 @@
 		262246691C00D228009FCDDD /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262246681C00D228009FCDDD /* WebViewController.swift */; };
 		26233E471BD6EB0A00C754C8 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26233E461BD6EB0A00C754C8 /* Response.swift */; };
 		26233E491BD6EBC900C754C8 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26233E481BD6EBC900C754C8 /* Extensions.swift */; };
+		2666F09A1C04BA8600B453F7 /* BubblaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2666F0991C04BA8600B453F7 /* BubblaTests.swift */; };
+		2666F0A21C04BAE300B453F7 /* BubblaApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 260DDA371BD59B0700E3DC5F /* BubblaApi.swift */; };
+		2666F0A31C04BB0500B453F7 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26233E461BD6EB0A00C754C8 /* Response.swift */; };
+		2666F0A41C04BB0800B453F7 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26233E481BD6EBC900C754C8 /* Extensions.swift */; };
+		2666F0A71C04BC4200B453F7 /* SWXMLHash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26BCEA3A1BD87C3400F77FA6 /* SWXMLHash.framework */; };
+		2666F0A91C04BEC800B453F7 /* varlden in Resources */ = {isa = PBXBuildFile; fileRef = 2666F0A81C04BEC800B453F7 /* varlden */; };
 		26A9A54E1BDE7BCC00140E67 /* CategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A9A54D1BDE7BCC00140E67 /* CategoryTableViewController.swift */; };
 		26E231671BF6FF1300639E70 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26E231661BF6FF1300639E70 /* SafariServices.framework */; };
 		26FB41BE1BD7CFB600560B74 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26FB41BD1BD7CFB600560B74 /* WebKit.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2666F09C1C04BA8600B453F7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 260DDA1A1BD59AE700E3DC5F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 260DDA211BD59AE700E3DC5F;
+			remoteInfo = Bubbla;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		260DDA221BD59AE700E3DC5F /* Bubbla.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bubbla.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -35,6 +51,10 @@
 		262246681C00D228009FCDDD /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		26233E461BD6EB0A00C754C8 /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		26233E481BD6EBC900C754C8 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		2666F0971C04BA8500B453F7 /* BubblaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BubblaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2666F0991C04BA8600B453F7 /* BubblaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubblaTests.swift; sourceTree = "<group>"; };
+		2666F09B1C04BA8600B453F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2666F0A81C04BEC800B453F7 /* varlden */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = varlden; path = ../../../../Downloads/varlden; sourceTree = "<group>"; };
 		26A9A54D1BDE7BCC00140E67 /* CategoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryTableViewController.swift; sourceTree = "<group>"; };
 		26BCEA3A1BD87C3400F77FA6 /* SWXMLHash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SWXMLHash.framework; path = Carthage/Build/iOS/SWXMLHash.framework; sourceTree = "<group>"; };
 		26E231661BF6FF1300639E70 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
@@ -48,6 +68,14 @@
 			files = (
 				26E231671BF6FF1300639E70 /* SafariServices.framework in Frameworks */,
 				26FB41BE1BD7CFB600560B74 /* WebKit.framework in Frameworks */,
+				2666F0A71C04BC4200B453F7 /* SWXMLHash.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2666F0941C04BA8500B453F7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,7 +88,8 @@
 				26E231661BF6FF1300639E70 /* SafariServices.framework */,
 				26BCEA3A1BD87C3400F77FA6 /* SWXMLHash.framework */,
 				26FB41BD1BD7CFB600560B74 /* WebKit.framework */,
-				260DDA241BD59AE700E3DC5F /* bubb.la */,
+				260DDA241BD59AE700E3DC5F /* Bubbla */,
+				2666F0981C04BA8600B453F7 /* BubblaTests */,
 				260DDA231BD59AE700E3DC5F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -69,11 +98,12 @@
 			isa = PBXGroup;
 			children = (
 				260DDA221BD59AE700E3DC5F /* Bubbla.app */,
+				2666F0971C04BA8500B453F7 /* BubblaTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		260DDA241BD59AE700E3DC5F /* bubb.la */ = {
+		260DDA241BD59AE700E3DC5F /* Bubbla */ = {
 			isa = PBXGroup;
 			children = (
 				260DDA251BD59AE700E3DC5F /* AppDelegate.swift */,
@@ -89,8 +119,18 @@
 				260DDA2E1BD59AE700E3DC5F /* LaunchScreen.storyboard */,
 				260DDA311BD59AE700E3DC5F /* Info.plist */,
 			);
-			name = bubb.la;
+			name = Bubbla;
 			path = bubbla;
+			sourceTree = "<group>";
+		};
+		2666F0981C04BA8600B453F7 /* BubblaTests */ = {
+			isa = PBXGroup;
+			children = (
+				2666F0991C04BA8600B453F7 /* BubblaTests.swift */,
+				2666F0A81C04BEC800B453F7 /* varlden */,
+				2666F09B1C04BA8600B453F7 /* Info.plist */,
+			);
+			path = BubblaTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -114,12 +154,31 @@
 			productReference = 260DDA221BD59AE700E3DC5F /* Bubbla.app */;
 			productType = "com.apple.product-type.application";
 		};
+		2666F0961C04BA8500B453F7 /* BubblaTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2666F0A01C04BA8600B453F7 /* Build configuration list for PBXNativeTarget "BubblaTests" */;
+			buildPhases = (
+				2666F0931C04BA8500B453F7 /* Sources */,
+				2666F0941C04BA8500B453F7 /* Frameworks */,
+				2666F0951C04BA8500B453F7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2666F09D1C04BA8600B453F7 /* PBXTargetDependency */,
+			);
+			name = BubblaTests;
+			productName = BubblaTests;
+			productReference = 2666F0971C04BA8500B453F7 /* BubblaTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		260DDA1A1BD59AE700E3DC5F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Sami Purmonen";
 				TargetAttributes = {
@@ -131,6 +190,10 @@
 								enabled = 1;
 							};
 						};
+					};
+					2666F0961C04BA8500B453F7 = {
+						CreatedOnToolsVersion = 7.1.1;
+						TestTargetID = 260DDA211BD59AE700E3DC5F;
 					};
 				};
 			};
@@ -148,6 +211,7 @@
 			projectRoot = "";
 			targets = (
 				260DDA211BD59AE700E3DC5F /* Bubbla */,
+				2666F0961C04BA8500B453F7 /* BubblaTests */,
 			);
 		};
 /* End PBXProject section */
@@ -160,6 +224,14 @@
 				260DDA301BD59AE700E3DC5F /* LaunchScreen.storyboard in Resources */,
 				260DDA2D1BD59AE700E3DC5F /* Assets.xcassets in Resources */,
 				260DDA2B1BD59AE700E3DC5F /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2666F0951C04BA8500B453F7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2666F0A91C04BEC800B453F7 /* varlden in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -198,7 +270,26 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2666F0931C04BA8500B453F7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2666F0A21C04BAE300B453F7 /* BubblaApi.swift in Sources */,
+				2666F0A31C04BB0500B453F7 /* Response.swift in Sources */,
+				2666F09A1C04BA8600B453F7 /* BubblaTests.swift in Sources */,
+				2666F0A41C04BB0800B453F7 /* Extensions.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2666F09D1C04BA8600B453F7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 260DDA211BD59AE700E3DC5F /* Bubbla */;
+			targetProxy = 2666F09C1C04BA8600B453F7 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		260DDA291BD59AE700E3DC5F /* Main.storyboard */ = {
@@ -343,6 +434,40 @@
 			};
 			name = Release;
 		};
+		2666F09E1C04BA8600B453F7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = BubblaTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Monafide.BubblaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Bubbla.app/Bubbla";
+			};
+			name = Debug;
+		};
+		2666F09F1C04BA8600B453F7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = BubblaTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Monafide.BubblaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Bubbla.app/Bubbla";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -363,6 +488,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		2666F0A01C04BA8600B453F7 /* Build configuration list for PBXNativeTarget "BubblaTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2666F09E1C04BA8600B453F7 /* Debug */,
+				2666F09F1C04BA8600B453F7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

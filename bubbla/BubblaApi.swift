@@ -1,30 +1,30 @@
 import UIKit
+import SWXMLHash
 
 public struct BubblaNews: Hashable {
     let title: String
     let url: NSURL
-    let publicationDateString: String
     let publicationDate: NSDate
     let category: BubblaNewsCategory
     let id: Int
     
     public var hashValue: Int { return id }
     
-    var isRead: Bool {
+    public var isRead: Bool {
         get {
             return _BubblaApi.readNewsItemIds.contains(id)
         }
         set {
             if newValue {
                 _BubblaApi.readNewsItemIds = Array(Set(_BubblaApi.readNewsItemIds + [id]))
-
+                
             } else {
                 _BubblaApi.readNewsItemIds = Array(Set(_BubblaApi.readNewsItemIds.filter { $0 != id }))
             }
         }
     }
     
-    var domain: String {
+    public var domain: String {
         let urlComponents = url.absoluteString.componentsSeparatedByString("/")
         var domain = ""
         if urlComponents.count > 2 {
@@ -36,6 +36,36 @@ public struct BubblaNews: Hashable {
 
 public func ==(x: BubblaNews, y: BubblaNews) -> Bool {
     return x.id == y.id
+}
+
+protocol UrlService {
+    func dataFromUrl(url: NSURL, callback: Response<NSData> -> Void)
+}
+
+extension UrlService {
+    func xmlFromUrl(url: NSURL, callback: Response<XMLIndexer> -> Void) {
+        dataFromUrl(url) {
+            callback($0.map { SWXMLHash.parse($0) } )
+        }
+    }
+}
+
+class BubblaUrlService: UrlService {
+    func dataFromUrl(url: NSURL, callback: Response<NSData> -> Void) {
+        let session = NSURLSession.sharedSession()
+        let request = NSURLRequest(URL: url)
+        let dataTask = session.dataTaskWithRequest(request) {
+            (data, response, error) in
+            if let data = data {
+                callback(.Success(data))
+            } else if let error = error {
+                callback(.Error(error))
+            } else {
+                callback(.Error(NSError(domain: "getData", code: 1337, userInfo: nil)))
+            }
+        }
+        dataTask.resume()
+    }
 }
 
 enum BubblaNewsCategory: String {
@@ -53,11 +83,15 @@ enum BubblaNewsCategory: String {
     static let All: [BubblaNewsCategory] = [.Recent, .World, .Sweden, .Mixed, .Media, .Politics, .Opinion, .Europe, .NorthAmerica, .LatinAmerica, .Asia, .MiddleEast, .Africa, .Economics, .Tech, .Science]
 }
 
-let BubblaApi = _BubblaApi()
+let BubblaApi = _BubblaApi(urlService: BubblaUrlService())
 
 class _BubblaApi {
-    private init() {}
     
+    let urlService: UrlService
+    
+    init(urlService: UrlService) {
+        self.urlService = urlService
+    }
     
     private class var readNewsItemIds: [Int] {
         get {
@@ -105,12 +139,12 @@ class _BubblaApi {
     }
     
     func newsForCategory(category: BubblaNewsCategory, callback: Response<[BubblaNews]> -> Void) {
-        category.rssUrl.xml() {
+        urlService.xmlFromUrl(category.rssUrl) {
             callback($0 >>= {
                 xml in
                 var newsItems = [BubblaNews]()
                 for item in xml["rss"]["channel"]["item"] {
-                    if let title = item["title"].element?.text,
+                    if let title = item["title"].element?.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
                         let urlString = item["link"].element?.text,
                         let url = NSURL(string: urlString),
                         let publicationDateString = item["pubDate"].element?.text,
@@ -119,11 +153,11 @@ class _BubblaApi {
                         let guid = item["guid"].element?.text,
                         let id = Int(guid) {
                             let publicationDate = self.dateFromString(publicationDateString) ?? NSDate()
-                            newsItems.append(BubblaNews(title: title, url: url, publicationDateString: publicationDateString, publicationDate: publicationDate, category: category, id: id))
+                            newsItems.append(BubblaNews(title: title, url: url, publicationDate: publicationDate, category: category, id: id))
                     }
                 }
                 return .Success(newsItems)
-            })
+                })
         }
     }
 }
