@@ -55,8 +55,11 @@ class CategoryTableViewController: UITableViewController, UISplitViewControllerD
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("CategoryCell", forIndexPath: indexPath)
-        cell.textLabel?.text = sections[indexPath.section][indexPath.row].rawValue
+        let cell = tableView.dequeueReusableCellWithIdentifier("CategoryTableViewCell", forIndexPath: indexPath) as! CategoryTableViewCell
+        
+        
+        let category = sections[indexPath.section][indexPath.row]
+        cell.categoryLabel.text = category.rawValue
         return cell
     }
     

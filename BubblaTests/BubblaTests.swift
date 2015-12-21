@@ -1,5 +1,5 @@
 import XCTest
-
+@testable import Bubbla
 
 class BubblaTests: XCTestCase {
     

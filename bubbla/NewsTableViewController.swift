@@ -29,8 +29,8 @@ class NewsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-
+        
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshDummy:", name: UIApplicationWillEnterForegroundNotification, object: nil)
         showEmptyMessage(true, message: "")
         searchBar.hidden = true
@@ -90,7 +90,7 @@ class NewsTableViewController: UITableViewController {
                     } else {
                         print("Updating table")
                         self.tableView.updateFromItems(self.allNewsItems.map { $0.id }, oldItems: oldItems.map({ $0.id }))
-   
+                        
                     }
                     if self.category == .Recent {
                         UIApplication.sharedApplication().applicationIconBadgeNumber = 0
@@ -108,7 +108,7 @@ class NewsTableViewController: UITableViewController {
                 self.refreshControl?.endRefreshing()
                 self.view.stopActivityIndicator()
                 
-
+                
             }
         }
     }
@@ -137,6 +137,9 @@ class NewsTableViewController: UITableViewController {
         return newsItems.count
     }
     
+    
+    var images = [BubblaNews: UIImage]()
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("NewsItemTableViewCell", forIndexPath: indexPath) as! NewsItemTableViewCell
         let newsItem = newsItems[indexPath.row]
@@ -148,6 +151,44 @@ class NewsTableViewController: UITableViewController {
         cell.publicationDateLabel.text = newsItem.publicationDate.readableString + (category == .Recent ? " - \(newsItem.category.rawValue)" : "")
         cell.urlLabel.text = newsItem.domain
         cell.unreadIndicator.hidden = newsItem.isRead
+        
+        cell.newsImageView.image = nil
+        cell.newsImageView.hidden = _BubblaApi.imageUrlForBubblaNewsId[newsItem.id] == nil
+        
+        if let image = images[newsItem] {
+            //            print("Memory cached image for \(newsItem.id)")
+            cell.newsImageView.hidden = false
+            cell.newsImageView.image = image
+        } else {
+            func updateCellFromImageUrl(imageUrl: NSURL) {
+                BubblaUrlService().imageFromUrl(imageUrl) {
+                    if case .Success(let image) = $0 {
+                        NSOperationQueue.mainQueue().addOperationWithBlock {
+                            if let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? NewsItemTableViewCell {
+                                self.images[newsItem] = image
+                                _BubblaApi.imageUrlForBubblaNewsId[newsItem.id] = imageUrl
+                                cell.newsImageView.hidden = false
+                                cell.newsImageView.image = image
+                                tableView.reloadData()
+                            }
+                        }
+                    }
+                    
+                }
+            }
+            
+            if let imageUrl = _BubblaApi.imageUrlForBubblaNewsId[newsItem.id] {
+                updateCellFromImageUrl(imageUrl)
+            } else {
+                print("Retrieving image from server \(newsItem.id) \(newsItem.url)")
+                BubblaUrlService().ogImageUrlFromUrl(newsItem.url) { response in
+                    if case .Success(let imageUrl) = response {
+                        updateCellFromImageUrl(imageUrl)
+                    }
+                }
+            }
+        }
+        
         return cell
     }
     
@@ -182,7 +223,7 @@ class NewsTableViewController: UITableViewController {
             tableView.setEditing(false, animated: true)
             }]
     }
-
+    
     func safariViewControllerForIndexPath(indexPath: NSIndexPath) -> UIViewController {
         let viewController = SFSafariViewController(URL: newsItems[indexPath.row].url, entersReaderIfAvailable: true)
         viewController.delegate = categoryTableViewController
@@ -202,7 +243,7 @@ extension NewsTableViewController: UIViewControllerPreviewingDelegate {
             self.newsForIndexPath(highlightedIndexPath, isRead: true)
             return safariViewControllerForIndexPath(highlightedIndexPath)
     }
-
+    
     func previewingContext(previewingContext: UIViewControllerPreviewing, commitViewController viewControllerToCommit: UIViewController) {
         presentViewController(viewControllerToCommit, animated: true, completion: nil)
     }

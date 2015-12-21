@@ -38,7 +38,7 @@ public func ==(x: BubblaNews, y: BubblaNews) -> Bool {
     return x.id == y.id
 }
 
-protocol UrlService {
+public protocol UrlService {
     func dataFromUrl(url: NSURL, callback: Response<NSData> -> Void)
 }
 
@@ -46,6 +46,36 @@ extension UrlService {
     func xmlFromUrl(url: NSURL, callback: Response<XMLIndexer> -> Void) {
         dataFromUrl(url) {
             callback($0.map { SWXMLHash.parse($0) } )
+        }
+    }
+    
+    func ogImageUrlFromUrl(url: NSURL, callback: Response<NSURL> -> Void) {
+        dataFromUrl(url) {
+            callback($0 >>= { data in
+                if let string = String(data: data, encoding: NSUTF8StringEncoding) {
+                    if let ogImageRange = string.rangeOfString("<meta property=\"og:image\"[^>]+>", options: .RegularExpressionSearch) {
+                        let ogImageString = string.substringWithRange(ogImageRange)
+                        if let ogImageContentRange = ogImageString.rangeOfString("[^\"]+\\.(jpg|png|jpeg|gif)", options: .RegularExpressionSearch) {
+                            let imageUrlString = ogImageString.substringWithRange(ogImageContentRange)
+                            if let imageUrl = NSURL(string: imageUrlString) {
+                                return .Success(imageUrl)
+                            }
+                        }
+                    }
+                }
+                return .Error(NSError(domain: "ogImageUrlFromUrl", code: 1337, userInfo: nil))
+            })
+        }
+    }
+    
+    func imageFromUrl(url: NSURL, callback: Response<UIImage> -> Void) {
+        dataFromUrl(url) {
+            callback($0 >>= { data in
+                if let image = UIImage(data: data) {
+                    return .Success(image)
+                }
+                return .Error(NSError(domain: "imageFromUrl", code: 1337, userInfo: nil))
+            })
         }
     }
 }
@@ -81,6 +111,18 @@ enum BubblaNewsCategory: String {
     
     
     static let All: [BubblaNewsCategory] = [.Recent, .World, .Sweden, .Mixed, .Media, .Politics, .Opinion, .Europe, .NorthAmerica, .LatinAmerica, .Asia, .MiddleEast, .Africa, .Economics, .Tech, .Science]
+    
+    
+    var color: UIColor {
+        let index = BubblaNewsCategory.All.indexOf(self)!
+        
+        
+        let x = CGFloat(index) / CGFloat(BubblaNewsCategory.All.count)
+        
+        
+        
+        return UIColor(red: CGFloat(rand() % 255) / 255.0, green: CGFloat(rand() % 255) / 255.0, blue: CGFloat(rand() % 255) / 255.0, alpha: 1)
+    }
 }
 
 let BubblaApi = _BubblaApi(urlService: BubblaUrlService())
@@ -102,6 +144,23 @@ class _BubblaApi {
             NSUserDefaults.standardUserDefaults()["readNewsItemsIds"] = newValue
         }
     }
+    
+    class var imageUrlForBubblaNewsId: [Int:NSURL] {
+        get {
+        let string = (NSUserDefaults.standardUserDefaults()["imageUrlForBubblaNewsId2"] as? [String] ?? [])
+        let tuples = string.map({ $0.componentsSeparatedByString("!") }).map({ (Int($0[0])!, NSURL(string: $0[1])!) })
+        var dictionary = [Int: NSURL]()
+        for (key, value) in tuples {
+        dictionary[key] = value
+        }
+        return dictionary
+        }
+        set {
+            let strings = newValue.map { "\($0)!\($1.absoluteString)" }
+            NSUserDefaults.standardUserDefaults()["imageUrlForBubblaNewsId2"] = strings
+        }
+    }
+    
     
     class var selectedCategory: BubblaNewsCategory {
         get {
@@ -157,6 +216,25 @@ class _BubblaApi {
                     }
                 }
                 return .Success(newsItems)
+                })
+        }
+    }
+    
+    func ogImageUrlFromUrl(url: NSURL, callback: Response<NSURL> -> Void) {
+        urlService.dataFromUrl(url) {
+            callback($0 >>= { data in
+                if let string = String(data: data, encoding: NSUTF8StringEncoding) {
+                    if let ogImageRange = string.rangeOfString("<meta property=\"og:image\"[^>]+>", options: .RegularExpressionSearch) {
+                        let ogImageString = string.substringWithRange(ogImageRange)
+                        if let ogImageContentRange = ogImageString.rangeOfString("[^\"]+\\.(jpg|png|jpeg|gif)", options: .RegularExpressionSearch) {
+                            let imageUrlString = ogImageString.substringWithRange(ogImageContentRange)
+                            if let imageUrl = NSURL(string: imageUrlString) {
+                                return .Success(imageUrl)
+                            }
+                        }
+                    }
+                }
+                return .Error(NSError(domain: "ogImageUrlFromUrl", code: 1337, userInfo: nil))
                 })
         }
     }
