@@ -79,42 +79,42 @@ class NewsTableViewController: UITableViewController {
     func refresh(refreshControl: UIRefreshControl? = nil) {
         refreshControl?.beginRefreshing()
         
-
-            BubblaApi.newsForCategory(self.category) {
-                response in
-                NSOperationQueue.mainQueue().addOperationWithBlock {
-                    switch response {
-                    case .Success(let newsItems):
-                        self.searchBar.hidden = false
-                        self.showEmptyMessage(false, message: "")
-                        let oldItems = self.allNewsItems
-                        self.allNewsItems = Array(Set(newsItems)).sort { $1.publicationDate < $0.publicationDate }
-                        if oldItems.isEmpty {
-                            self.tableView.reloadData()
-                        } else {
-                            print("Updating table")
-                            self.tableView.updateFromItems(self.allNewsItems.map { $0.id }, oldItems: oldItems.map({ $0.id }))
-                            
-                        }
-                        if self.category == .Recent {
-                            UIApplication.sharedApplication().applicationIconBadgeNumber = 0
-                        }
-                    case .Error(let error):
-                        if self.newsItems.isEmpty {
-                            let errorMessage = (error as NSError).localizedDescription
-                            self.showEmptyMessage(true, message: errorMessage)
-                        } else {
-                            print(error)
-                        }
+        
+        BubblaApi.newsForCategory(self.category) {
+            response in
+            NSOperationQueue.mainQueue().addOperationWithBlock {
+                switch response {
+                case .Success(let newsItems):
+                    self.searchBar.hidden = false
+                    self.showEmptyMessage(false, message: "")
+                    let oldItems = self.allNewsItems
+                    self.allNewsItems = Array(Set(newsItems)).sort { $1.publicationDate < $0.publicationDate }
+                    if oldItems.isEmpty {
+                        self.tableView.reloadData()
+                    } else {
+                        print("Updating table")
+                        self.tableView.updateFromItems(self.allNewsItems.map { $0.id }, oldItems: oldItems.map({ $0.id }))
                         
                     }
-                    self.contentRecieved = true
-                    self.refreshControl?.endRefreshing()
-                    self.view.stopActivityIndicator()
-                    
+                    if self.category == .Recent {
+                        UIApplication.sharedApplication().applicationIconBadgeNumber = 0
+                    }
+                case .Error(let error):
+                    if self.newsItems.isEmpty {
+                        let errorMessage = (error as NSError).localizedDescription
+                        self.showEmptyMessage(true, message: errorMessage)
+                    } else {
+                        print(error)
+                    }
                     
                 }
+                self.contentRecieved = true
+                self.refreshControl?.endRefreshing()
+                self.view.stopActivityIndicator()
+                
+                
             }
+        }
     }
     
     @IBAction func unwind(segue: UIStoryboardSegue) {
@@ -157,36 +157,51 @@ class NewsTableViewController: UITableViewController {
         cell.urlLabel.text = newsItem.domain
         cell.unreadIndicator.hidden = newsItem.isRead
         cell.newsImageView.image = nil
-        cell.newsImageView.hidden = newsItem.ogImageUrl  == nil || self.bubblaNewsWithFailedImages.contains(newsItem)
+        //        cell.newsImageView.hidden = newsItem.ogImageUrl  == nil || self.bubblaNewsWithFailedImages.contains(newsItem)
         
         if let image = images[newsItem] {
             //            print("Memory cached image for \(newsItem.id)")
             cell.newsImageView.hidden = false
             cell.newsImageView.image = image
-        } else if !self.bubblaNewsWithFailedImages.contains(newsItem) {
-            
-            if let imageUrl = newsItem.ogImageUrl {
-                print("Retrieving image from server \(newsItem.id)")
-                BubblaUrlService().imageFromUrl(imageUrl) { response in
-                    NSOperationQueue.mainQueue().addOperationWithBlock {
-                        switch response {
-                        case .Success(let image):
-                            self.images[newsItem] = image
-                            if let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? NewsItemTableViewCell {
-//                                cell.newsImageView.hidden = false
-                                cell.newsImageView.image = image
-                                tableView.reloadData()
+        } else {
+            if let imageUrl = newsItem.ogImageUrl where !self.bubblaNewsWithFailedImages.contains(newsItem) {
+                
+    
+                
+                if let cachedUrlResponse = NSURLCache.sharedURLCache().cachedResponseForRequest(NSURLRequest(URL: imageUrl)) {
+                    if let image = UIImage(data: cachedUrlResponse.data) {
+                        print("Used cached response \(newsItem.id)")
+                        cell.newsImageView.hidden = false
+                        cell.newsImageView.image = image
+                    } else {
+                        print("hm")
+                    }
+                } else {
+                    print("Retrieving image from server \(newsItem.title)")
+                    cell.newsImageView.startActivityIndicator()
+                    BubblaUrlService().imageFromUrl(imageUrl) { response in
+                        NSOperationQueue.mainQueue().addOperationWithBlock {
+                            switch response {
+                            case .Success(let image):
+                                self.images[newsItem] = image
+                                if let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? NewsItemTableViewCell {
+                                    cell.newsImageView.hidden = false
+                                    cell.newsImageView.image = image
+                                    tableView.reloadData()
+                                }
+                            case .Error:
+                                self.bubblaNewsWithFailedImages.insert(newsItem)
+                                if let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? NewsItemTableViewCell {
+                                    cell.newsImageView.hidden = true
+                                    tableView.reloadData()
+                                }
                             }
-                        case .Error:
-                            self.bubblaNewsWithFailedImages.insert(newsItem)
-                            if let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? NewsItemTableViewCell {
-                                cell.newsImageView.hidden = true
-                                tableView.reloadData()
-                            }
+                            cell.newsImageView.stopActivityIndicator()
                         }
-//                        cell.newsImageView.stopActivityIndicator()
                     }
                 }
+            } else {
+                cell.newsImageView.hidden = true
             }
         }
         

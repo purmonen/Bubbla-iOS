@@ -45,25 +45,6 @@ public protocol UrlService {
 
 extension UrlService {
     
-    func ogImageUrlFromUrl(url: NSURL, callback: Response<NSURL> -> Void) {
-        dataFromUrl(url) {
-            callback($0 >>= { data in
-                if let string = String(data: data, encoding: NSUTF8StringEncoding) {
-                    if let ogImageRange = string.rangeOfString("<meta property=\"og:image\"[^>]+>", options: .RegularExpressionSearch) {
-                        let ogImageString = string.substringWithRange(ogImageRange)
-                        if let ogImageContentRange = ogImageString.rangeOfString("[^\"]+\\.(jpg|png|jpeg|gif)", options: .RegularExpressionSearch) {
-                            let imageUrlString = ogImageString.substringWithRange(ogImageContentRange)
-                            if let imageUrl = NSURL(string: imageUrlString) {
-                                return .Success(imageUrl)
-                            }
-                        }
-                    }
-                }
-                return .Error(NSError(domain: "ogImageUrlFromUrl", code: 1337, userInfo: nil))
-            })
-        }
-    }
-    
     func imageFromUrl(url: NSURL, callback: Response<UIImage> -> Void) {
         dataFromUrl(url) {
             callback($0 >>= { data in
@@ -92,7 +73,8 @@ extension UrlService {
 class BubblaUrlService: UrlService {
     func dataFromUrl(url: NSURL, callback: Response<NSData> -> Void) {
         let session = NSURLSession.sharedSession()
-        let request = NSURLRequest(URL: url)
+        let request = NSMutableURLRequest(URL: url)
+
         let dataTask = session.dataTaskWithRequest(request) {
             (data, response, error) in
             if let data = data {
@@ -131,7 +113,10 @@ class _BubblaApi {
     
     init(urlService: UrlService) {
         self.urlService = urlService
-
+        let cacheSizeDisk = 500*1024*1024
+        let cacheSizeMemory = 500*1024*1024
+        let urlCache = NSURLCache(memoryCapacity: cacheSizeMemory, diskCapacity: cacheSizeDisk, diskPath: "bubblaUrlCache")
+        NSURLCache.setSharedURLCache(urlCache)
     }
     
     private class var readNewsItemIds: [Int] {
@@ -155,14 +140,16 @@ class _BubblaApi {
     }
     
     func registerDevice(deviceToken: String, callback: Response<Void> -> Void) {
-        urlService.dataFromUrl(NSURL(string: "http://54.93.109.96:8001/registerDevice?token=\(deviceToken)")!) {
+        urlService.dataFromUrl(serverUrl.URLByAppendingPathComponent("registerDevice?token=\(deviceToken)")) {
             print($0)
             callback($0.map( {_ in return }))
         }
     }
     
+    let serverUrl = NSURL(string: "http://192.168.1.84:8001")!
+    
     func newsForCategory(category: BubblaNewsCategory, callback: Response<[BubblaNews]> -> Void) {
-        urlService.jsonFromUrl(NSURL(string: "http://192.168.1.84:8001/news")!) {
+        urlService.jsonFromUrl(serverUrl.URLByAppendingPathComponent("news")) {
             callback($0 >>= { json in
                 var newsItems = [BubblaNews]()
                 if let jsonArray = json as? [AnyObject] {
