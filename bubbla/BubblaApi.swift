@@ -1,5 +1,4 @@
 import UIKit
-import SWXMLHash
 
 public struct BubblaNews: Hashable {
     let title: String
@@ -7,6 +6,8 @@ public struct BubblaNews: Hashable {
     let publicationDate: NSDate
     let category: BubblaNewsCategory
     let id: Int
+    
+    let ogImageUrl: NSURL?
     
     public var hashValue: Int { return id }
     
@@ -43,11 +44,6 @@ public protocol UrlService {
 }
 
 extension UrlService {
-    func xmlFromUrl(url: NSURL, callback: Response<XMLIndexer> -> Void) {
-        dataFromUrl(url) {
-            callback($0.map { SWXMLHash.parse($0) } )
-        }
-    }
     
     func ogImageUrlFromUrl(url: NSURL, callback: Response<NSURL> -> Void) {
         dataFromUrl(url) {
@@ -78,6 +74,19 @@ extension UrlService {
             })
         }
     }
+    
+    func jsonFromUrl(url: NSURL, callback: Response<AnyObject> -> Void) {
+        dataFromUrl(url) {
+            callback($0 >>= { data in
+                do {
+                    return .Success(try NSJSONSerialization.JSONObjectWithData(data, options: []))
+                } catch {
+                    return .Error(error)
+                }
+            })
+        }
+    }
+
 }
 
 class BubblaUrlService: UrlService {
@@ -112,17 +121,6 @@ enum BubblaNewsCategory: String {
     
     static let All: [BubblaNewsCategory] = [.Recent, .World, .Sweden, .Mixed, .Media, .Politics, .Opinion, .Europe, .NorthAmerica, .LatinAmerica, .Asia, .MiddleEast, .Africa, .Economics, .Tech, .Science]
     
-    
-    var color: UIColor {
-        let index = BubblaNewsCategory.All.indexOf(self)!
-        
-        
-        let x = CGFloat(index) / CGFloat(BubblaNewsCategory.All.count)
-        
-        
-        
-        return UIColor(red: CGFloat(rand() % 255) / 255.0, green: CGFloat(rand() % 255) / 255.0, blue: CGFloat(rand() % 255) / 255.0, alpha: 1)
-    }
 }
 
 let BubblaApi = _BubblaApi(urlService: BubblaUrlService())
@@ -133,6 +131,7 @@ class _BubblaApi {
     
     init(urlService: UrlService) {
         self.urlService = urlService
+
     }
     
     private class var readNewsItemIds: [Int] {
@@ -145,23 +144,6 @@ class _BubblaApi {
         }
     }
     
-    class var imageUrlForBubblaNewsId: [Int:NSURL] {
-        get {
-        let string = (NSUserDefaults.standardUserDefaults()["imageUrlForBubblaNewsId2"] as? [String] ?? [])
-        let tuples = string.map({ $0.componentsSeparatedByString("!") }).map({ (Int($0[0])!, NSURL(string: $0[1])!) })
-        var dictionary = [Int: NSURL]()
-        for (key, value) in tuples {
-        dictionary[key] = value
-        }
-        return dictionary
-        }
-        set {
-            let strings = newValue.map { "\($0)!\($1.absoluteString)" }
-            NSUserDefaults.standardUserDefaults()["imageUrlForBubblaNewsId2"] = strings
-        }
-    }
-    
-    
     class var selectedCategory: BubblaNewsCategory {
         get {
         return BubblaNewsCategory(rawValue: (NSUserDefaults.standardUserDefaults()["selectedCategory"] as? String ?? "")) ?? .Recent
@@ -173,69 +155,34 @@ class _BubblaApi {
     }
     
     func registerDevice(deviceToken: String, callback: Response<Void> -> Void) {
-        NSURL(string: "http://54.93.109.96:8001/registerDevice?token=\(deviceToken)")!.data({
+        urlService.dataFromUrl(NSURL(string: "http://54.93.109.96:8001/registerDevice?token=\(deviceToken)")!) {
             print($0)
             callback($0.map( {_ in return }))
-        })
-    }
-    
-    private func dateFromString(dateString: String) -> NSDate? {
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.locale = NSLocale(localeIdentifier: "en")
-        
-        // For some reason the server uses two different date formats for different categories!
-        for format in ["dd MMM yyyy HH:mm:ss Z", "MMMM dd, yyyy - HH:mm"] {
-            dateFormatter.dateFormat = format
-            let components = dateString.componentsSeparatedByString(", ")
-            if components.count > 0 {
-                let dateStringNoDay = components[1..<components.count].joinWithSeparator(", ")
-                if let date = dateFormatter.dateFromString(dateStringNoDay) {
-                    return date
-                }
-            }
         }
-        return nil
     }
     
     func newsForCategory(category: BubblaNewsCategory, callback: Response<[BubblaNews]> -> Void) {
-        urlService.xmlFromUrl(category.rssUrl) {
-            callback($0 >>= {
-                xml in
+        urlService.jsonFromUrl(NSURL(string: "http://192.168.1.84:8001/news")!) {
+            callback($0 >>= { json in
                 var newsItems = [BubblaNews]()
-                for item in xml["rss"]["channel"]["item"] {
-                    if let title = item["title"].element?.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()),
-                        let urlString = item["link"].element?.text,
-                        let url = NSURL(string: urlString),
-                        let publicationDateString = item["pubDate"].element?.text,
-                        let categoryString = item["category"].element?.text,
-                        let category = BubblaNewsCategory(rawValue: categoryString),
-                        let guid = item["guid"].element?.text,
-                        let id = Int(guid) {
-                            let publicationDate = self.dateFromString(publicationDateString) ?? NSDate()
-                            newsItems.append(BubblaNews(title: title, url: url, publicationDate: publicationDate, category: category, id: id))
-                    }
-                }
-                return .Success(newsItems)
-                })
-        }
-    }
-    
-    func ogImageUrlFromUrl(url: NSURL, callback: Response<NSURL> -> Void) {
-        urlService.dataFromUrl(url) {
-            callback($0 >>= { data in
-                if let string = String(data: data, encoding: NSUTF8StringEncoding) {
-                    if let ogImageRange = string.rangeOfString("<meta property=\"og:image\"[^>]+>", options: .RegularExpressionSearch) {
-                        let ogImageString = string.substringWithRange(ogImageRange)
-                        if let ogImageContentRange = ogImageString.rangeOfString("[^\"]+\\.(jpg|png|jpeg|gif)", options: .RegularExpressionSearch) {
-                            let imageUrlString = ogImageString.substringWithRange(ogImageContentRange)
-                            if let imageUrl = NSURL(string: imageUrlString) {
-                                return .Success(imageUrl)
-                            }
+                if let jsonArray = json as? [AnyObject] {
+                    for item in jsonArray {
+                        if let title = item["title"] as? String,
+                            let urlString = item["url"] as? String,
+                            let url = NSURL(string: urlString),
+                            let categoryString = item["category"] as? String,
+                            let category = BubblaNewsCategory(rawValue: categoryString),
+                            let publicationDateTimestamp = item["publicationDate"] as? NSTimeInterval,
+                            let id = item["id"] as? Int {
+                                let publicationDate = NSDate(timeIntervalSince1970: publicationDateTimestamp)
+                                let ogImageUrlString = item["ogImageUrl"] as? String
+                                let ogImageUrl: NSURL? = ogImageUrlString != nil ? NSURL(string: ogImageUrlString!)! : nil
+                                newsItems.append(BubblaNews(title: title, url: url, publicationDate: publicationDate, category: category, id: id, ogImageUrl: ogImageUrl))
                         }
                     }
                 }
-                return .Error(NSError(domain: "ogImageUrlFromUrl", code: 1337, userInfo: nil))
-                })
+                return .Success(newsItems.filter { $0.category == category || category == .Recent })
+            })
         }
     }
 }

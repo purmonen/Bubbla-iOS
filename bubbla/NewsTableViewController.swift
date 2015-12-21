@@ -74,43 +74,47 @@ class NewsTableViewController: UITableViewController {
         refresh()
     }
     
+    var imageUrls = [NSURL: NSURL]()
+    
     func refresh(refreshControl: UIRefreshControl? = nil) {
         refreshControl?.beginRefreshing()
-        BubblaApi.newsForCategory(category) {
-            response in
-            NSOperationQueue.mainQueue().addOperationWithBlock {
-                switch response {
-                case .Success(let newsItems):
-                    self.searchBar.hidden = false
-                    self.showEmptyMessage(false, message: "")
-                    let oldItems = self.allNewsItems
-                    self.allNewsItems = Array(Set(newsItems)).sort { $1.publicationDate < $0.publicationDate }
-                    if oldItems.isEmpty {
-                        self.tableView.reloadData()
-                    } else {
-                        print("Updating table")
-                        self.tableView.updateFromItems(self.allNewsItems.map { $0.id }, oldItems: oldItems.map({ $0.id }))
+        
+
+            BubblaApi.newsForCategory(self.category) {
+                response in
+                NSOperationQueue.mainQueue().addOperationWithBlock {
+                    switch response {
+                    case .Success(let newsItems):
+                        self.searchBar.hidden = false
+                        self.showEmptyMessage(false, message: "")
+                        let oldItems = self.allNewsItems
+                        self.allNewsItems = Array(Set(newsItems)).sort { $1.publicationDate < $0.publicationDate }
+                        if oldItems.isEmpty {
+                            self.tableView.reloadData()
+                        } else {
+                            print("Updating table")
+                            self.tableView.updateFromItems(self.allNewsItems.map { $0.id }, oldItems: oldItems.map({ $0.id }))
+                            
+                        }
+                        if self.category == .Recent {
+                            UIApplication.sharedApplication().applicationIconBadgeNumber = 0
+                        }
+                    case .Error(let error):
+                        if self.newsItems.isEmpty {
+                            let errorMessage = (error as NSError).localizedDescription
+                            self.showEmptyMessage(true, message: errorMessage)
+                        } else {
+                            print(error)
+                        }
                         
                     }
-                    if self.category == .Recent {
-                        UIApplication.sharedApplication().applicationIconBadgeNumber = 0
-                    }
-                case .Error(let error):
-                    if self.newsItems.isEmpty {
-                        let errorMessage = (error as NSError).localizedDescription
-                        self.showEmptyMessage(true, message: errorMessage)
-                    } else {
-                        print(error)
-                    }
+                    self.contentRecieved = true
+                    self.refreshControl?.endRefreshing()
+                    self.view.stopActivityIndicator()
+                    
                     
                 }
-                self.contentRecieved = true
-                self.refreshControl?.endRefreshing()
-                self.view.stopActivityIndicator()
-                
-                
             }
-        }
     }
     
     @IBAction func unwind(segue: UIStoryboardSegue) {
@@ -139,6 +143,7 @@ class NewsTableViewController: UITableViewController {
     
     
     var images = [BubblaNews: UIImage]()
+    var bubblaNewsWithFailedImages = Set<BubblaNews>()
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("NewsItemTableViewCell", forIndexPath: indexPath) as! NewsItemTableViewCell
@@ -151,39 +156,35 @@ class NewsTableViewController: UITableViewController {
         cell.publicationDateLabel.text = newsItem.publicationDate.readableString + (category == .Recent ? " - \(newsItem.category.rawValue)" : "")
         cell.urlLabel.text = newsItem.domain
         cell.unreadIndicator.hidden = newsItem.isRead
-        
         cell.newsImageView.image = nil
-        cell.newsImageView.hidden = _BubblaApi.imageUrlForBubblaNewsId[newsItem.id] == nil
+        cell.newsImageView.hidden = newsItem.ogImageUrl  == nil || self.bubblaNewsWithFailedImages.contains(newsItem)
         
         if let image = images[newsItem] {
             //            print("Memory cached image for \(newsItem.id)")
             cell.newsImageView.hidden = false
             cell.newsImageView.image = image
-        } else {
-            func updateCellFromImageUrl(imageUrl: NSURL) {
-                BubblaUrlService().imageFromUrl(imageUrl) {
-                    if case .Success(let image) = $0 {
-                        NSOperationQueue.mainQueue().addOperationWithBlock {
+        } else if !self.bubblaNewsWithFailedImages.contains(newsItem) {
+            
+            if let imageUrl = newsItem.ogImageUrl {
+                print("Retrieving image from server \(newsItem.id)")
+                BubblaUrlService().imageFromUrl(imageUrl) { response in
+                    NSOperationQueue.mainQueue().addOperationWithBlock {
+                        switch response {
+                        case .Success(let image):
+                            self.images[newsItem] = image
                             if let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? NewsItemTableViewCell {
-                                self.images[newsItem] = image
-                                _BubblaApi.imageUrlForBubblaNewsId[newsItem.id] = imageUrl
-                                cell.newsImageView.hidden = false
+//                                cell.newsImageView.hidden = false
                                 cell.newsImageView.image = image
                                 tableView.reloadData()
                             }
+                        case .Error:
+                            self.bubblaNewsWithFailedImages.insert(newsItem)
+                            if let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? NewsItemTableViewCell {
+                                cell.newsImageView.hidden = true
+                                tableView.reloadData()
+                            }
                         }
-                    }
-                    
-                }
-            }
-            
-            if let imageUrl = _BubblaApi.imageUrlForBubblaNewsId[newsItem.id] {
-                updateCellFromImageUrl(imageUrl)
-            } else {
-                print("Retrieving image from server \(newsItem.id) \(newsItem.url)")
-                BubblaUrlService().ogImageUrlFromUrl(newsItem.url) { response in
-                    if case .Success(let imageUrl) = response {
-                        updateCellFromImageUrl(imageUrl)
+//                        cell.newsImageView.stopActivityIndicator()
                     }
                 }
             }

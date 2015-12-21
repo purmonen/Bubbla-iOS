@@ -10,44 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "bubbla/BubblaApi.swift"
-            timestampString = "472410302.597453"
+            timestampString = "472428477.859762"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "180"
-            endingLineNumber = "180"
-            landmarkName = "dateFromString(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "bubbla/BubblaApi.swift"
-            timestampString = "472410302.597453"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "182"
-            endingLineNumber = "182"
-            landmarkName = "dateFromString(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "bubbla/BubblaApi.swift"
-            timestampString = "472410302.597453"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "182"
-            endingLineNumber = "182"
-            landmarkName = "dateFromString(_:)"
+            startingLineNumber = "162"
+            endingLineNumber = "162"
+            landmarkName = "registerDevice(_:callback:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -170,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "bubbla/Extensions.swift"
-            timestampString = "467561730.627563"
+            timestampString = "472428302.049778"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "35"
-            endingLineNumber = "35"
+            startingLineNumber = "10"
+            endingLineNumber = "10"
             landmarkName = "updateFromItems(_:oldItems:)"
             landmarkType = "5">
             <Locations>
@@ -218,13 +186,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "bubbla/BubblaApi.swift"
-            timestampString = "472410302.597453"
+            timestampString = "472428477.859762"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "166"
-            endingLineNumber = "166"
-            landmarkName = "registerDevice(_:callback:)"
-            landmarkType = "5">
+            startingLineNumber = "148"
+            endingLineNumber = "148"
+            landmarkName = "_BubblaApi"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -234,13 +202,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "bubbla/BubblaApi.swift"
-            timestampString = "472410302.597453"
+            timestampString = "472428477.859762"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "165"
-            endingLineNumber = "165"
-            landmarkName = "registerDevice(_:callback:)"
-            landmarkType = "5">
+            startingLineNumber = "147"
+            endingLineNumber = "147"
+            landmarkName = "_BubblaApi"
+            landmarkType = "3">
             <Locations>
                <Location
                   shouldBeEnabled = "No"
@@ -394,13 +362,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "bubbla/BubblaApi.swift"
-            timestampString = "472410302.597453"
+            timestampString = "472428477.859762"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "167"
-            endingLineNumber = "167"
-            landmarkName = "registerDevice(_:callback:)"
-            landmarkType = "5">
+            startingLineNumber = "149"
+            endingLineNumber = "149"
+            landmarkName = "_BubblaApi"
+            landmarkType = "3">
             <Locations>
                <Location
                   shouldBeEnabled = "No"
@@ -442,13 +410,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "bubbla/BubblaApi.swift"
-            timestampString = "472410302.597453"
+            timestampString = "472428477.859762"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "168"
-            endingLineNumber = "168"
-            landmarkName = "registerDevice(_:callback:)"
-            landmarkType = "5">
+            startingLineNumber = "150"
+            endingLineNumber = "150"
+            landmarkName = "_BubblaApi"
+            landmarkType = "3">
             <Locations>
                <Location
                   shouldBeEnabled = "No"
@@ -490,11 +458,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "bubbla/NewsTableViewController.swift"
-            timestampString = "469829999.625457"
+            timestampString = "472428302.049778"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "92"
-            endingLineNumber = "92"
+            startingLineNumber = "96"
+            endingLineNumber = "96"
             landmarkName = "refresh(_:)"
             landmarkType = "5">
             <Locations>
@@ -553,11 +521,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "bubbla/NewsTableViewController.swift"
-            timestampString = "472410302.597453"
+            timestampString = "472429338.881601"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "214"
-            endingLineNumber = "214"
+            startingLineNumber = "215"
+            endingLineNumber = "215"
             landmarkName = "tableView(_:didSelectRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -569,13 +537,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "bubbla/NewsTableViewController.swift"
-            timestampString = "472410302.597453"
+            timestampString = "472429338.881601"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "233"
-            endingLineNumber = "233"
-            landmarkName = "safariViewControllerForIndexPath(_:)"
-            landmarkType = "5">
+            startingLineNumber = "234"
+            endingLineNumber = "234"
+            landmarkName = "NewsTableViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -585,13 +553,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "bubbla/NewsTableViewController.swift"
-            timestampString = "472410302.597453"
+            timestampString = "472429338.881601"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "235"
-            endingLineNumber = "235"
-            landmarkName = "safariViewControllerForIndexPath(_:)"
-            landmarkType = "5">
+            startingLineNumber = "236"
+            endingLineNumber = "236">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -696,77 +662,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "bubbla/BubblaApi.swift"
-            timestampString = "472410302.597453"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "190"
-            endingLineNumber = "190"
-            landmarkName = "newsForCategory(_:callback:)"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Bubbla._BubblaApi.newsForCategory (Bubbla._BubblaApi)(Bubbla.BubblaNewsCategory, callback : (Bubbla.Response&lt;Swift.Array&lt;Bubbla.BubblaNews&gt;&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "Bubbla"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Sami/Desktop/weatrgf/Bubbla-iOS/bubbla/BubblaApi.swift"
-                  timestampString = "471850275.911753"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "154"
-                  endingLineNumber = "154"
-                  offsetFromSymbolStart = "32">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Bubbla._BubblaApi.(newsForCategory (Bubbla._BubblaApi) -&gt; (Bubbla.BubblaNewsCategory, callback : (Bubbla.Response&lt;Swift.Array&lt;Bubbla.BubblaNews&gt;&gt;) -&gt; ()) -&gt; ()).(closure #1)"
-                  moduleName = "Bubbla"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Sami/Desktop/weatrgf/Bubbla-iOS/bubbla/BubblaApi.swift"
-                  timestampString = "471850275.912019"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "155"
-                  endingLineNumber = "155"
-                  offsetFromSymbolStart = "124">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "bubbla/BubblaApi.swift"
-            timestampString = "472410302.597453"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "193"
-            endingLineNumber = "193"
-            landmarkName = "newsForCategory(_:callback:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "bubbla/BubblaApi.swift"
-            timestampString = "472410302.597453"
+            filePath = "bubbla/NewsTableViewController.swift"
+            timestampString = "472429338.881601"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "191"
             endingLineNumber = "191"
-            landmarkName = "newsForCategory(_:callback:)"
+            landmarkName = "tableView(_:cellForRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -777,11 +679,27 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "bubbla/NewsTableViewController.swift"
-            timestampString = "472410302.597453"
+            timestampString = "472429431.359841"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "190"
-            endingLineNumber = "190"
+            startingLineNumber = "182"
+            endingLineNumber = "182"
+            landmarkName = "tableView(_:cellForRowAtIndexPath:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "bubbla/NewsTableViewController.swift"
+            timestampString = "472429664.246942"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "183"
+            endingLineNumber = "183"
             landmarkName = "tableView(_:cellForRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
