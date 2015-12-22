@@ -25,7 +25,7 @@ class NewsTableViewController: UITableViewController {
         }
     }
     
-    var category: BubblaNewsCategory = .Recent
+    var category: String? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,21 +49,19 @@ class NewsTableViewController: UITableViewController {
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: "refresh:", forControlEvents: .ValueChanged)
         registerForPreviewingWithDelegate(self, sourceView: view)
-        title = category.rawValue
-        searchBar.placeholder = "Sök i \(category.rawValue.lowercaseString)"
+        title = category
+        searchBar.placeholder = "Sök i \((category ?? "Senaste").lowercaseString)"
         refresh()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         deselectSelectedCell()
-        
-        
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        title = category.rawValue
+        title = category
         if !allNewsItems.isEmpty {
             refresh()
         }
@@ -78,9 +76,7 @@ class NewsTableViewController: UITableViewController {
     
     func refresh(refreshControl: UIRefreshControl? = nil) {
         refreshControl?.beginRefreshing()
-        
-        
-        BubblaApi.newsForCategory(self.category) {
+        BubblaApi.newsForCategory(category == "Senaste" ? nil : category) {
             response in
             NSOperationQueue.mainQueue().addOperationWithBlock {
                 switch response {
@@ -96,7 +92,7 @@ class NewsTableViewController: UITableViewController {
                         self.tableView.updateFromItems(self.allNewsItems.map { $0.id }, oldItems: oldItems.map({ $0.id }))
                         
                     }
-                    if self.category == .Recent {
+                    if self.category == nil {
                         UIApplication.sharedApplication().applicationIconBadgeNumber = 0
                     }
                 case .Error(let error):
@@ -111,8 +107,6 @@ class NewsTableViewController: UITableViewController {
                 self.contentRecieved = true
                 self.refreshControl?.endRefreshing()
                 self.view.stopActivityIndicator()
-                
-                
             }
         }
     }
@@ -121,7 +115,7 @@ class NewsTableViewController: UITableViewController {
         if let viewController = segue.sourceViewController as? CategoryTableViewController,
             let category = viewController.selectedCategory  {
                 _BubblaApi.selectedCategory = category
-                title = category.rawValue
+                title = category
                 refresh()
         }
     }
@@ -153,7 +147,7 @@ class NewsTableViewController: UITableViewController {
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "dd MMMM, HH:mm"
         cell.publicationDateLabel.text = dateFormatter.stringFromDate(newsItem.publicationDate).capitalizedString
-        cell.publicationDateLabel.text = newsItem.publicationDate.readableString + (category == .Recent ? " - \(newsItem.category.rawValue)" : "")
+        cell.publicationDateLabel.text = newsItem.publicationDate.readableString + (category == nil ? " - \(newsItem.category)" : "")
         cell.urlLabel.text = newsItem.domain
         cell.unreadIndicator.hidden = newsItem.isRead
         cell.newsImageView.image = nil

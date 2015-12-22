@@ -4,13 +4,10 @@ public struct BubblaNews: Hashable {
     let title: String
     let url: NSURL
     let publicationDate: NSDate
-    let category: BubblaNewsCategory
+    let category: String
+    let categoryType: String
     let id: Int
-    
     let ogImageUrl: NSURL?
-    
-    let ogTitle: String?
-    let ogDescription: String?
     
     public var hashValue: Int { return id }
     
@@ -77,7 +74,6 @@ class BubblaUrlService: UrlService {
     func dataFromUrl(url: NSURL, callback: Response<NSData> -> Void) {
         let session = NSURLSession.sharedSession()
         let request = NSMutableURLRequest(URL: url)
-
         let dataTask = session.dataTaskWithRequest(request) {
             (data, response, error) in
             if let data = data {
@@ -90,22 +86,6 @@ class BubblaUrlService: UrlService {
         }
         dataTask.resume()
     }
-}
-
-enum BubblaNewsCategory: String {
-    case Recent = "Senaste", World = "Världen", Sweden = "Sverige", Mixed = "Blandat", Media = "Media", Politics = "Politik", Opinion = "Opinion", Europe = "Europa", NorthAmerica = "Nordamerika", LatinAmerica = "Latinamerika", Asia = "Asien", MiddleEast = "Mellanöstern", Africa = "Afrika", Economics = "Ekonomi", Tech = "Teknik", Science = "Vetenskap"
-    
-    var rssUrl: NSURL {
-        if self == Recent {
-            return NSURL(string: "https://bubb.la/rss/nyheter")!
-        }
-        let path = rawValue.lowercaseString.stringByReplacingOccurrencesOfString("ä", withString: "a").stringByReplacingOccurrencesOfString("ö", withString: "o")
-        return NSURL(string: "https://bubb.la/rss/\(path)")!
-    }
-    
-    
-    static let All: [BubblaNewsCategory] = [.Recent, .World, .Sweden, .Mixed, .Media, .Politics, .Opinion, .Europe, .NorthAmerica, .LatinAmerica, .Asia, .MiddleEast, .Africa, .Economics, .Tech, .Science]
-    
 }
 
 let BubblaApi = _BubblaApi(urlService: BubblaUrlService())
@@ -132,13 +112,13 @@ class _BubblaApi {
         }
     }
     
-    class var selectedCategory: BubblaNewsCategory {
+    class var selectedCategory: String? {
         get {
-        return BubblaNewsCategory(rawValue: (NSUserDefaults.standardUserDefaults()["selectedCategory"] as? String ?? "")) ?? .Recent
+            return NSUserDefaults.standardUserDefaults()["selectedCategory"] as? String
         }
         
         set {
-            NSUserDefaults.standardUserDefaults()["selectedCategory"] = newValue.rawValue
+            NSUserDefaults.standardUserDefaults()["selectedCategory"] = newValue
         }
     }
     
@@ -151,7 +131,7 @@ class _BubblaApi {
     
     let serverUrl = NSURL(string: "http://192.168.1.84:8001")!
     
-    func newsForCategory(category: BubblaNewsCategory, callback: Response<[BubblaNews]> -> Void) {
+    func newsForCategory(category: String?, callback: Response<[BubblaNews]> -> Void) {
         urlService.jsonFromUrl(serverUrl.URLByAppendingPathComponent("news")) {
             callback($0 >>= { json in
                 var newsItems = [BubblaNews]()
@@ -160,20 +140,19 @@ class _BubblaApi {
                         if let title = item["title"] as? String,
                             let urlString = item["url"] as? String,
                             let url = NSURL(string: urlString),
-                            let categoryString = item["category"] as? String,
-                            let category = BubblaNewsCategory(rawValue: categoryString),
+                            let category = item["category"] as? String,
+                            let categoryType = item["categoryType"] as? String,
                             let publicationDateTimestamp = item["publicationDate"] as? NSTimeInterval,
                             let id = item["id"] as? Int {
                                 let publicationDate = NSDate(timeIntervalSince1970: publicationDateTimestamp)
                                 let ogImageUrlString = item["ogImageUrl"] as? String
-                                let ogTitle = item["ogTitle"] as? String
-                                let ogDescription = item["ogDescription"] as? String
+
                                 let ogImageUrl: NSURL? = ogImageUrlString != nil ? NSURL(string: ogImageUrlString!)! : nil
-                                newsItems.append(BubblaNews(title: title, url: url, publicationDate: publicationDate, category: category, id: id, ogImageUrl: ogImageUrl, ogTitle: ogTitle, ogDescription: ogDescription))
+                                newsItems.append(BubblaNews(title: title, url: url, publicationDate: publicationDate, category: category, categoryType: categoryType, id: id, ogImageUrl: ogImageUrl))
                         }
                     }
                 }
-                return .Success(newsItems.filter { $0.category == category || category == .Recent })
+                return .Success(newsItems.filter { $0.category == category || category == nil })
             })
         }
     }

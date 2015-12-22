@@ -3,11 +3,50 @@ import SafariServices
 
 class CategoryTableViewController: UITableViewController, UISplitViewControllerDelegate {
     
+    var categories = [[String]]()
+    var categoryTypes = [String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        refreshControl = UIRefreshControl()
+        refreshControl?.addTarget(self, action: "refresh:", forControlEvents: .ValueChanged)
+        refresh()
+        
+        
         performSegueWithIdentifier("NewsSegue", sender: self)
         splitViewController?.maximumPrimaryColumnWidth = 350
         splitViewController?.delegate = self
+    }
+    
+    func refresh(refreshControl: UIRefreshControl? = nil) {
+        refreshControl?.beginRefreshing()
+        
+        BubblaApi.newsForCategory(nil) { response in
+            NSOperationQueue.mainQueue().addOperationWithBlock {
+                switch response {
+                case .Success(let newsItems):
+                    self.showEmptyMessage(false, message: "")
+                    let categoryTypes = Array(Set(newsItems.map { $0.categoryType }))
+                    var categories = [[String]]()
+                    for categoryType in categoryTypes {
+                        categories.append(Array(Set(newsItems.filter({ $0.categoryType == categoryType }).map({ $0.category}))).sort())
+                    }
+                    self.categories = [["Senaste"]] + categories
+                    self.categoryTypes = [""] + categoryTypes
+                    self.tableView.reloadData()
+                    
+                case .Error(let error):
+                    if self.categories.isEmpty {
+                        let errorMessage = (error as NSError).localizedDescription
+                        self.showEmptyMessage(true, message: errorMessage)
+                    } else {
+                        print(error)
+                    }
+                }
+                self.refreshControl?.endRefreshing()
+            }
+        }
     }
     
     func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController: UIViewController, ontoPrimaryViewController primaryViewController: UIViewController) -> Bool {
@@ -32,25 +71,20 @@ class CategoryTableViewController: UITableViewController, UISplitViewControllerD
         deselectSelectedCell()
     }
     
-    var selectedCategory: BubblaNewsCategory?
+    var selectedCategory: String?
     
     // MARK: - Table view data source
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return sections.count
+        return categories.count
     }
     
-    let sections: [[BubblaNewsCategory]] = [
-        [.Recent],
-        [.Economics, .Politics, .Opinion, .Science, .Tech, .Mixed],
-        [.Sweden, .World, .Europe, .NorthAmerica, .Africa, .Asia, .LatinAmerica, .MiddleEast]
-    ]
-    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sections[section].count
+        return categories[section].count
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
         return ["", "Ämne", "Geografiskt område"][section]
     }
     
@@ -58,8 +92,8 @@ class CategoryTableViewController: UITableViewController, UISplitViewControllerD
         let cell = tableView.dequeueReusableCellWithIdentifier("CategoryTableViewCell", forIndexPath: indexPath) as! CategoryTableViewCell
         
         
-        let category = sections[indexPath.section][indexPath.row]
-        cell.categoryLabel.text = category.rawValue
+        let category = categories[indexPath.section][indexPath.row]
+        cell.categoryLabel.text = category
         return cell
     }
     
@@ -67,12 +101,12 @@ class CategoryTableViewController: UITableViewController, UISplitViewControllerD
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let viewController = segue.destinationViewController as? NewsTableViewController {
             viewController.categoryTableViewController = self
-            let category: BubblaNewsCategory
+            let category: String?
             if let indexPath = tableView.indexPathForSelectedRow {
-                category = sections[indexPath.section][indexPath.row]
+                category = categories[indexPath.section][indexPath.row]
                 tableView.deselectRowAtIndexPath(indexPath, animated: false)
             } else {
-                category = _BubblaApi.selectedCategory
+                category = nil
             }
             viewController.category = category
             _BubblaApi.selectedCategory = category
