@@ -157,17 +157,11 @@ class NewsTableViewController: UITableViewController {
         cell.urlLabel.text = newsItem.domain
         cell.unreadIndicator.hidden = newsItem.isRead
         cell.newsImageView.image = nil
-        //        cell.newsImageView.hidden = newsItem.ogImageUrl  == nil || self.bubblaNewsWithFailedImages.contains(newsItem)
-        
         if let image = images[newsItem] {
-            //            print("Memory cached image for \(newsItem.id)")
             cell.newsImageView.hidden = false
             cell.newsImageView.image = image
         } else {
             if let imageUrl = newsItem.ogImageUrl where !self.bubblaNewsWithFailedImages.contains(newsItem) {
-                
-    
-                
                 if let cachedUrlResponse = NSURLCache.sharedURLCache().cachedResponseForRequest(NSURLRequest(URL: imageUrl)) {
                     if let image = UIImage(data: cachedUrlResponse.data) {
                         print("Used cached response \(newsItem.id)")
@@ -175,6 +169,8 @@ class NewsTableViewController: UITableViewController {
                         cell.newsImageView.image = image
                     } else {
                         print("hm")
+                        self.bubblaNewsWithFailedImages.insert(newsItem)
+                        cell.newsImageView.hidden = true
                     }
                 } else {
                     print("Retrieving image from server \(newsItem.title)")
@@ -247,8 +243,6 @@ class NewsTableViewController: UITableViewController {
         return viewController
     }
 }
-
-
 
 extension NewsTableViewController: UIViewControllerPreviewingDelegate {
     func previewingContext(previewingContext: UIViewControllerPreviewing,

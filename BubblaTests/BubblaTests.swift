@@ -8,7 +8,7 @@ class BubblaTests: XCTestCase {
     }
     
     func testBubblaNews() {
-        var news1 = BubblaNews(title: "", url: NSURL(string: "http://google.com")!, publicationDate: NSDate(), category: .Recent, id: 0)
+        var news1 = BubblaNews(title: "", url: NSURL(string: "http://google.com")!, publicationDate: NSDate(), category: .Recent, id: 0, ogImageUrl: nil, ogTitle: nil, ogDescription: nil)
         assert(!news1.isRead)
         news1.isRead = true
         assert(news1.isRead)

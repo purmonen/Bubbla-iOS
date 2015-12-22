@@ -9,6 +9,9 @@ public struct BubblaNews: Hashable {
     
     let ogImageUrl: NSURL?
     
+    let ogTitle: String?
+    let ogDescription: String?
+    
     public var hashValue: Int { return id }
     
     public var isRead: Bool {
@@ -140,7 +143,7 @@ class _BubblaApi {
     }
     
     func registerDevice(deviceToken: String, callback: Response<Void> -> Void) {
-        urlService.dataFromUrl(serverUrl.URLByAppendingPathComponent("registerDevice?token=\(deviceToken)")) {
+        urlService.dataFromUrl(NSURL(string: "\(serverUrl.absoluteString)/registerDevice?token=\(deviceToken)")!) {
             print($0)
             callback($0.map( {_ in return }))
         }
@@ -163,8 +166,10 @@ class _BubblaApi {
                             let id = item["id"] as? Int {
                                 let publicationDate = NSDate(timeIntervalSince1970: publicationDateTimestamp)
                                 let ogImageUrlString = item["ogImageUrl"] as? String
+                                let ogTitle = item["ogTitle"] as? String
+                                let ogDescription = item["ogDescription"] as? String
                                 let ogImageUrl: NSURL? = ogImageUrlString != nil ? NSURL(string: ogImageUrlString!)! : nil
-                                newsItems.append(BubblaNews(title: title, url: url, publicationDate: publicationDate, category: category, id: id, ogImageUrl: ogImageUrl))
+                                newsItems.append(BubblaNews(title: title, url: url, publicationDate: publicationDate, category: category, id: id, ogImageUrl: ogImageUrl, ogTitle: ogTitle, ogDescription: ogDescription))
                         }
                     }
                 }
