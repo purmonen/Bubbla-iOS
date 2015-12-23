@@ -18,9 +18,9 @@
 		26233E471BD6EB0A00C754C8 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26233E461BD6EB0A00C754C8 /* Response.swift */; };
 		26233E491BD6EBC900C754C8 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26233E481BD6EBC900C754C8 /* Extensions.swift */; };
 		2666F09A1C04BA8600B453F7 /* BubblaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2666F0991C04BA8600B453F7 /* BubblaTests.swift */; };
-		2666F0A91C04BEC800B453F7 /* varlden in Resources */ = {isa = PBXBuildFile; fileRef = 2666F0A81C04BEC800B453F7 /* varlden */; };
 		26A9A54E1BDE7BCC00140E67 /* CategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A9A54D1BDE7BCC00140E67 /* CategoryTableViewController.swift */; };
 		26C4AF9E1C0E8B670027379A /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C4AF9D1C0E8B670027379A /* CategoryTableViewCell.swift */; };
+		26D3E7F11C2AE67D006EA2D6 /* news.json in Resources */ = {isa = PBXBuildFile; fileRef = 26D3E7F01C2AE67D006EA2D6 /* news.json */; };
 		26E231671BF6FF1300639E70 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26E231661BF6FF1300639E70 /* SafariServices.framework */; };
 		26ED02911C1CA6A400663A21 /* BubblaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26ED02901C1CA6A400663A21 /* BubblaUITests.swift */; };
 /* End PBXBuildFile section */
@@ -58,9 +58,9 @@
 		2666F0971C04BA8500B453F7 /* BubblaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BubblaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2666F0991C04BA8600B453F7 /* BubblaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubblaTests.swift; sourceTree = "<group>"; };
 		2666F09B1C04BA8600B453F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2666F0A81C04BEC800B453F7 /* varlden */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = varlden; path = ../../../../Downloads/varlden; sourceTree = "<group>"; };
 		26A9A54D1BDE7BCC00140E67 /* CategoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryTableViewController.swift; sourceTree = "<group>"; };
 		26C4AF9D1C0E8B670027379A /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
+		26D3E7F01C2AE67D006EA2D6 /* news.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = news.json; sourceTree = "<group>"; };
 		26E231661BF6FF1300639E70 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		26ED028E1C1CA6A400663A21 /* BubblaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BubblaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		26ED02901C1CA6A400663A21 /* BubblaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubblaUITests.swift; sourceTree = "<group>"; };
@@ -139,7 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				2666F0991C04BA8600B453F7 /* BubblaTests.swift */,
-				2666F0A81C04BEC800B453F7 /* varlden */,
+				26D3E7F01C2AE67D006EA2D6 /* news.json */,
 				2666F09B1C04BA8600B453F7 /* Info.plist */,
 			);
 			path = BubblaTests;
@@ -274,7 +274,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2666F0A91C04BEC800B453F7 /* varlden in Resources */,
+				26D3E7F11C2AE67D006EA2D6 /* news.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

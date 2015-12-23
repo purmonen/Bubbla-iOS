@@ -8,7 +8,7 @@ class BubblaTests: XCTestCase {
     }
     
     func testBubblaNews() {
-        var news1 = BubblaNews(title: "", url: NSURL(string: "http://google.com")!, publicationDate: NSDate(), category: .Recent, id: 0, ogImageUrl: nil, ogTitle: nil, ogDescription: nil)
+        var news1 = BubblaNews(title: "", url: NSURL(string: "http://google.com")!, publicationDate: NSDate(), category: "Världen", categoryType: "Geografiskt område", id: 0, ogImageUrl: nil)
         assert(!news1.isRead)
         news1.isRead = true
         assert(news1.isRead)
@@ -21,21 +21,23 @@ class BubblaTests: XCTestCase {
         
         class MockUrlService: UrlService {
             func dataFromUrl(url: NSURL, callback: Response<NSData> -> Void) {
-                let data = NSData(contentsOfURL: NSBundle(forClass: self.dynamicType).URLForResource("varlden", withExtension: "")!)!
+                let data = NSData(contentsOfURL: NSBundle(forClass: self.dynamicType).URLForResource("news", withExtension: "json")!)!
                 callback(.Success(data))
             }
         }
         
         let expectation = expectationWithDescription("Url Service")
         
-        _BubblaApi(urlService: MockUrlService()).newsForCategory(.World) {
+        _BubblaApi(urlService: MockUrlService()).newsForCategory(nil) {
             if case .Success(let bubblaNewsItems) = $0 {
-                XCTAssert(bubblaNewsItems.count == 50)
+                XCTAssert(bubblaNewsItems.count == 5)
                 let firstItem = bubblaNewsItems[0]
-                XCTAssert(firstItem.title == "Ryskt stridsflygplan vid syriska gränsen uppges ha skjutits ned av turkiskt jaktflyg")
-                XCTAssert(firstItem.category == .World)
-                XCTAssert(firstItem.url.absoluteString == "http://cornucopia.cornubot.se/2015/11/flash-turkiet-har-skjutit-ner.html")
-                XCTAssert(firstItem.id == 203038)
+                XCTAssert(firstItem.title == "Länsstyrelsen stoppar byggandet av 520 lägenheter i Hjorthagen, risk för störande buller från Värtabanan")
+                XCTAssert(firstItem.category == "Sverige")
+                XCTAssert(firstItem.url == NSURL(string: "http://mitti.se/520-lagenheter-stoppas/"))
+                XCTAssert(firstItem.id == 204375)
+                XCTAssert(firstItem.ogImageUrl == NSURL(string: "http://images.mitti.se/np/178395/512"))
+                XCTAssert(firstItem.domain == "mitti.se")
             } else {
                 XCTAssert(false)
             }
@@ -52,17 +54,4 @@ class BubblaTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-    
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock {
-            // Put the code you want to measure the time of here.
-        }
-    }
-    
 }

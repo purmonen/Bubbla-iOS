@@ -111,7 +111,6 @@ class CategoryTableViewController: UITableViewController, UISplitViewControllerD
     }
 }
 
-
 extension CategoryTableViewController: SFSafariViewControllerDelegate {
     func safariViewControllerDidFinish(controller: SFSafariViewController) {
         let barButtonItem = splitViewController!.displayModeButtonItem()
