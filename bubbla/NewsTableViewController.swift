@@ -84,6 +84,7 @@ class NewsTableViewController: UITableViewController {
                     if self.category == CategoryTableViewController.recentString {
                         UIApplication.sharedApplication().applicationIconBadgeNumber = 0
                     }
+                    self.showEmptyMessageIfNeeded()
                 case .Error(let error):
                     if self.newsItems.isEmpty {
                         let errorMessage = (error as NSError).localizedDescription
@@ -200,6 +201,10 @@ class NewsTableViewController: UITableViewController {
         viewController.view.tintColor = pinkColor
         return viewController
     }
+    
+    func showEmptyMessageIfNeeded() {
+        showEmptyMessage(newsItems.isEmpty, message: "Inga nyheter")
+    }
 }
 
 extension NewsTableViewController: UIViewControllerPreviewingDelegate {
@@ -220,6 +225,7 @@ extension NewsTableViewController: UIViewControllerPreviewingDelegate {
 extension NewsTableViewController: UISearchBarDelegate {
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
         newsItems.updateFilteredItemsToMatchSearchText(searchText)
+        showEmptyMessageIfNeeded()
         tableView.reloadData()
     }
 }

@@ -89,7 +89,7 @@ class BubblaUrlService: UrlService {
             } else if let error = error {
                 callback(.Error(error))
             } else {
-                callback(.Error(NSError(domain: "getData", code: 1337, userInfo: nil)))
+                callback(.Error(NSError(domain: "dataFromUrl", code: 1337, userInfo: nil)))
             }
         }
         dataTask.resume()
