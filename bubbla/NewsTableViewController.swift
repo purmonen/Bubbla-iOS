@@ -3,10 +3,6 @@ import SafariServices
 
 let pinkColor = UIColor(red: 204/255.0, green: 100/255.0, blue: 237/255.0, alpha: 1)
 
-protocol SearchableListProtocol {
-    var textToBeSearched: String { get }
-}
-
 
 
 extension BubblaNews: SearchableListProtocol {

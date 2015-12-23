@@ -3,8 +3,7 @@ import SafariServices
 
 class CategoryTableViewController: UITableViewController, UISplitViewControllerDelegate {
     
-    var categories = [[String]]()
-    var categoryTypes = [String]()
+    var categories = [(categoryType: String, categories: [String])]()
     
     static let recentString = "Senaste"
     
@@ -26,15 +25,9 @@ class CategoryTableViewController: UITableViewController, UISplitViewControllerD
                 switch response {
                 case .Success(let newsItems):
                     self.showEmptyMessage(false, message: "")
-                    let categoryTypes = Array(Set(newsItems.map { $0.categoryType }))
-                    var categories = [[String]]()
-                    for categoryType in categoryTypes {
-                        categories.append(Array(Set(newsItems.filter({ $0.categoryType == categoryType }).map({ $0.category}))).sort())
-                    }
-                    self.categories = [[CategoryTableViewController.recentString]] + categories
-                    self.categoryTypes = [""] + categoryTypes
+                    let categories = BubblaNews.categoriesWithTypesFromNewsItems(newsItems)
+                    self.categories = [(categoryType: "", categories: [CategoryTableViewController.recentString])] + categories
                     self.tableView.reloadData()
-                    
                 case .Error(let error):
                     if self.categories.isEmpty {
                         let errorMessage = (error as NSError).localizedDescription
@@ -77,19 +70,18 @@ class CategoryTableViewController: UITableViewController, UISplitViewControllerD
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categories[section].count
+        return categories[section].categories.count
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        
-        return ["", "Ämne", "Geografiskt område"][section]
+        return categories[section].categoryType
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("CategoryTableViewCell", forIndexPath: indexPath) as! CategoryTableViewCell
         
         
-        let category = categories[indexPath.section][indexPath.row]
+        let category = categories[indexPath.section].categories[indexPath.row]
         cell.categoryLabel.text = category
         return cell
     }
@@ -99,7 +91,7 @@ class CategoryTableViewController: UITableViewController, UISplitViewControllerD
             viewController.categoryTableViewController = self
             let category: String
             if let indexPath = tableView.indexPathForSelectedRow {
-                category = categories[indexPath.section][indexPath.row]
+                category = categories[indexPath.section].categories[indexPath.row]
                 tableView.deselectRowAtIndexPath(indexPath, animated: false)
             } else {
                 category = CategoryTableViewController.recentString

@@ -32,6 +32,15 @@ public struct BubblaNews: Hashable {
         }
         return domain
     }
+    
+    public static func categoriesWithTypesFromNewsItems(newsItems: [BubblaNews]) -> [(categoryType: String, categories: [String])] {
+        let categoryTypes = Array(Set(newsItems.map { $0.categoryType }))
+        var categories = [(categoryType: String, categories: [String])]()
+        for categoryType in categoryTypes {
+            categories.append((categoryType: categoryType, categories: Array(Set(newsItems.filter({ $0.categoryType == categoryType }).map({ $0.category}))).sort()))
+        }
+        return categories
+    }
 }
 
 public func ==(x: BubblaNews, y: BubblaNews) -> Bool {

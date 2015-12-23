@@ -8,6 +8,10 @@
 
 import Foundation
 
+protocol SearchableListProtocol {
+    var textToBeSearched: String { get }
+}
+
 class SearchableList<T: SearchableListProtocol>: CollectionType {
     private let allItems: [T]
     private var filteredItems: [T]

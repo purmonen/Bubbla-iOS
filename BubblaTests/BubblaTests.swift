@@ -33,15 +33,25 @@ class BubblaTests: XCTestCase {
         let expectation = expectationWithDescription("Url Service")
         
         _BubblaApi(urlService: MockUrlService()).newsForCategory(nil) {
-            if case .Success(let bubblaNewsItems) = $0 {
-                XCTAssert(bubblaNewsItems.count == 5)
-                let firstItem = bubblaNewsItems[0]
+            if case .Success(let newsItems) = $0 {
+                XCTAssert(newsItems.count == 5)
+                let firstItem = newsItems[0]
                 XCTAssert(firstItem.title == "Länsstyrelsen stoppar byggandet av 520 lägenheter i Hjorthagen, risk för störande buller från Värtabanan")
                 XCTAssert(firstItem.category == "Sverige")
                 XCTAssert(firstItem.url == NSURL(string: "http://mitti.se/520-lagenheter-stoppas/"))
                 XCTAssert(firstItem.id == 204375)
                 XCTAssert(firstItem.ogImageUrl == NSURL(string: "http://images.mitti.se/np/178395/512"))
                 XCTAssert(firstItem.domain == "mitti.se")
+                
+                
+                let categories = BubblaNews.categoriesWithTypesFromNewsItems(newsItems)
+                XCTAssert(categories.count == 2)
+                XCTAssert(categories[0].categoryType == "Ämne")
+                XCTAssert(categories[0].categories == ["Ekonomi", "Politik"])
+                XCTAssert(categories[1].categoryType == "Geografiskt område")
+                XCTAssert(categories[1].categories == ["Europa", "Sverige"])
+                
+                
             } else {
                 XCTAssert(false)
             }
