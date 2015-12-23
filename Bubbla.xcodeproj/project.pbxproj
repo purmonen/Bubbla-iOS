@@ -21,6 +21,7 @@
 		26A9A54E1BDE7BCC00140E67 /* CategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A9A54D1BDE7BCC00140E67 /* CategoryTableViewController.swift */; };
 		26C4AF9E1C0E8B670027379A /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C4AF9D1C0E8B670027379A /* CategoryTableViewCell.swift */; };
 		26D3E7F11C2AE67D006EA2D6 /* news.json in Resources */ = {isa = PBXBuildFile; fileRef = 26D3E7F01C2AE67D006EA2D6 /* news.json */; };
+		26D3E7F31C2AF49D006EA2D6 /* SearchableList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D3E7F21C2AF49D006EA2D6 /* SearchableList.swift */; };
 		26E231671BF6FF1300639E70 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26E231661BF6FF1300639E70 /* SafariServices.framework */; };
 		26ED02911C1CA6A400663A21 /* BubblaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26ED02901C1CA6A400663A21 /* BubblaUITests.swift */; };
 /* End PBXBuildFile section */
@@ -61,6 +62,7 @@
 		26A9A54D1BDE7BCC00140E67 /* CategoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryTableViewController.swift; sourceTree = "<group>"; };
 		26C4AF9D1C0E8B670027379A /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
 		26D3E7F01C2AE67D006EA2D6 /* news.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = news.json; sourceTree = "<group>"; };
+		26D3E7F21C2AF49D006EA2D6 /* SearchableList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchableList.swift; sourceTree = "<group>"; };
 		26E231661BF6FF1300639E70 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		26ED028E1C1CA6A400663A21 /* BubblaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BubblaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		26ED02901C1CA6A400663A21 /* BubblaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubblaUITests.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				26233E481BD6EBC900C754C8 /* Extensions.swift */,
 				26233E461BD6EB0A00C754C8 /* Response.swift */,
 				262246681C00D228009FCDDD /* WebViewController.swift */,
+				26D3E7F21C2AF49D006EA2D6 /* SearchableList.swift */,
 				260DDA401BD5A38000E3DC5F /* NewsTableViewController.swift */,
 				260DDA421BD5A4F100E3DC5F /* NewsItemTableViewCell.swift */,
 				26A9A54D1BDE7BCC00140E67 /* CategoryTableViewController.swift */,
@@ -295,6 +298,7 @@
 				260DDA261BD59AE700E3DC5F /* AppDelegate.swift in Sources */,
 				26A9A54E1BDE7BCC00140E67 /* CategoryTableViewController.swift in Sources */,
 				260DDA431BD5A4F100E3DC5F /* NewsItemTableViewCell.swift in Sources */,
+				26D3E7F31C2AF49D006EA2D6 /* SearchableList.swift in Sources */,
 				260DDA381BD59B0700E3DC5F /* BubblaApi.swift in Sources */,
 				26233E491BD6EBC900C754C8 /* Extensions.swift in Sources */,
 				260DDA411BD5A38000E3DC5F /* NewsTableViewController.swift in Sources */,

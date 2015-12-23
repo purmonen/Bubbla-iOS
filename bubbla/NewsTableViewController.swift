@@ -3,33 +3,22 @@ import SafariServices
 
 let pinkColor = UIColor(red: 204/255.0, green: 100/255.0, blue: 237/255.0, alpha: 1)
 
+protocol SearchableListProtocol {
+    var textToBeSearched: String { get }
+}
+
+
+
+extension BubblaNews: SearchableListProtocol {
+    var textToBeSearched: String { return title }
+}
+
 class NewsTableViewController: UITableViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
     
     var categoryTableViewController: CategoryTableViewController? = nil
-    
-    var allNewsItems: [BubblaNews] = [] {
-        didSet {
-            updateNewsItems()
-        }
-    }
-    var newsItems: [BubblaNews] = []
-    
-    func updateNewsItems() {
-        newsItems = allNewsItems.filter {
-            newsItem in
-            if let searchText = searchBar.text where !searchText.isEmpty {
-                let words = newsItem.title.lowercaseString.componentsSeparatedByString(" ")
-                for searchWord in searchText.lowercaseString.componentsSeparatedByString(" ").filter({ !$0.isEmpty }) {
-                    if words.filter({ $0.hasPrefix(searchWord) }).isEmpty {
-                        return false
-                    }
-                }
-            }
-            return true
-        }
-    }
+    var newsItems = SearchableList<BubblaNews>(items: [])
     
     var category: String = CategoryTableViewController.recentString
     
@@ -67,7 +56,7 @@ class NewsTableViewController: UITableViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         title = category
-        if !allNewsItems.isEmpty {
+        if !newsItems.isEmpty {
             refresh()
         }
     }
@@ -86,13 +75,14 @@ class NewsTableViewController: UITableViewController {
                 case .Success(let newsItems):
                     self.searchBar.hidden = false
                     self.showEmptyMessage(false, message: "")
-                    let oldItems = self.allNewsItems
-                    self.allNewsItems = Array(Set(newsItems)).sort { $1.publicationDate < $0.publicationDate }
+                    let oldItems = self.newsItems
+                    self.newsItems = SearchableList(items: Array(Set(newsItems)).sort { $1.publicationDate < $0.publicationDate })
+                    self.newsItems.updateFilteredItemsToMatchSearchText(self.searchBar.text ?? "")
                     if oldItems.isEmpty {
                         self.tableView.reloadData()
                     } else {
                         print("Updating table")
-                        self.tableView.updateFromItems(self.allNewsItems.map { $0.id }, oldItems: oldItems.map({ $0.id }))
+                        self.tableView.updateFromItems(self.newsItems.map { $0.id }, oldItems: oldItems.map({ $0.id }))
                         
                     }
                     if self.category == CategoryTableViewController.recentString {
@@ -233,7 +223,7 @@ extension NewsTableViewController: UIViewControllerPreviewingDelegate {
 
 extension NewsTableViewController: UISearchBarDelegate {
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-        updateNewsItems()
+        newsItems.updateFilteredItemsToMatchSearchText(searchText)
         tableView.reloadData()
     }
 }

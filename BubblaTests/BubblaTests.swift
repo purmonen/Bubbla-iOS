@@ -1,6 +1,10 @@
 import XCTest
 @testable import Bubbla
 
+extension String: SearchableListProtocol {
+    var textToBeSearched: String { return self }
+}
+
 class BubblaTests: XCTestCase {
     
     override func setUp() {
@@ -48,6 +52,37 @@ class BubblaTests: XCTestCase {
             error in
             XCTAssertNil(error)
         }
+    }
+    
+    func testSearchableList() {
+        let items = ["Apa banan clementine", "Mentolcigg banan och mammut"]
+        let searchableList = SearchableList(items: items)
+        XCTAssert(searchableList.count == 2)
+        XCTAssert(searchableList[0] == items[0])
+        
+        searchableList.updateFilteredItemsToMatchSearchText("apa")
+        XCTAssert(searchableList.count == 1)
+        XCTAssert(searchableList[0] == items[0])
+    
+        searchableList.updateFilteredItemsToMatchSearchText("MAMMUT")
+        XCTAssert(searchableList.count == 1)
+        XCTAssert(searchableList[0] == items[1])
+        
+        searchableList.updateFilteredItemsToMatchSearchText("apa clementine")
+        XCTAssert(searchableList.count == 1)
+        
+        searchableList.updateFilteredItemsToMatchSearchText("banan")
+        XCTAssert(searchableList.count == 2)
+        
+        searchableList.updateFilteredItemsToMatchSearchText("ey yo")
+        XCTAssert(searchableList.count == 0)
+        
+        
+        let emptySearchableList = SearchableList<String>(items: [])
+        XCTAssert(emptySearchableList.count == 0)
+        emptySearchableList.updateFilteredItemsToMatchSearchText("ey yo")
+        XCTAssert(emptySearchableList.count == 0)
+
     }
     
     override func tearDown() {
