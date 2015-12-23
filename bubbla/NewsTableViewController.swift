@@ -36,7 +36,6 @@ class NewsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshDummy:", name: UIApplicationWillEnterForegroundNotification, object: nil)
         showEmptyMessage(true, message: "")
         searchBar.hidden = true
@@ -77,8 +76,6 @@ class NewsTableViewController: UITableViewController {
     func refreshDummy(wtf: AnyObject) {
         refresh()
     }
-    
-    var imageUrls = [NSURL: NSURL]()
     
     func refresh(refreshControl: UIRefreshControl? = nil) {
         refreshControl?.beginRefreshing()
@@ -159,7 +156,6 @@ class NewsTableViewController: UITableViewController {
                                 self.imageForNewsItem[newsItem] = image
                                 cell.newsImageView.hidden = false
                                 cell.newsImageView.image = image
-                                cell.stackView.layoutIfNeeded()
                                 tableView.reloadData()
                             }
                         case .Error:
@@ -181,7 +177,7 @@ class NewsTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 100
+        return 200
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
