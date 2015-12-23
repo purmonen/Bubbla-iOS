@@ -23,7 +23,6 @@
 		26C4AF9E1C0E8B670027379A /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C4AF9D1C0E8B670027379A /* CategoryTableViewCell.swift */; };
 		26E231671BF6FF1300639E70 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26E231661BF6FF1300639E70 /* SafariServices.framework */; };
 		26ED02911C1CA6A400663A21 /* BubblaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26ED02901C1CA6A400663A21 /* BubblaUITests.swift */; };
-		26FB41BE1BD7CFB600560B74 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26FB41BD1BD7CFB600560B74 /* WebKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,7 +65,6 @@
 		26ED028E1C1CA6A400663A21 /* BubblaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BubblaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		26ED02901C1CA6A400663A21 /* BubblaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubblaUITests.swift; sourceTree = "<group>"; };
 		26ED02921C1CA6A400663A21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		26FB41BD1BD7CFB600560B74 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,7 +73,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				26E231671BF6FF1300639E70 /* SafariServices.framework in Frameworks */,
-				26FB41BE1BD7CFB600560B74 /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,7 +97,6 @@
 			isa = PBXGroup;
 			children = (
 				26E231661BF6FF1300639E70 /* SafariServices.framework */,
-				26FB41BD1BD7CFB600560B74 /* WebKit.framework */,
 				260DDA241BD59AE700E3DC5F /* Bubbla */,
 				2666F0981C04BA8600B453F7 /* BubblaTests */,
 				26ED028F1C1CA6A400663A21 /* BubblaUITests */,
@@ -125,10 +121,10 @@
 				260DDA371BD59B0700E3DC5F /* BubblaApi.swift */,
 				26233E481BD6EBC900C754C8 /* Extensions.swift */,
 				26233E461BD6EB0A00C754C8 /* Response.swift */,
-				260DDA401BD5A38000E3DC5F /* NewsTableViewController.swift */,
-				26A9A54D1BDE7BCC00140E67 /* CategoryTableViewController.swift */,
 				262246681C00D228009FCDDD /* WebViewController.swift */,
+				260DDA401BD5A38000E3DC5F /* NewsTableViewController.swift */,
 				260DDA421BD5A4F100E3DC5F /* NewsItemTableViewCell.swift */,
+				26A9A54D1BDE7BCC00140E67 /* CategoryTableViewController.swift */,
 				26C4AF9D1C0E8B670027379A /* CategoryTableViewCell.swift */,
 				260DDA291BD59AE700E3DC5F /* Main.storyboard */,
 				260DDA2C1BD59AE700E3DC5F /* Assets.xcassets */,
@@ -168,7 +164,6 @@
 				260DDA1E1BD59AE700E3DC5F /* Sources */,
 				260DDA1F1BD59AE700E3DC5F /* Frameworks */,
 				260DDA201BD59AE700E3DC5F /* Resources */,
-				260DDA3C1BD5A03000E3DC5F /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -291,23 +286,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		260DDA3C1BD5A03000E3DC5F /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				/Users/Sami/Desktop/bubbla/Carthage/Build/iOS/SWXMLHash.framework,
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		260DDA1E1BD59AE700E3DC5F /* Sources */ = {

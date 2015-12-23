@@ -18,7 +18,6 @@ public struct BubblaNews: Hashable {
         set {
             if newValue {
                 _BubblaApi.readNewsItemIds = Array(Set(_BubblaApi.readNewsItemIds + [id]))
-                
             } else {
                 _BubblaApi.readNewsItemIds = Array(Set(_BubblaApi.readNewsItemIds.filter { $0 != id }))
             }
@@ -131,6 +130,8 @@ class _BubblaApi {
     
     let serverUrl = NSURL(string: "http://192.168.1.84:8001")!
     
+//    let serverUrl = NSURL(string: "http://54.93.109.96:8001")!
+    
     func newsForCategory(category: String?, callback: Response<[BubblaNews]> -> Void) {
         urlService.jsonFromUrl(serverUrl.URLByAppendingPathComponent("news")) {
             callback($0 >>= { json in
@@ -146,7 +147,6 @@ class _BubblaApi {
                             let id = item["id"] as? Int {
                                 let publicationDate = NSDate(timeIntervalSince1970: publicationDateTimestamp)
                                 let ogImageUrlString = item["ogImageUrl"] as? String
-
                                 let ogImageUrl: NSURL? = ogImageUrlString != nil ? NSURL(string: ogImageUrlString!)! : nil
                                 newsItems.append(BubblaNews(title: title, url: url, publicationDate: publicationDate, category: category, categoryType: categoryType, id: id, ogImageUrl: ogImageUrl))
                         }

@@ -19,7 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let deviceTokenString: String = ( deviceToken.description as NSString )
             .stringByTrimmingCharactersInSet( characterSet )
             .stringByReplacingOccurrencesOfString( " ", withString: "" ) as String
-        
         print(deviceTokenString)
         BubblaApi.registerDevice(deviceTokenString) {
                 print($0)

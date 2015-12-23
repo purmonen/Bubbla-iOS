@@ -24,7 +24,6 @@ extension UITableView {
     }
 }
 
-
 extension NSUserDefaults {
     subscript(key: String) -> AnyObject? {
         get { return valueForKey(key) }

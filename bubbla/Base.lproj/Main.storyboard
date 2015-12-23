@@ -73,18 +73,18 @@
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="oCm-5l-K5U">
                                             <rect key="frame" x="40" y="10" width="545" height="400"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="240" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KBr-uf-4Y9">
-                                                    <rect key="frame" x="0.0" y="0.0" width="545" height="185"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="255" misplaced="YES" image="bitcoin" translatesAutoresizingMaskIntoConstraints="NO" id="Shu-j1-TZb">
+                                                    <rect key="frame" x="0.0" y="0.0" width="545" height="150"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" priority="999" constant="150" id="wDB-MX-iav"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="240" misplaced="YES" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KBr-uf-4Y9">
+                                                    <rect key="frame" x="0.0" y="153" width="545" height="205"/>
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="255" image="bitcoin" translatesAutoresizingMaskIntoConstraints="NO" id="Shu-j1-TZb">
-                                                    <rect key="frame" x="0.0" y="188" width="545" height="170"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" priority="999" constant="170" id="wDB-MX-iav"/>
-                                                    </constraints>
-                                                </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="daT-PT-zQ9">
                                                     <rect key="frame" x="0.0" y="361" width="545" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
@@ -124,6 +124,7 @@
                                 <connections>
                                     <outlet property="newsImageView" destination="Shu-j1-TZb" id="fLZ-pU-AlH"/>
                                     <outlet property="publicationDateLabel" destination="O1x-WM-aIe" id="fFu-Ra-KSA"/>
+                                    <outlet property="stackView" destination="oCm-5l-K5U" id="ECG-GI-83b"/>
                                     <outlet property="titleLabel" destination="KBr-uf-4Y9" id="4TS-Xk-vKR"/>
                                     <outlet property="unreadIndicator" destination="gf2-sw-xia" id="mrP-ju-ZIc"/>
                                     <outlet property="urlLabel" destination="daT-PT-zQ9" id="Pqj-A9-aDM"/>

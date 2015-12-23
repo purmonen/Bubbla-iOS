@@ -9,9 +9,15 @@ class NewsTableViewController: UITableViewController {
     
     var categoryTableViewController: CategoryTableViewController? = nil
     
-    var allNewsItems: [BubblaNews] = []
-    var newsItems: [BubblaNews] {
-        return allNewsItems.filter {
+    var allNewsItems: [BubblaNews] = [] {
+        didSet {
+            updateNewsItems()
+        }
+    }
+    var newsItems: [BubblaNews] = []
+    
+    func updateNewsItems() {
+        newsItems = allNewsItems.filter {
             newsItem in
             if let searchText = searchBar.text where !searchText.isEmpty {
                 let words = newsItem.title.lowercaseString.componentsSeparatedByString(" ")
@@ -25,7 +31,7 @@ class NewsTableViewController: UITableViewController {
         }
     }
     
-    var category: String? = nil
+    var category: String = CategoryTableViewController.recentString
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +56,7 @@ class NewsTableViewController: UITableViewController {
         refreshControl?.addTarget(self, action: "refresh:", forControlEvents: .ValueChanged)
         registerForPreviewingWithDelegate(self, sourceView: view)
         title = category
-        searchBar.placeholder = "Sök i \((category ?? "Senaste").lowercaseString)"
+        searchBar.placeholder = "Sök i \((category).lowercaseString)"
         refresh()
     }
     
@@ -92,7 +98,7 @@ class NewsTableViewController: UITableViewController {
                         self.tableView.updateFromItems(self.allNewsItems.map { $0.id }, oldItems: oldItems.map({ $0.id }))
                         
                     }
-                    if self.category == nil {
+                    if self.category == CategoryTableViewController.recentString {
                         UIApplication.sharedApplication().applicationIconBadgeNumber = 0
                     }
                 case .Error(let error):
@@ -111,22 +117,7 @@ class NewsTableViewController: UITableViewController {
         }
     }
     
-    @IBAction func unwind(segue: UIStoryboardSegue) {
-        if let viewController = segue.sourceViewController as? CategoryTableViewController,
-            let category = viewController.selectedCategory  {
-                _BubblaApi.selectedCategory = category
-                title = category
-                refresh()
-        }
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     // MARK: - Table view data source
-    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -135,9 +126,9 @@ class NewsTableViewController: UITableViewController {
         return newsItems.count
     }
     
-    
-    var images = [BubblaNews: UIImage]()
     var bubblaNewsWithFailedImages = Set<BubblaNews>()
+    
+    var imageForNewsItem = [BubblaNews: UIImage]()
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("NewsItemTableViewCell", forIndexPath: indexPath) as! NewsItemTableViewCell
@@ -147,52 +138,43 @@ class NewsTableViewController: UITableViewController {
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "dd MMMM, HH:mm"
         cell.publicationDateLabel.text = dateFormatter.stringFromDate(newsItem.publicationDate).capitalizedString
-        cell.publicationDateLabel.text = newsItem.publicationDate.readableString + (category == nil ? " - \(newsItem.category)" : "")
+        cell.publicationDateLabel.text = newsItem.publicationDate.readableString + (category == CategoryTableViewController.recentString ? " · \(newsItem.category)" : "")
         cell.urlLabel.text = newsItem.domain
         cell.unreadIndicator.hidden = newsItem.isRead
         cell.newsImageView.image = nil
-        if let image = images[newsItem] {
-            cell.newsImageView.hidden = false
-            cell.newsImageView.image = image
-        } else {
-            if let imageUrl = newsItem.ogImageUrl where !self.bubblaNewsWithFailedImages.contains(newsItem) {
-                if let cachedUrlResponse = NSURLCache.sharedURLCache().cachedResponseForRequest(NSURLRequest(URL: imageUrl)) {
-                    if let image = UIImage(data: cachedUrlResponse.data) {
-                        print("Used cached response \(newsItem.id)")
-                        cell.newsImageView.hidden = false
-                        cell.newsImageView.image = image
-                    } else {
-                        print("hm")
-                        self.bubblaNewsWithFailedImages.insert(newsItem)
-                        cell.newsImageView.hidden = true
-                    }
-                } else {
-                    print("Retrieving image from server \(newsItem.title)")
-                    cell.newsImageView.startActivityIndicator()
-                    BubblaUrlService().imageFromUrl(imageUrl) { response in
-                        NSOperationQueue.mainQueue().addOperationWithBlock {
-                            switch response {
-                            case .Success(let image):
-                                self.images[newsItem] = image
-                                if let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? NewsItemTableViewCell {
-                                    cell.newsImageView.hidden = false
-                                    cell.newsImageView.image = image
-                                    tableView.reloadData()
-                                }
-                            case .Error:
-                                self.bubblaNewsWithFailedImages.insert(newsItem)
-                                if let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? NewsItemTableViewCell {
-                                    cell.newsImageView.hidden = true
-                                    tableView.reloadData()
-                                }
+        
+        if let imageUrl = newsItem.ogImageUrl where !self.bubblaNewsWithFailedImages.contains(newsItem) {
+            if let image = imageForNewsItem[newsItem] ?? UIImage(data: NSURLCache.sharedURLCache().cachedResponseForRequest(NSURLRequest(URL: imageUrl))?.data ?? NSData()) {
+                //                    print("Used cached response \(newsItem.id)")
+                cell.newsImageView.hidden = false
+                cell.newsImageView.image = image
+            } else {
+                print("Retrieving image from server \(newsItem.title)")
+                cell.newsImageView.startActivityIndicator()
+                BubblaUrlService().imageFromUrl(imageUrl) { response in
+                    NSOperationQueue.mainQueue().addOperationWithBlock {
+                        switch response {
+                        case .Success(let image):
+                            if let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? NewsItemTableViewCell {
+                                self.imageForNewsItem[newsItem] = image
+                                cell.newsImageView.hidden = false
+                                cell.newsImageView.image = image
+                                cell.stackView.layoutIfNeeded()
+                                tableView.reloadData()
                             }
-                            cell.newsImageView.stopActivityIndicator()
+                        case .Error:
+                            self.bubblaNewsWithFailedImages.insert(newsItem)
+                            if let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? NewsItemTableViewCell {
+                                cell.newsImageView.hidden = true
+                                tableView.reloadData()
+                            }
                         }
+                        cell.newsImageView.stopActivityIndicator()
                     }
                 }
-            } else {
-                cell.newsImageView.hidden = true
             }
+        } else {
+            cell.newsImageView.hidden = true
         }
         
         return cell
@@ -255,6 +237,7 @@ extension NewsTableViewController: UIViewControllerPreviewingDelegate {
 
 extension NewsTableViewController: UISearchBarDelegate {
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        updateNewsItems()
         tableView.reloadData()
     }
 }

@@ -6,13 +6,13 @@ class CategoryTableViewController: UITableViewController, UISplitViewControllerD
     var categories = [[String]]()
     var categoryTypes = [String]()
     
+    static let recentString = "Senaste"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: "refresh:", forControlEvents: .ValueChanged)
         refresh()
-        
         
         performSegueWithIdentifier("NewsSegue", sender: self)
         splitViewController?.maximumPrimaryColumnWidth = 350
@@ -21,7 +21,6 @@ class CategoryTableViewController: UITableViewController, UISplitViewControllerD
     
     func refresh(refreshControl: UIRefreshControl? = nil) {
         refreshControl?.beginRefreshing()
-        
         BubblaApi.newsForCategory(nil) { response in
             NSOperationQueue.mainQueue().addOperationWithBlock {
                 switch response {
@@ -32,7 +31,7 @@ class CategoryTableViewController: UITableViewController, UISplitViewControllerD
                     for categoryType in categoryTypes {
                         categories.append(Array(Set(newsItems.filter({ $0.categoryType == categoryType }).map({ $0.category}))).sort())
                     }
-                    self.categories = [["Senaste"]] + categories
+                    self.categories = [[CategoryTableViewController.recentString]] + categories
                     self.categoryTypes = [""] + categoryTypes
                     self.tableView.reloadData()
                     
@@ -71,8 +70,6 @@ class CategoryTableViewController: UITableViewController, UISplitViewControllerD
         deselectSelectedCell()
     }
     
-    var selectedCategory: String?
-    
     // MARK: - Table view data source
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -97,16 +94,15 @@ class CategoryTableViewController: UITableViewController, UISplitViewControllerD
         return cell
     }
     
-    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let viewController = segue.destinationViewController as? NewsTableViewController {
             viewController.categoryTableViewController = self
-            let category: String?
+            let category: String
             if let indexPath = tableView.indexPathForSelectedRow {
                 category = categories[indexPath.section][indexPath.row]
                 tableView.deselectRowAtIndexPath(indexPath, animated: false)
             } else {
-                category = nil
+                category = CategoryTableViewController.recentString
             }
             viewController.category = category
             _BubblaApi.selectedCategory = category

@@ -6,4 +6,5 @@ class NewsItemTableViewCell: UITableViewCell {
     @IBOutlet weak var urlLabel: UILabel!
     @IBOutlet weak var unreadIndicator: UILabel!
     @IBOutlet weak var newsImageView: UIImageView!
+    @IBOutlet weak var stackView: UIStackView!
 }
