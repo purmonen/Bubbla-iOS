@@ -228,4 +228,23 @@ extension NewsTableViewController: UISearchBarDelegate {
         showEmptyMessageIfNeeded()
         tableView.reloadData()
     }
+    
+    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+    
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        searchBar.text = nil
+        searchBar.resignFirstResponder()
+        self.searchBar(searchBar, textDidChange: "")
+    }
+    
+    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
+    }
+    
+    func searchBarTextDidEndEditing(searchBar: UISearchBar) {
+        searchBar.showsCancelButton = !(searchBar.text ?? "").isEmpty
+    }
 }
