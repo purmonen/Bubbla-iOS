@@ -127,7 +127,7 @@ class NewsTableViewController: UITableViewController {
         cell.unreadIndicator.hidden = newsItem.isRead
         cell.newsImageView.image = nil
         
-        if let imageUrl = newsItem.ogImageUrl where !self.bubblaNewsWithFailedImages.contains(newsItem) {
+        if let imageUrl = newsItem.imageUrl where !self.bubblaNewsWithFailedImages.contains(newsItem) {
             if let image = imageForNewsItem[newsItem] ?? UIImage(data: NSURLCache.sharedURLCache().cachedResponseForRequest(NSURLRequest(URL: imageUrl))?.data ?? NSData()) {
                 //                    print("Used cached response \(newsItem.id)")
                 cell.newsImageView.hidden = false

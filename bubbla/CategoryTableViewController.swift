@@ -27,7 +27,7 @@ class CategoryTableViewController: UITableViewController, UISplitViewControllerD
                     self.showEmptyMessage(false, message: "")
                     let categories = BubblaNews.categoriesWithTypesFromNewsItems(newsItems)
                     self.categories = [(categoryType: "", categories: [CategoryTableViewController.recentString])] + categories
-                    self.tableView.reloadData()
+                    self.tableView.reloadData()                    
                 case .Error(let error):
                     if self.categories.isEmpty {
                         let errorMessage = (error as NSError).localizedDescription
@@ -98,7 +98,10 @@ class CategoryTableViewController: UITableViewController, UISplitViewControllerD
             }
             viewController.category = category
             _BubblaApi.selectedCategory = category
-            
+        }
+        
+        if let viewController = segue.destinationViewController as? PushNotificationsTableViewController {
+            viewController.categories = Array(Set(categories.flatMap { $0.categories })).sort()
         }
     }
 }

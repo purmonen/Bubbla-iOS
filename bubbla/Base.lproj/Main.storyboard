@@ -73,13 +73,13 @@
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="oCm-5l-K5U">
                                             <rect key="frame" x="40" y="10" width="545" height="400"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="255" misplaced="YES" image="bitcoin" translatesAutoresizingMaskIntoConstraints="NO" id="Shu-j1-TZb">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="255" image="bitcoin" translatesAutoresizingMaskIntoConstraints="NO" id="Shu-j1-TZb">
                                                     <rect key="frame" x="0.0" y="0.0" width="545" height="150"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" priority="999" constant="150" id="wDB-MX-iav"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="240" misplaced="YES" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KBr-uf-4Y9">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="240" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KBr-uf-4Y9">
                                                     <rect key="frame" x="0.0" y="153" width="545" height="205"/>
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -143,7 +143,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hA6-z8-LJF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2237" y="165"/>
+            <point key="canvasLocation" x="2601" y="425"/>
         </scene>
         <!--Kategorier-->
         <scene sceneID="8eY-vD-RO7">
@@ -195,7 +195,13 @@
                             <outlet property="delegate" destination="8DA-C5-Mrp" id="7Nn-4P-eaZ"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Kategorier" id="adX-yG-SyI"/>
+                    <navigationItem key="navigationItem" title="Kategorier" id="adX-yG-SyI">
+                        <barButtonItem key="rightBarButtonItem" image="cog" id="YFl-an-NAU">
+                            <connections>
+                                <segue destination="afc-LO-RBg" kind="show" action="showDetailViewController:sender:" id="7tx-rh-C0T"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <segue destination="B2L-xe-bur" kind="show" identifier="NewsSegue" animates="NO" id="Uic-3g-ps3"/>
                     </connections>
@@ -203,6 +209,56 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="odL-nd-RUe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1932" y="-493"/>
+        </scene>
+        <!--Pushnotiser-->
+        <scene sceneID="h6V-fG-thn">
+            <objects>
+                <tableViewController title="Pushnotiser" id="afc-LO-RBg" customClass="PushNotificationsTableViewController" customModule="Bubbla" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="tCP-7D-DSb">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="PushNotificationTableViewCell" id="x0O-YN-BQj" customClass="PushNotificationTableViewCell" customModule="Bubbla" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="x0O-YN-BQj" id="tU4-hi-MZS">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ekonomi" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RKO-Ou-cDk">
+                                            <rect key="frame" x="15" y="11" width="66" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fZl-Pk-vzi">
+                                            <rect key="frame" x="536" y="6" width="51" height="31"/>
+                                        </switch>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="RKO-Ou-cDk" firstAttribute="centerY" secondItem="tU4-hi-MZS" secondAttribute="centerY" id="4b0-Rk-XDs"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="fZl-Pk-vzi" secondAttribute="trailing" id="9yc-Sh-hZB"/>
+                                        <constraint firstItem="fZl-Pk-vzi" firstAttribute="centerY" secondItem="tU4-hi-MZS" secondAttribute="centerY" id="J08-Gc-dYG"/>
+                                        <constraint firstItem="fZl-Pk-vzi" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="RKO-Ou-cDk" secondAttribute="trailing" constant="8" id="gYY-bc-YiK"/>
+                                        <constraint firstItem="RKO-Ou-cDk" firstAttribute="leading" secondItem="tU4-hi-MZS" secondAttribute="leadingMargin" id="pPJ-wm-iDG"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="allowPushNotificationsSwitch" destination="fZl-Pk-vzi" id="qHh-zr-Udg"/>
+                                    <outlet property="categoryLabel" destination="RKO-Ou-cDk" id="vBI-A6-4nB"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="afc-LO-RBg" id="2Vj-03-e7t"/>
+                            <outlet property="delegate" destination="afc-LO-RBg" id="2fO-6d-ole"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oCR-vy-pWM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2632" y="-483"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="KGk-aC-aQd">
@@ -243,6 +299,7 @@
     </scenes>
     <resources>
         <image name="bitcoin" width="1024" height="585"/>
+        <image name="cog" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Uic-3g-ps3"/>

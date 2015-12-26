@@ -7,7 +7,7 @@ public struct BubblaNews: Hashable {
     let category: String
     let categoryType: String
     let id: Int
-    let ogImageUrl: NSURL?
+    let imageUrl: NSURL?
     
     public var hashValue: Int { return id }
     
@@ -49,6 +49,7 @@ public func ==(x: BubblaNews, y: BubblaNews) -> Bool {
 
 public protocol UrlService {
     func dataFromUrl(url: NSURL, callback: Response<NSData> -> Void)
+    func dataFromUrl(url: NSURL, body: NSData, callback: Response<NSData> -> Void)
 }
 
 extension UrlService {
@@ -94,6 +95,27 @@ class BubblaUrlService: UrlService {
         }
         dataTask.resume()
     }
+    
+    func dataFromUrl(url: NSURL, body: NSData, callback: Response<NSData> -> Void) {
+        let session = NSURLSession.sharedSession()
+        let request = NSMutableURLRequest(URL: url)
+        request.HTTPBody = body
+        request.HTTPMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let dataTask = session.dataTaskWithRequest(request) {
+            (data, response, error) in
+            if let data = data {
+                callback(.Success(data))
+            } else if let error = error {
+                callback(.Error(error))
+            } else {
+                callback(.Error(NSError(domain: "dataFromUrl", code: 1337, userInfo: nil)))
+            }
+        }
+        dataTask.resume()
+    }
+
 }
 
 let BubblaApi = _BubblaApi(urlService: BubblaUrlService())
@@ -130,16 +152,22 @@ class _BubblaApi {
         }
     }
     
-    func registerDevice(deviceToken: String, callback: Response<Void> -> Void) {
-        urlService.dataFromUrl(NSURL(string: "\(serverUrl.absoluteString)/registerDevice?token=\(deviceToken)")!) {
+    func registerDevice(deviceToken: String, excludeCategories categories: [String], callback: Response<Void> -> Void) {
+        do {
+        let json = ["token": deviceToken, "exludedCategories": categories]
+        let body = try NSJSONSerialization.dataWithJSONObject(json, options: [])
+        urlService.dataFromUrl(serverUrl.URLByAppendingPathComponent("registerDevice"), body: body) {
             print($0)
             callback($0.map( {_ in return }))
         }
+        } catch {
+            print(error)
+        }
     }
     
-//    let serverUrl = NSURL(string: "http://192.168.1.84:8001")!
+    let serverUrl = NSURL(string: "http://192.168.1.84:8001")!
     
-    let serverUrl = NSURL(string: "http://54.93.109.96:8001")!
+//    let serverUrl = NSURL(string: "http://54.93.109.96:8001")!
     
     func newsForCategory(category: String?, callback: Response<[BubblaNews]> -> Void) {
         urlService.jsonFromUrl(serverUrl.URLByAppendingPathComponent("news")) {
@@ -155,9 +183,9 @@ class _BubblaApi {
                             let publicationDateTimestamp = item["publicationDate"] as? NSTimeInterval,
                             let id = item["id"] as? Int {
                                 let publicationDate = NSDate(timeIntervalSince1970: publicationDateTimestamp)
-                                let ogImageUrlString = item["ogImageUrl"] as? String
+                                let ogImageUrlString = item["imageUrl"] as? String
                                 let ogImageUrl: NSURL? = ogImageUrlString != nil ? NSURL(string: ogImageUrlString!)! : nil
-                                newsItems.append(BubblaNews(title: title, url: url, publicationDate: publicationDate, category: category, categoryType: categoryType, id: id, ogImageUrl: ogImageUrl))
+                                newsItems.append(BubblaNews(title: title, url: url, publicationDate: publicationDate, category: category, categoryType: categoryType, id: id, imageUrl: ogImageUrl))
                         }
                     }
                 }
