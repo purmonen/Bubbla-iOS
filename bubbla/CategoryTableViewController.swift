@@ -48,6 +48,8 @@ class CategoryTableViewController: UITableViewController, UISplitViewControllerD
         return true
     }
     
+    @IBAction func unwind(segue: UIStoryboardSegue) {}
+    
     func noNewsChosenViewController() -> UIViewController {
         return storyboard!.instantiateViewControllerWithIdentifier("NoNewsChosenViewController")
     }
@@ -99,8 +101,9 @@ class CategoryTableViewController: UITableViewController, UISplitViewControllerD
             viewController.category = category
             _BubblaApi.selectedCategory = category
         }
-        
-        if let viewController = segue.destinationViewController as? PushNotificationsTableViewController {
+
+        if let navigationController = segue.destinationViewController as? UINavigationController,
+            let viewController = navigationController.childViewControllers.first as? PushNotificationsTableViewController {
             viewController.categories = Array(Set(categories.flatMap { $0.categories })).sort()
         }
     }
