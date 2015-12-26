@@ -542,7 +542,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "159"
             endingLineNumber = "159"
-            landmarkName = "registerDevice(_:excludedCategories:callback:)"
+            landmarkName = "registerDevice(_:excludeCategories:callback:)"
             landmarkType = "5">
             <Locations>
                <Location
@@ -590,7 +590,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "160"
             endingLineNumber = "160"
-            landmarkName = "registerDevice(_:excludedCategories:callback:)"
+            landmarkName = "registerDevice(_:excludeCategories:callback:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -811,7 +811,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "157"
             endingLineNumber = "157"
-            landmarkName = "registerDevice(_:excludedCategories:callback:)"
+            landmarkName = "registerDevice(_:excludeCategories:callback:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -827,7 +827,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "164"
             endingLineNumber = "164"
-            landmarkName = "registerDevice(_:excludedCategories:callback:)"
+            landmarkName = "registerDevice(_:excludeCategories:callback:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
