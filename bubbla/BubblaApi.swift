@@ -8,6 +8,8 @@ public struct BubblaNews: Hashable {
     let categoryType: String
     let id: Int
     let imageUrl: NSURL?
+    let facebookUrl: NSURL?
+    let twitterUrl: NSURL?
     
     public var hashValue: Int { return id }
     
@@ -183,9 +185,16 @@ class _BubblaApi {
                             let publicationDateTimestamp = item["publicationDate"] as? NSTimeInterval,
                             let id = item["id"] as? Int {
                                 let publicationDate = NSDate(timeIntervalSince1970: publicationDateTimestamp)
-                                let ogImageUrlString = item["imageUrl"] as? String
-                                let ogImageUrl: NSURL? = ogImageUrlString != nil ? NSURL(string: ogImageUrlString!)! : nil
-                                newsItems.append(BubblaNews(title: title, url: url, publicationDate: publicationDate, category: category, categoryType: categoryType, id: id, imageUrl: ogImageUrl))
+                                let imageUrlString = item["imageUrl"] as? String
+                                let imageUrl: NSURL? = imageUrlString != nil ? NSURL(string: imageUrlString!)! : nil
+                                
+                                let facebookUrlString = item["facebookUrl"] as? String
+                                let facebookUrl: NSURL? = facebookUrlString != nil ? NSURL(string: facebookUrlString!)! : nil
+                                
+                                let twitterUrlString = item["twitterUrl"] as? String
+                                let twitterUrl: NSURL? = twitterUrlString != nil ? NSURL(string: twitterUrlString!)! : nil
+                                
+                                newsItems.append(BubblaNews(title: title, url: url, publicationDate: publicationDate, category: category, categoryType: categoryType, id: id, imageUrl: imageUrl, facebookUrl: facebookUrl, twitterUrl: twitterUrl))
                         }
                     }
                 }

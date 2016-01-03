@@ -116,7 +116,16 @@ class NewsTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("NewsItemTableViewCell", forIndexPath: indexPath) as! NewsItemTableViewCell
+        
+        
+
         let newsItem = newsItems[indexPath.row]
+        cell.newsItem = newsItem
+        
+        
+        cell.facebookButton.hidden = newsItem.facebookUrl == nil
+//        cell.twitterButton.hidden = newsItem.facebookUrl == nil || newsItem.twitterUrl == nil
+        
         cell.titleLabel.text = newsItem.title
         
         let dateFormatter = NSDateFormatter()
