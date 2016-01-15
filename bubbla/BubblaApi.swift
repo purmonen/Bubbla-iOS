@@ -13,6 +13,21 @@ public struct BubblaNews: Hashable {
     
     public var hashValue: Int { return id }
     
+    
+    var facebookPostUrl: NSURL? {
+        if let facebookUrl = facebookUrl,
+            let path = facebookUrl.absoluteString.componentsSeparatedByString("/").last {
+                let pageIdAndPostIdSplit = path.componentsSeparatedByString("_")
+                if  pageIdAndPostIdSplit.count == 2 {
+                    let pageId = pageIdAndPostIdSplit[0]
+                    let postId = pageIdAndPostIdSplit[1]
+                    facebookUrl.absoluteString.componentsSeparatedByString("/").last
+                    return NSURL(string: "https://www.facebook.com/\(pageId)/posts/\(postId)")!
+                }
+        }
+        return nil
+    }
+    
     public var isRead: Bool {
         get {
             return _BubblaApi.readNewsItemIds.contains(id)
@@ -63,7 +78,7 @@ extension UrlService {
                     return .Success(image)
                 }
                 return .Error(NSError(domain: "imageFromUrl", code: 1337, userInfo: nil))
-            })
+                })
         }
     }
     
@@ -75,10 +90,10 @@ extension UrlService {
                 } catch {
                     return .Error(error)
                 }
-            })
+                })
         }
     }
-
+    
 }
 
 class BubblaUrlService: UrlService {
@@ -117,7 +132,7 @@ class BubblaUrlService: UrlService {
         }
         dataTask.resume()
     }
-
+    
 }
 
 let BubblaApi = _BubblaApi(urlService: BubblaUrlService())
@@ -146,7 +161,7 @@ class _BubblaApi {
     
     class var selectedCategory: String? {
         get {
-            return NSUserDefaults.standardUserDefaults()["selectedCategory"] as? String
+        return NSUserDefaults.standardUserDefaults()["selectedCategory"] as? String
         }
         
         set {
@@ -156,18 +171,18 @@ class _BubblaApi {
     
     func registerDevice(deviceToken: String, excludeCategories categories: [String], callback: Response<Void> -> Void) {
         do {
-        let json = ["token": deviceToken, "excludedCategories": categories]
-        let body = try NSJSONSerialization.dataWithJSONObject(json, options: [])
-        urlService.dataFromUrl(serverUrl.URLByAppendingPathComponent("registerDevice"), body: body) {
-            print($0)
-            callback($0.map( {_ in return }))
-        }
+            let json = ["token": deviceToken, "excludedCategories": categories]
+            let body = try NSJSONSerialization.dataWithJSONObject(json, options: [])
+            urlService.dataFromUrl(serverUrl.URLByAppendingPathComponent("registerDevice"), body: body) {
+                print($0)
+                callback($0.map( {_ in return }))
+            }
         } catch {
             print(error)
         }
     }
     
-//    let serverUrl = NSURL(string: "http://192.168.1.84:8001")!
+    //    let serverUrl = NSURL(string: "http://192.168.1.84:8001")!
     
     let serverUrl = NSURL(string: "http://54.93.109.96:8001")!
     
@@ -199,7 +214,7 @@ class _BubblaApi {
                     }
                 }
                 return .Success(newsItems.filter { $0.category == category || category == nil })
-            })
+                })
         }
     }
 }

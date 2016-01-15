@@ -118,13 +118,13 @@ class NewsTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("NewsItemTableViewCell", forIndexPath: indexPath) as! NewsItemTableViewCell
         
         
-
+        
         let newsItem = newsItems[indexPath.row]
         cell.newsItem = newsItem
         
         
         cell.facebookButton.hidden = newsItem.facebookUrl == nil
-//        cell.twitterButton.hidden = newsItem.facebookUrl == nil || newsItem.twitterUrl == nil
+        //        cell.twitterButton.hidden = newsItem.facebookUrl == nil || newsItem.twitterUrl == nil
         
         cell.titleLabel.text = newsItem.title
         
@@ -136,6 +136,8 @@ class NewsTableViewController: UITableViewController {
         cell.unreadIndicator.hidden = newsItem.isRead
         cell.newsImageView.image = nil
         cell.newsImageView.hidden = newsItem.imageUrl == nil
+        cell.facebookButton.addTarget(self, action: "facebookButtonClicked:", forControlEvents: .TouchUpInside)
+        cell.facebookButton.tag = indexPath.row
         
         if let imageUrl = newsItem.imageUrl where !self.bubblaNewsWithFailedImages.contains(newsItem) {
             if let image = imageForNewsItem[newsItem] ?? UIImage(data: NSURLCache.sharedURLCache().cachedResponseForRequest(NSURLRequest(URL: imageUrl))?.data ?? NSData()) {
@@ -168,6 +170,13 @@ class NewsTableViewController: UITableViewController {
         return cell
     }
     
+    func facebookButtonClicked(sender: AnyObject) {
+        if let row = sender.tag,
+            let facebookPostUrl = newsItems[row].facebookPostUrl {
+                    presentViewController(safariViewControllerForUrl(facebookPostUrl))
+        }
+    }
+    
     override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 200
     }
@@ -184,13 +193,18 @@ class NewsTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         newsForIndexPath(indexPath, isRead: true)
-        let safariViewController = safariViewControllerForIndexPath(indexPath)
+        presentViewController(safariViewControllerForIndexPath(indexPath))
+    }
+    
+    
+    func presentViewController(viewController: UIViewController) {
         if splitViewController!.collapsed {
-            presentViewController(safariViewController, animated: true, completion: nil)
+            presentViewController(viewController, animated: true, completion: nil)
         } else {
-            splitViewController?.showDetailViewController(safariViewController, sender: self)
+            splitViewController?.showDetailViewController(viewController, sender: self)
         }
     }
+    
     override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         var newsItem = newsItems[indexPath.row]
         return [UITableViewRowAction(style: UITableViewRowActionStyle.Normal, title: newsItem.isRead ? "Oläst" : "Läst") {
@@ -200,11 +214,19 @@ class NewsTableViewController: UITableViewController {
             }]
     }
     
-    func safariViewControllerForIndexPath(indexPath: NSIndexPath) -> UIViewController {
-        let viewController = SFSafariViewController(URL: newsItems[indexPath.row].url, entersReaderIfAvailable: true)
+    func safariViewControllerForUrl(url: NSURL) -> UIViewController {
+        let viewController = SFSafariViewController(URL: url, entersReaderIfAvailable: true)
         viewController.delegate = categoryTableViewController
         viewController.view.tintColor = pinkColor
         return viewController
+    }
+    
+    func safariViewControllerForIndexPath(indexPath: NSIndexPath) -> UIViewController {
+        return safariViewControllerForUrl(newsItems[indexPath.row].url)
+    }
+    
+    func facebookSafariViewControllerForIndexPath(indexPath: NSIndexPath) -> UIViewController? {
+        return safariViewControllerForUrl(newsItems[indexPath.row].url)
     }
     
     func showEmptyMessageIfNeeded() {

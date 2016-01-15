@@ -1,4 +1,5 @@
 import UIKit
+import SafariServices
 
 class NewsItemTableViewCell: UITableViewCell {
     
@@ -17,7 +18,16 @@ class NewsItemTableViewCell: UITableViewCell {
 //            UIApplication.sharedApplication().openURL(facebookUrl)
 //            facebookUrl.absoluteString.split
 //            UIApplication.sharedApplication().openURL(NSURL(string: "https://www.facebook.com/nyhetsbubbla/posts/504457646401499:0")!)
-                UIApplication.sharedApplication().openURL(NSURL(string: "https://www.facebook.com/nyhetsbubbla/posts/\(postId)")!)
+//                
+//                let facebookPostUrl = NSURL(string: "https://www.facebook.com/nyhetsbubbla/posts/\(postId)")!
+//                let safariViewController = SFSafariViewController(URL: facebookPostUrl)
+//                presentViewController(safariViewController, animated: true, completion: nil)
+//                if splitViewController!.collapsed {
+//                    presentViewController(safariViewController, animated: true, completion: nil)
+//                } else {
+//                    splitViewController?.showDetailViewController(safariViewController, sender: self)
+//                }
+//                UIApplication.sharedApplication().openURL(NSURL(string: "https://www.facebook.com/nyhetsbubbla/posts/\(postId)")!)
         }
     }
     
