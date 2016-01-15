@@ -409,23 +409,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BubblaTests/BubblaTests.swift"
-            timestampString = "472577714.043525"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
-            landmarkName = "testNewsFromServer()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BubblaTests/BubblaTests.swift"
-            timestampString = "472577714.043525"
+            timestampString = "474576544.184432"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "42"
@@ -441,11 +425,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BubblaTests/BubblaTests.swift"
-            timestampString = "472579852.700783"
+            timestampString = "474576544.184432"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "58"
-            endingLineNumber = "58"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
             landmarkName = "testNewsFromServer()"
             landmarkType = "5">
          </BreakpointContent>
@@ -457,11 +441,27 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BubblaTests/BubblaTests.swift"
-            timestampString = "472579852.700783"
+            timestampString = "474576544.184432"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "63"
-            endingLineNumber = "63"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
+            landmarkName = "testNewsFromServer()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BubblaTests/BubblaTests.swift"
+            timestampString = "474576544.184432"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
             landmarkName = "testNewsFromServer()"
             landmarkType = "5">
          </BreakpointContent>

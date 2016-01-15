@@ -12,7 +12,7 @@ class BubblaTests: XCTestCase {
     }
     
     func testBubblaNews() {
-        var news1 = BubblaNews(title: "", url: NSURL(string: "http://google.com")!, publicationDate: NSDate(), category: "Världen", categoryType: "Geografiskt område", id: 0, ogImageUrl: nil)
+        var news1 = BubblaNews(title: "", url: NSURL(string: "http://google.com")!, publicationDate: NSDate(), category: "Världen", categoryType: "Geografiskt område", id: 0, imageUrl: nil, facebookUrl: nil, twitterUrl: nil)
         assert(!news1.isRead)
         news1.isRead = true
         assert(news1.isRead)
@@ -28,6 +28,8 @@ class BubblaTests: XCTestCase {
                 let data = NSData(contentsOfURL: NSBundle(forClass: self.dynamicType).URLForResource("news", withExtension: "json")!)!
                 callback(.Success(data))
             }
+            
+            func dataFromUrl(url: NSURL, body: NSData, callback: Response<NSData> -> Void) {}
         }
         
         let expectation = expectationWithDescription("Url Service")
@@ -40,7 +42,7 @@ class BubblaTests: XCTestCase {
                 XCTAssert(firstItem.category == "Sverige")
                 XCTAssert(firstItem.url == NSURL(string: "http://mitti.se/520-lagenheter-stoppas/"))
                 XCTAssert(firstItem.id == 204375)
-                XCTAssert(firstItem.ogImageUrl == NSURL(string: "http://images.mitti.se/np/178395/512"))
+                XCTAssert(firstItem.imageUrl == NSURL(string: "http://images.mitti.se/np/178395/512"))
                 XCTAssert(firstItem.domain == "mitti.se")
                 
                 

@@ -81,33 +81,33 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="240" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KBr-uf-4Y9">
-                                                    <rect key="frame" x="0.0" y="153" width="38" height="172"/>
+                                                    <rect key="frame" x="0.0" y="153" width="38" height="167"/>
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="daT-PT-zQ9">
-                                                    <rect key="frame" x="0.0" y="328" width="37" height="18"/>
+                                                    <rect key="frame" x="0.0" y="323" width="37" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                                     <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O1x-WM-aIe">
-                                                    <rect key="frame" x="0.0" y="349" width="37" height="18"/>
+                                                    <rect key="frame" x="0.0" y="344" width="37" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                                     <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="O13-FW-JqE">
-                                                    <rect key="frame" x="0.0" y="370" width="30" height="30"/>
+                                                    <rect key="frame" x="0.0" y="365" width="35" height="35"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bEj-c3-1OJ">
-                                                            <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="40" id="1Pc-cp-Tsq"/>
                                                                 <constraint firstAttribute="width" secondItem="bEj-c3-1OJ" secondAttribute="height" multiplier="545:128" id="LYf-J2-tgp"/>
                                                                 <constraint firstAttribute="width" secondItem="bEj-c3-1OJ" secondAttribute="height" multiplier="1:1" id="MGh-Xo-L6o"/>
-                                                                <constraint firstAttribute="height" constant="30" id="Q6M-Ps-hmk"/>
+                                                                <constraint firstAttribute="height" constant="35" id="Q6M-Ps-hmk"/>
                                                                 <constraint firstAttribute="width" secondItem="bEj-c3-1OJ" secondAttribute="height" multiplier="1:1" id="Xz6-Zz-rk4"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
