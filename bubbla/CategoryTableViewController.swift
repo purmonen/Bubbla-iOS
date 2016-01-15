@@ -7,6 +7,8 @@ class CategoryTableViewController: UITableViewController, UISplitViewControllerD
     
     static let recentString = "Senaste"
     
+    static let topNewsString = "Toppnyheter"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         refreshControl = UIRefreshControl()
@@ -26,7 +28,7 @@ class CategoryTableViewController: UITableViewController, UISplitViewControllerD
                 case .Success(let newsItems):
                     self.showEmptyMessage(false, message: "")
                     let categories = BubblaNews.categoriesWithTypesFromNewsItems(newsItems)
-                    self.categories = [(categoryType: "", categories: [CategoryTableViewController.recentString])] + categories
+                    self.categories = [(categoryType: "", categories: [CategoryTableViewController.recentString, CategoryTableViewController.topNewsString])] + categories
                     self.tableView.reloadData()                    
                 case .Error(let error):
                     if self.categories.isEmpty {

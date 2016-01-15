@@ -64,7 +64,7 @@ class NewsTableViewController: UITableViewController {
     
     func refresh(refreshControl: UIRefreshControl? = nil) {
         refreshControl?.beginRefreshing()
-        BubblaApi.newsForCategory(category == "Senaste" ? nil : category) {
+        BubblaApi.newsForCategory(category == CategoryTableViewController.recentString || category == CategoryTableViewController.topNewsString  ? nil : category) {
             response in
             NSOperationQueue.mainQueue().addOperationWithBlock {
                 switch response {
@@ -72,7 +72,7 @@ class NewsTableViewController: UITableViewController {
                     self.searchBar.hidden = false
                     self.showEmptyMessage(false, message: "")
                     let oldItems = self.newsItems
-                    self.newsItems = SearchableList(items: Array(Set(newsItems)).sort { $1.publicationDate < $0.publicationDate })
+                    self.newsItems = SearchableList(items: Array(Set(newsItems)).sort { $1.publicationDate < $0.publicationDate }.filter { self.category !=  CategoryTableViewController.topNewsString || $0.facebookUrl != nil })
                     self.newsItems.updateFilteredItemsToMatchSearchText(self.searchBar.text ?? "")
                     if oldItems.isEmpty {
                         self.tableView.reloadData()
