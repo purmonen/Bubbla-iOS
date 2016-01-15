@@ -281,7 +281,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Pushnotiser" id="DNj-he-VkJ">
-                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="hkH-9o-rlh">
+                        <barButtonItem key="rightBarButtonItem" title="Klar" style="done" id="hkH-9o-rlh">
                             <connections>
                                 <segue destination="5fI-ov-TgO" kind="unwind" unwindAction="unwind:" id="yN6-cK-nQu"/>
                             </connections>
