@@ -81,9 +81,7 @@ class NewsTableViewController: UITableViewController {
                         self.tableView.updateFromItems(self.newsItems.map { $0.id }, oldItems: oldItems.map({ $0.id }))
                         
                     }
-                    if self.category == CategoryTableViewController.recentString {
-                        UIApplication.sharedApplication().applicationIconBadgeNumber = 0
-                    }
+                    UIApplication.sharedApplication().applicationIconBadgeNumber = 0
                     self.showEmptyMessageIfNeeded()
                 case .Error(let error):
                     if self.newsItems.isEmpty {
