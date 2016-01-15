@@ -12,8 +12,12 @@ class NewsItemTableViewCell: UITableViewCell {
     @IBOutlet weak var newsImageView: UIImageView!
     
     @IBAction func facebookButtonClicked(sender: AnyObject) {
-        if let facebookUrl = newsItem.facebookUrl {
-            UIApplication.sharedApplication().openURL(NSURL(string: "https://www.facebook.com/nyhetsbubbla")!)
+        if let facebookUrl = newsItem.facebookUrl,
+            let postId = facebookUrl.absoluteString.componentsSeparatedByString("_").last {
+//            UIApplication.sharedApplication().openURL(facebookUrl)
+//            facebookUrl.absoluteString.split
+//            UIApplication.sharedApplication().openURL(NSURL(string: "https://www.facebook.com/nyhetsbubbla/posts/504457646401499:0")!)
+                UIApplication.sharedApplication().openURL(NSURL(string: "https://www.facebook.com/nyhetsbubbla/posts/\(postId)")!)
         }
     }
     

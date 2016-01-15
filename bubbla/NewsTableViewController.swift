@@ -135,11 +135,10 @@ class NewsTableViewController: UITableViewController {
         cell.urlLabel.text = newsItem.domain
         cell.unreadIndicator.hidden = newsItem.isRead
         cell.newsImageView.image = nil
+        cell.newsImageView.hidden = newsItem.imageUrl == nil
         
         if let imageUrl = newsItem.imageUrl where !self.bubblaNewsWithFailedImages.contains(newsItem) {
             if let image = imageForNewsItem[newsItem] ?? UIImage(data: NSURLCache.sharedURLCache().cachedResponseForRequest(NSURLRequest(URL: imageUrl))?.data ?? NSData()) {
-                //                    print("Used cached response \(newsItem.id)")
-                cell.newsImageView.hidden = false
                 cell.newsImageView.image = image
             } else {
                 print("Retrieving image from server \(newsItem.title)")
@@ -150,15 +149,12 @@ class NewsTableViewController: UITableViewController {
                         case .Success(let image):
                             if let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? NewsItemTableViewCell {
                                 self.imageForNewsItem[newsItem] = image
-                                cell.newsImageView.hidden = false
                                 cell.newsImageView.image = image
-                                tableView.reloadData()
                             }
                         case .Error:
                             self.bubblaNewsWithFailedImages.insert(newsItem)
                             if let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? NewsItemTableViewCell {
                                 cell.newsImageView.hidden = true
-                                tableView.reloadData()
                             }
                         }
                         cell.newsImageView.stopActivityIndicator()
