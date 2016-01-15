@@ -114,50 +114,53 @@ class NewsTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("NewsItemTableViewCell", forIndexPath: indexPath) as! NewsItemTableViewCell
-        
-        
-        
         let newsItem = newsItems[indexPath.row]
         cell.newsItem = newsItem
-        
-        
         cell.facebookButton.hidden = newsItem.facebookUrl == nil
-        //        cell.twitterButton.hidden = newsItem.facebookUrl == nil || newsItem.twitterUrl == nil
-        
         cell.titleLabel.text = newsItem.title
         
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "dd MMMM, HH:mm"
         cell.publicationDateLabel.text = dateFormatter.stringFromDate(newsItem.publicationDate).capitalizedString
-        cell.publicationDateLabel.text = newsItem.publicationDate.readableString + (category == CategoryTableViewController.recentString ? " · \(newsItem.category)" : "")
+        
+        
+        let showCategory = category == CategoryTableViewController.recentString || category == CategoryTableViewController.topNewsString
+        cell.publicationDateLabel.text = newsItem.publicationDate.readableString + (showCategory ? " · \(newsItem.category)" : "")
         cell.urlLabel.text = newsItem.domain
         cell.unreadIndicator.hidden = newsItem.isRead
         cell.newsImageView.image = nil
         cell.newsImageView.hidden = newsItem.imageUrl == nil
-        cell.facebookButton.addTarget(self, action: "facebookButtonClicked:", forControlEvents: .TouchUpInside)
         cell.facebookButton.tag = indexPath.row
-        
+        cell.facebookButton.addTarget(self, action: "facebookButtonClicked:", forControlEvents: .TouchUpInside)
         if let imageUrl = newsItem.imageUrl where !self.bubblaNewsWithFailedImages.contains(newsItem) {
-            if let image = imageForNewsItem[newsItem] ?? UIImage(data: NSURLCache.sharedURLCache().cachedResponseForRequest(NSURLRequest(URL: imageUrl))?.data ?? NSData()) {
+            if let image = self.imageForNewsItem[newsItem] {
                 cell.newsImageView.image = image
             } else {
-                print("Retrieving image from server \(newsItem.title)")
-                cell.newsImageView.startActivityIndicator()
-                BubblaUrlService().imageFromUrl(imageUrl) { response in
-                    NSOperationQueue.mainQueue().addOperationWithBlock {
-                        switch response {
-                        case .Success(let image):
-                            if let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? NewsItemTableViewCell {
-                                self.imageForNewsItem[newsItem] = image
-                                cell.newsImageView.image = image
-                            }
-                        case .Error:
-                            self.bubblaNewsWithFailedImages.insert(newsItem)
-                            if let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? NewsItemTableViewCell {
-                                cell.newsImageView.hidden = true
+                NSOperationQueue().addOperationWithBlock {
+                    if let image = UIImage(data: NSURLCache.sharedURLCache().cachedResponseForRequest(NSURLRequest(URL: imageUrl))?.data ?? NSData()) {
+                        NSOperationQueue.mainQueue().addOperationWithBlock {
+                            cell.newsImageView.image = image
+                        }
+                    } else {
+                        print("Retrieving image from server \(newsItem.title)")
+                        //                cell.newsImageView.startActivityIndicator()
+                        BubblaUrlService().imageFromUrl(imageUrl) { response in
+                            NSOperationQueue.mainQueue().addOperationWithBlock {
+                                switch response {
+                                case .Success(let image):
+                                    if let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? NewsItemTableViewCell {
+                                        self.imageForNewsItem[newsItem] = image
+                                        cell.newsImageView.image = image
+                                    }
+                                case .Error:
+                                    self.bubblaNewsWithFailedImages.insert(newsItem)
+                                    if let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? NewsItemTableViewCell {
+                                        cell.newsImageView.hidden = true
+                                    }
+                                }
+                                //                        cell.newsImageView.stopActivityIndicator()
                             }
                         }
-                        cell.newsImageView.stopActivityIndicator()
                     }
                 }
             }
@@ -171,7 +174,7 @@ class NewsTableViewController: UITableViewController {
     func facebookButtonClicked(sender: AnyObject) {
         if let row = sender.tag,
             let facebookPostUrl = newsItems[row].facebookPostUrl {
-                    presentViewController(safariViewControllerForUrl(facebookPostUrl))
+                presentViewController(safariViewControllerForUrl(facebookPostUrl))
         }
     }
     
