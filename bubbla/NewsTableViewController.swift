@@ -174,7 +174,7 @@ class NewsTableViewController: UITableViewController {
     func facebookButtonClicked(sender: AnyObject) {
         if let row = sender.tag,
             let facebookPostUrl = newsItems[row].facebookPostUrl {
-                presentViewController(safariViewControllerForUrl(facebookPostUrl))
+                presentViewController(safariViewControllerForUrl(facebookPostUrl, entersReaderIfAvailable: false))
         }
     }
     
@@ -194,7 +194,7 @@ class NewsTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         newsForIndexPath(indexPath, isRead: true)
-        presentViewController(safariViewControllerForIndexPath(indexPath))
+        presentViewController(safariViewControllerForUrl(newsItems[indexPath.row].url, entersReaderIfAvailable: true))
     }
     
     
@@ -215,19 +215,11 @@ class NewsTableViewController: UITableViewController {
             }]
     }
     
-    func safariViewControllerForUrl(url: NSURL) -> UIViewController {
-        let viewController = SFSafariViewController(URL: url, entersReaderIfAvailable: true)
+    func safariViewControllerForUrl(url: NSURL, entersReaderIfAvailable: Bool) -> UIViewController {
+        let viewController = SFSafariViewController(URL: url, entersReaderIfAvailable: entersReaderIfAvailable)
         viewController.delegate = categoryTableViewController
         viewController.view.tintColor = pinkColor
         return viewController
-    }
-    
-    func safariViewControllerForIndexPath(indexPath: NSIndexPath) -> UIViewController {
-        return safariViewControllerForUrl(newsItems[indexPath.row].url)
-    }
-    
-    func facebookSafariViewControllerForIndexPath(indexPath: NSIndexPath) -> UIViewController? {
-        return safariViewControllerForUrl(newsItems[indexPath.row].url)
     }
     
     func showEmptyMessageIfNeeded() {
@@ -242,7 +234,7 @@ extension NewsTableViewController: UIViewControllerPreviewingDelegate {
                 let cell = tableView.cellForRowAtIndexPath(highlightedIndexPath) else  { return nil }
             previewingContext.sourceRect = cell.frame
             self.newsForIndexPath(highlightedIndexPath, isRead: true)
-            return safariViewControllerForIndexPath(highlightedIndexPath)
+            return safariViewControllerForUrl(newsItems[highlightedIndexPath.row].url, entersReaderIfAvailable: true)
     }
     
     func previewingContext(previewingContext: UIViewControllerPreviewing, commitViewController viewControllerToCommit: UIViewController) {
