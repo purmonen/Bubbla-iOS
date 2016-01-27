@@ -126,20 +126,9 @@ extension UIView {
         activityIndicator.frame = frame
         addSubview(activityIndicator)
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-
-//        activityIndicator.backgroundColor = UIColor.redColor()
-//        
         centerXAnchor.constraintEqualToAnchor(activityIndicator.centerXAnchor).active = true
         centerYAnchor.constraintEqualToAnchor(activityIndicator.centerYAnchor).active = true
-        
-//        activityIndicator.centerYAnchor.constraintEqualToAnchor(centerYAnchor)
-//        activityIndicator.widthAnchor.constraintEqualToAnchor(widthAnchor)
-        
-        
-//        activityIndicator.center = center
         activityIndicator.startAnimating()
-
-
         layoutIfNeeded()
         activityIndicator.tag = 1337
     }

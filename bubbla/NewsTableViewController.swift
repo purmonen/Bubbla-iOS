@@ -140,10 +140,14 @@ class NewsTableViewController: UITableViewController {
                     if let image = UIImage(data: NSURLCache.sharedURLCache().cachedResponseForRequest(NSURLRequest(URL: imageUrl))?.data ?? NSData()) {
                         NSOperationQueue.mainQueue().addOperationWithBlock {
                             cell.newsImageView.image = image
+
                         }
                     } else {
                         print("Retrieving image from server \(newsItem.title)")
-                        //                cell.newsImageView.startActivityIndicator()
+                        NSOperationQueue.mainQueue().addOperationWithBlock {
+                            cell.newsImageView.startActivityIndicator()
+                            cell.newsImageView.image = UIImage(named: "blank")
+                        }
                         BubblaUrlService().imageFromUrl(imageUrl) { response in
                             NSOperationQueue.mainQueue().addOperationWithBlock {
                                 switch response {
@@ -158,7 +162,7 @@ class NewsTableViewController: UITableViewController {
                                         cell.newsImageView.hidden = true
                                     }
                                 }
-                                //                        cell.newsImageView.stopActivityIndicator()
+                                cell.newsImageView.stopActivityIndicator()
                             }
                         }
                     }
