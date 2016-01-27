@@ -21,8 +21,7 @@ public struct BubblaNews: Hashable {
                 if  pageIdAndPostIdSplit.count == 2 {
                     let pageId = pageIdAndPostIdSplit[0]
                     let postId = pageIdAndPostIdSplit[1]
-                    facebookUrl.absoluteString.componentsSeparatedByString("/").last
-                    return NSURL(string: "https://www.facebook.com/\(pageId)/posts/\(postId)")!
+                    return NSURL(string: "https://www.facebook.com/\(pageId)/posts/\(postId)")
                 }
         }
         return nil
