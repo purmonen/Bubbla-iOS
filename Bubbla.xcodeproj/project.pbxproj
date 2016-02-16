@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		260634AB1C73E4B7006B36BD /* NewsSourceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 260634AA1C73E4B7006B36BD /* NewsSourceTableViewController.swift */; };
 		260DDA261BD59AE700E3DC5F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 260DDA251BD59AE700E3DC5F /* AppDelegate.swift */; };
 		260DDA2B1BD59AE700E3DC5F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 260DDA291BD59AE700E3DC5F /* Main.storyboard */; };
 		260DDA2D1BD59AE700E3DC5F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 260DDA2C1BD59AE700E3DC5F /* Assets.xcassets */; };
@@ -46,6 +47,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		260634AA1C73E4B7006B36BD /* NewsSourceTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsSourceTableViewController.swift; sourceTree = "<group>"; };
 		260DDA221BD59AE700E3DC5F /* Bubbla.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bubbla.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		260DDA251BD59AE700E3DC5F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		260DDA2A1BD59AE700E3DC5F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 				260DDA421BD5A4F100E3DC5F /* NewsItemTableViewCell.swift */,
 				26254AD41C2DA37D0041776E /* PushNotificationsTableViewController.swift */,
 				26254AD61C2DA3920041776E /* PushNotificationTableViewCell.swift */,
+				260634AA1C73E4B7006B36BD /* NewsSourceTableViewController.swift */,
 				26A9A54D1BDE7BCC00140E67 /* CategoryTableViewController.swift */,
 				26C4AF9D1C0E8B670027379A /* CategoryTableViewCell.swift */,
 				260DDA291BD59AE700E3DC5F /* Main.storyboard */,
@@ -302,6 +305,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				26254AD71C2DA3920041776E /* PushNotificationTableViewCell.swift in Sources */,
+				260634AB1C73E4B7006B36BD /* NewsSourceTableViewController.swift in Sources */,
 				260DDA261BD59AE700E3DC5F /* AppDelegate.swift in Sources */,
 				26A9A54E1BDE7BCC00140E67 /* CategoryTableViewController.swift in Sources */,
 				260DDA431BD5A4F100E3DC5F /* NewsItemTableViewCell.swift in Sources */,
