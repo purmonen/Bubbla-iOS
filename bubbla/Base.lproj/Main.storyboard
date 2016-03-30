@@ -75,7 +75,7 @@
                                             <rect key="frame" x="40" y="10" width="545" height="330"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="255" misplaced="YES" image="bitcoin" translatesAutoresizingMaskIntoConstraints="NO" id="Shu-j1-TZb">
-                                                    <rect key="frame" x="0.0" y="0.0" width="399" height="150"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="545" height="150"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" priority="999" constant="150" id="wDB-MX-iav"/>
                                                     </constraints>

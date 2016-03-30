@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SafariServices
+
 
 struct NewsSource {
     let name: String
@@ -65,6 +67,15 @@ class NewsSourceTableViewController: UITableViewController {
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let newsSource = newsSources[indexPath.row]
+        let url = NSURL(string: "http://\(newsSource.name)")!
+        let viewController = SFSafariViewController(URL: url, entersReaderIfAvailable: false)
+//        viewController.delegate = self
+        viewController.view.tintColor = pinkColor
+        presentViewController(viewController, animated: true, completion: nil)
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
