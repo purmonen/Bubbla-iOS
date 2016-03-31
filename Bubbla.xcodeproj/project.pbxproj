@@ -20,6 +20,7 @@
 		26233E491BD6EBC900C754C8 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26233E481BD6EBC900C754C8 /* Extensions.swift */; };
 		26254AD51C2DA37D0041776E /* PushNotificationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26254AD41C2DA37D0041776E /* PushNotificationsTableViewController.swift */; };
 		26254AD71C2DA3920041776E /* PushNotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26254AD61C2DA3920041776E /* PushNotificationTableViewCell.swift */; };
+		263D41D91CAD81EC006ADE9E /* NewsAppearenceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263D41D81CAD81EC006ADE9E /* NewsAppearenceTableViewController.swift */; };
 		2666F09A1C04BA8600B453F7 /* BubblaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2666F0991C04BA8600B453F7 /* BubblaTests.swift */; };
 		26A9A54E1BDE7BCC00140E67 /* CategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A9A54D1BDE7BCC00140E67 /* CategoryTableViewController.swift */; };
 		26C4AF9E1C0E8B670027379A /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C4AF9D1C0E8B670027379A /* CategoryTableViewCell.swift */; };
@@ -62,6 +63,7 @@
 		26233E481BD6EBC900C754C8 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		26254AD41C2DA37D0041776E /* PushNotificationsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationsTableViewController.swift; sourceTree = "<group>"; };
 		26254AD61C2DA3920041776E /* PushNotificationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationTableViewCell.swift; sourceTree = "<group>"; };
+		263D41D81CAD81EC006ADE9E /* NewsAppearenceTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NewsAppearenceTableViewController.swift; path = ../NewsAppearenceTableViewController.swift; sourceTree = "<group>"; };
 		2666F0971C04BA8500B453F7 /* BubblaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BubblaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2666F0991C04BA8600B453F7 /* BubblaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubblaTests.swift; sourceTree = "<group>"; };
 		2666F09B1C04BA8600B453F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 				26D3E7F21C2AF49D006EA2D6 /* SearchableList.swift */,
 				260DDA401BD5A38000E3DC5F /* NewsTableViewController.swift */,
 				260DDA421BD5A4F100E3DC5F /* NewsItemTableViewCell.swift */,
+				263D41D81CAD81EC006ADE9E /* NewsAppearenceTableViewController.swift */,
 				26254AD41C2DA37D0041776E /* PushNotificationsTableViewController.swift */,
 				26254AD61C2DA3920041776E /* PushNotificationTableViewCell.swift */,
 				260634AA1C73E4B7006B36BD /* NewsSourceTableViewController.swift */,
@@ -312,6 +315,7 @@
 				26D3E7F31C2AF49D006EA2D6 /* SearchableList.swift in Sources */,
 				260DDA381BD59B0700E3DC5F /* BubblaApi.swift in Sources */,
 				26233E491BD6EBC900C754C8 /* Extensions.swift in Sources */,
+				263D41D91CAD81EC006ADE9E /* NewsAppearenceTableViewController.swift in Sources */,
 				260DDA411BD5A38000E3DC5F /* NewsTableViewController.swift in Sources */,
 				26254AD51C2DA37D0041776E /* PushNotificationsTableViewController.swift in Sources */,
 				26233E471BD6EB0A00C754C8 /* Response.swift in Sources */,

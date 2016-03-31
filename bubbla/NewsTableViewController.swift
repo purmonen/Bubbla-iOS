@@ -116,6 +116,7 @@ class NewsTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("NewsItemTableViewCell", forIndexPath: indexPath) as! NewsItemTableViewCell
         let newsItem = newsItems[indexPath.row]
         cell.newsItem = newsItem
+        /*
         cell.facebookButton.hidden = newsItem.facebookUrl == nil
         cell.titleLabel.text = newsItem.title
         
@@ -132,6 +133,8 @@ class NewsTableViewController: UITableViewController {
         cell.newsImageView.hidden = newsItem.imageUrl == nil
         cell.facebookButton.tag = indexPath.row
         cell.facebookButton.addTarget(self, action: "facebookButtonClicked:", forControlEvents: .TouchUpInside)
+        
+        
         if let imageUrl = newsItem.imageUrl where !self.bubblaNewsWithFailedImages.contains(newsItem) {
             if let image = self.imageForNewsItem[newsItem] {
                 cell.newsImageView.image = image
@@ -171,8 +174,9 @@ class NewsTableViewController: UITableViewController {
         } else {
             cell.newsImageView.hidden = true
         }
-        
+ */       
         return cell
+ 
     }
     
     func facebookButtonClicked(sender: AnyObject) {
