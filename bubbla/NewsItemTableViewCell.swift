@@ -22,10 +22,10 @@ class NewsItemTableViewCell: UITableViewCell {
         
         var title: String {
             switch self {
-            case Image: return "Bild"
-            case FacebookLink: return "Facebooklänk"
-            case Domain: return "Domän"
-            case .TimeAndCategory: return "Tid och kategori"
+            case Image: return NSLocalizedString("Image", comment: "")
+            case FacebookLink: return NSLocalizedString("Facebook link", comment: "")
+            case Domain: return NSLocalizedString("Domain", comment: "")
+            case .TimeAndCategory: return NSLocalizedString("Time and category", comment: "")
             }
         }
         
