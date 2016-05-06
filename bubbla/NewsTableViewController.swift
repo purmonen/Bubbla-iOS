@@ -18,6 +18,8 @@ class NewsTableViewController: UITableViewController {
     
     var category: String = CategoryTableViewController.recentString
     
+    var newsSource: String? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -39,7 +41,7 @@ class NewsTableViewController: UITableViewController {
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: "refresh:", forControlEvents: .ValueChanged)
         registerForPreviewingWithDelegate(self, sourceView: view)
-        title = category
+        title = newsSource ?? category
         searchBar.placeholder = NSLocalizedString("Search", comment: "")
         refresh()
     }
@@ -51,7 +53,7 @@ class NewsTableViewController: UITableViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        title = category
+        title = newsSource ?? category
         if !newsItems.isEmpty {
             refresh()
         }
@@ -64,7 +66,7 @@ class NewsTableViewController: UITableViewController {
     
     func refresh(refreshControl: UIRefreshControl? = nil) {
         refreshControl?.beginRefreshing()
-        BubblaApi.newsForCategory(category == CategoryTableViewController.recentString || category == CategoryTableViewController.topNewsString  ? nil : category) {
+        BubblaApi.newsForCategory(category == CategoryTableViewController.recentString || category == CategoryTableViewController.topNewsString || newsSource != nil ? nil : category) {
             response in
             NSOperationQueue.mainQueue().addOperationWithBlock {
                 switch response {
@@ -72,7 +74,15 @@ class NewsTableViewController: UITableViewController {
                     self.searchBar.hidden = false
                     self.showEmptyMessage(false, message: "")
                     let oldItems = self.newsItems
-                    self.newsItems = SearchableList(items: Array(Set(newsItems)).sort { $1.publicationDate < $0.publicationDate }.filter { self.category !=  CategoryTableViewController.topNewsString || $0.facebookUrl != nil })
+                
+                    
+                    self.newsItems = SearchableList(items: Array(Set(newsItems)).sort { $1.publicationDate < $0.publicationDate }.filter { self.category !=
+                        CategoryTableViewController.topNewsString || $0.facebookUrl != nil })
+                    
+                    if let newsSource = self.newsSource {
+                        self.newsItems = SearchableList(items: newsItems.sort { $1.publicationDate < $0.publicationDate }.filter { $0.domain == newsSource })
+                    }
+                    
                     self.newsItems.updateFilteredItemsToMatchSearchText(self.searchBar.text ?? "")
                     if oldItems.isEmpty {
                         self.tableView.reloadData()

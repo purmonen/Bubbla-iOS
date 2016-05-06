@@ -70,6 +70,7 @@ class NewsSourceTableViewController: UITableViewController {
         return 1
     }
     
+    /*
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let newsSource = newsSources[indexPath.row]
         let url = NSURL(string: "http://\(newsSource.name)")!
@@ -77,6 +78,14 @@ class NewsSourceTableViewController: UITableViewController {
 //        viewController.delegate = self
         viewController.view.tintColor = UIApplication.sharedApplication().windows.first?.tintColor
         presentViewController(viewController, animated: true, completion: nil)
+    }
+ */
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let newsTableViewController = segue.destinationViewController as? NewsTableViewController,
+            let indexPath = tableView.indexPathForSelectedRow {
+            newsTableViewController.newsSource = newsSources[indexPath.row].name
+        }
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

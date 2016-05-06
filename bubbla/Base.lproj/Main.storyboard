@@ -170,7 +170,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="yov-S0-hcw">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewsSourceTableViewCell" textLabel="zCa-Lc-v1W" detailTextLabel="Sap-ay-sEd" style="IBUITableViewCellStyleValue1" id="tMb-Oy-imv">
                                 <rect key="frame" x="0.0" y="114" width="600" height="44"/>
@@ -195,6 +195,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="B2L-xe-bur" kind="show" id="NfC-zg-byK"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -205,7 +208,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bZ5-YA-kml" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2601" y="-1641"/>
+            <point key="canvasLocation" x="3393" y="345"/>
         </scene>
         <!--Categories-->
         <scene sceneID="8eY-vD-RO7">
@@ -567,6 +570,6 @@
         <image name="facebook" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Uic-3g-ps3"/>
+        <segue reference="NfC-zg-byK"/>
     </inferredMetricsTieBreakers>
 </document>

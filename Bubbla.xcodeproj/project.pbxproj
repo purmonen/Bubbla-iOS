@@ -25,7 +25,6 @@
 		26A9A54E1BDE7BCC00140E67 /* CategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A9A54D1BDE7BCC00140E67 /* CategoryTableViewController.swift */; };
 		26AD626F1CDCE45D00929C14 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AD626E1CDCE45D00929C14 /* AppDelegate.swift */; };
 		26AD62761CDCE45D00929C14 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26AD62751CDCE45D00929C14 /* Assets.xcassets */; };
-		26AD62791CDCE45D00929C14 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26AD62771CDCE45D00929C14 /* LaunchScreen.storyboard */; };
 		26AD627F1CDCE5C800929C14 /* BubblaApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 260DDA371BD59B0700E3DC5F /* BubblaApi.swift */; };
 		26AD62801CDCE5CC00929C14 /* NewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 260DDA401BD5A38000E3DC5F /* NewsTableViewController.swift */; };
 		26AD62821CDCE5E000929C14 /* SearchableList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D3E7F21C2AF49D006EA2D6 /* SearchableList.swift */; };
@@ -43,6 +42,7 @@
 		26AD629D1CDCF35B00929C14 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 260DDA291BD59AE700E3DC5F /* Main.storyboard */; };
 		26AD629E1CDCF35F00929C14 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 26AD629A1CDCF04300929C14 /* Localizable.strings */; };
 		26AD629F1CDD04A700929C14 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262246681C00D228009FCDDD /* WebViewController.swift */; };
+		26AD62A01CDD05EE00929C14 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 260DDA2E1BD59AE700E3DC5F /* LaunchScreen.storyboard */; };
 		26C4AF9E1C0E8B670027379A /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C4AF9D1C0E8B670027379A /* CategoryTableViewCell.swift */; };
 		26D3E7F11C2AE67D006EA2D6 /* news.json in Resources */ = {isa = PBXBuildFile; fileRef = 26D3E7F01C2AE67D006EA2D6 /* news.json */; };
 		26D3E7F31C2AF49D006EA2D6 /* SearchableList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D3E7F21C2AF49D006EA2D6 /* SearchableList.swift */; };
@@ -92,11 +92,9 @@
 		26AD626C1CDCE45D00929C14 /* Corax.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Corax.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		26AD626E1CDCE45D00929C14 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		26AD62751CDCE45D00929C14 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		26AD62781CDCE45D00929C14 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		26AD627A1CDCE45D00929C14 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		26AD62941CDCEEA300929C14 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Main.strings; sourceTree = "<group>"; };
 		26AD62951CDCEEA300929C14 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
-		26AD62961CDCEEA300929C14 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		26AD629B1CDCF07900929C14 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		26C4AF9D1C0E8B670027379A /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
 		26D3E7F01C2AE67D006EA2D6 /* news.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = news.json; sourceTree = "<group>"; };
@@ -205,7 +203,6 @@
 			children = (
 				26AD626E1CDCE45D00929C14 /* AppDelegate.swift */,
 				26AD62751CDCE45D00929C14 /* Assets.xcassets */,
-				26AD62771CDCE45D00929C14 /* LaunchScreen.storyboard */,
 				26AD627A1CDCE45D00929C14 /* Info.plist */,
 			);
 			path = Corax;
@@ -318,6 +315,7 @@
 					};
 					26AD626B1CDCE45D00929C14 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = U8JUVSFVME;
 					};
 					26ED028D1C1CA6A400663A21 = {
 						CreatedOnToolsVersion = 7.2;
@@ -372,8 +370,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				26AD629E1CDCF35F00929C14 /* Localizable.strings in Resources */,
-				26AD62791CDCE45D00929C14 /* LaunchScreen.storyboard in Resources */,
 				26AD62761CDCE45D00929C14 /* Assets.xcassets in Resources */,
+				26AD62A01CDD05EE00929C14 /* LaunchScreen.storyboard in Resources */,
 				26AD62931CDCEE2E00929C14 /* Assets.xcassets in Resources */,
 				26AD629D1CDCF35B00929C14 /* Main.storyboard in Resources */,
 			);
@@ -478,15 +476,6 @@
 			children = (
 				260DDA2F1BD59AE700E3DC5F /* Base */,
 				26AD62951CDCEEA300929C14 /* sv */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-		26AD62771CDCE45D00929C14 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				26AD62781CDCE45D00929C14 /* Base */,
-				26AD62961CDCEEA300929C14 /* sv */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -664,8 +653,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = CoraxAppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Corax/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Monafide.Corax;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -678,8 +668,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = CoraxAppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Corax/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Monafide.Corax;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -750,6 +741,7 @@
 				26AD627C1CDCE45D00929C14 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		26ED02951C1CA6A400663A21 /* Build configuration list for PBXNativeTarget "BubblaUITests" */ = {
 			isa = XCConfigurationList;

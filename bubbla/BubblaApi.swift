@@ -172,7 +172,8 @@ class _BubblaApi {
         do {
             let json = ["token": deviceToken, "excludedCategories": categories]
             let body = try NSJSONSerialization.dataWithJSONObject(json, options: [])
-            urlService.dataFromUrl(serverUrl.URLByAppendingPathComponent("registerDevice"), body: body) {
+            
+            urlService.dataFromUrl(NSURL(string: "registerDevice?source=\(newsSource.rawValue)", relativeToURL: serverUrl)!, body: body) {
                 print($0)
                 callback($0.map( {_ in return }))
             }
@@ -181,9 +182,9 @@ class _BubblaApi {
         }
     }
     
-        let serverUrl = NSURL(string: "http://192.168.1.84:8001")!
+//        let serverUrl = NSURL(string: "http://192.168.1.84:8001")!
     
-//    let serverUrl = NSURL(string: "http://54.93.109.96:8001")!
+    let serverUrl = NSURL(string: "http://54.93.109.96:8001")!
     
     
     enum NewsSource: String {
