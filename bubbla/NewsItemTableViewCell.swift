@@ -6,6 +6,9 @@ class NewsItemTableViewCell: UITableViewCell {
     static var imageForNewsItem = [BubblaNews: UIImage]()
     static var bubblaNewsWithFailedImages = Set<BubblaNews>()
     
+    
+    weak var newsTableViewController: NewsTableViewController? = nil
+    
     enum Appearance: String {
         case Image = "NewsItemTableViewCellImage"
         case FacebookLink = "NewsItemTableViewCellFacebookLink"
@@ -89,6 +92,11 @@ class NewsItemTableViewCell: UITableViewCell {
             }
         }
     }
+    
+    @IBAction func facebookButtonClicked(sender: AnyObject) {
+        newsTableViewController?.openUrl(newsItem.facebookUrl!, entersReaderIfAvailable: false)
+    }
+
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var publicationDateLabel: UILabel!

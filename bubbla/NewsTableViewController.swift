@@ -40,7 +40,7 @@ class NewsTableViewController: UITableViewController {
         refreshControl?.addTarget(self, action: "refresh:", forControlEvents: .ValueChanged)
         registerForPreviewingWithDelegate(self, sourceView: view)
         title = category
-        searchBar.placeholder = "Sök i \((category).lowercaseString)"
+        searchBar.placeholder = "\(NSLocalizedString("Sök i", comment: "")) \((category).lowercaseString)"
         refresh()
     }
     
@@ -116,65 +116,7 @@ class NewsTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("NewsItemTableViewCell", forIndexPath: indexPath) as! NewsItemTableViewCell
         let newsItem = newsItems[indexPath.row]
         cell.newsItem = newsItem
-        /*
-        cell.facebookButton.hidden = newsItem.facebookUrl == nil
-        cell.titleLabel.text = newsItem.title
-        
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "dd MMMM, HH:mm"
-        cell.publicationDateLabel.text = dateFormatter.stringFromDate(newsItem.publicationDate).capitalizedString
-        
-        
-        let showCategory = category == CategoryTableViewController.recentString || category == CategoryTableViewController.topNewsString
-        cell.publicationDateLabel.text = newsItem.publicationDate.readableString + (showCategory ? " · \(newsItem.category)" : "")
-        cell.urlLabel.text = newsItem.domain
-        cell.unreadIndicator.hidden = newsItem.isRead
-        cell.newsImageView.image = nil
-        cell.newsImageView.hidden = newsItem.imageUrl == nil
-        cell.facebookButton.tag = indexPath.row
-        cell.facebookButton.addTarget(self, action: "facebookButtonClicked:", forControlEvents: .TouchUpInside)
-        
-        
-        if let imageUrl = newsItem.imageUrl where !self.bubblaNewsWithFailedImages.contains(newsItem) {
-            if let image = self.imageForNewsItem[newsItem] {
-                cell.newsImageView.image = image
-            } else {
-                NSOperationQueue().addOperationWithBlock {
-                    if let image = UIImage(data: NSURLCache.sharedURLCache().cachedResponseForRequest(NSURLRequest(URL: imageUrl))?.data ?? NSData()) {
-                        NSOperationQueue.mainQueue().addOperationWithBlock {
-                            cell.newsImageView.image = image
-
-                        }
-                    } else {
-                        print("Retrieving image from server \(newsItem.title)")
-                        NSOperationQueue.mainQueue().addOperationWithBlock {
-                            cell.newsImageView.startActivityIndicator()
-                            cell.newsImageView.image = UIImage(named: "blank")
-                        }
-                        BubblaUrlService().imageFromUrl(imageUrl) { response in
-                            NSOperationQueue.mainQueue().addOperationWithBlock {
-                                switch response {
-                                case .Success(let image):
-                                    if let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? NewsItemTableViewCell {
-                                        self.imageForNewsItem[newsItem] = image
-                                        cell.newsImageView.image = image
-                                    }
-                                case .Error:
-                                    self.bubblaNewsWithFailedImages.insert(newsItem)
-                                    if let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? NewsItemTableViewCell {
-                                        cell.newsImageView.hidden = true
-                                    }
-                                }
-                                cell.newsImageView.stopActivityIndicator()
-                            }
-                        }
-                    }
-                }
-            }
-        } else {
-            cell.newsImageView.hidden = true
-        }
- */       
+        cell.newsTableViewController = self
         return cell
  
     }
@@ -205,6 +147,10 @@ class NewsTableViewController: UITableViewController {
         presentViewController(safariViewControllerForUrl(newsItems[indexPath.row].url, entersReaderIfAvailable: true))
     }
     
+    func openUrl(url: NSURL, entersReaderIfAvailable: Bool) {
+        presentViewController(safariViewControllerForUrl(url, entersReaderIfAvailable: entersReaderIfAvailable))
+    }
+    
     
     func presentViewController(viewController: UIViewController) {
         if splitViewController!.collapsed {
@@ -231,7 +177,7 @@ class NewsTableViewController: UITableViewController {
     }
     
     func showEmptyMessageIfNeeded() {
-        showEmptyMessage(newsItems.isEmpty, message: "Inga nyheter")
+        showEmptyMessage(newsItems.isEmpty, message: NSLocalizedString("Inga nyheter", comment: ""))
     }
 }
 

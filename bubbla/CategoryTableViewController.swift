@@ -5,9 +5,9 @@ class CategoryTableViewController: UITableViewController, UISplitViewControllerD
     
     var categories = [(categoryType: String, categories: [String])]()
     
-    static let recentString = "Senaste"
+    static let recentString = NSLocalizedString("Senaste", comment: "")
     
-    static let topNewsString = "Toppnyheter"
+    static let topNewsString = NSLocalizedString("Toppnyheter", comment: "")
     
     override func viewDidLoad() {
         super.viewDidLoad()

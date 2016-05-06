@@ -181,12 +181,22 @@ class _BubblaApi {
         }
     }
     
-    //    let serverUrl = NSURL(string: "http://192.168.1.84:8001")!
+        let serverUrl = NSURL(string: "http://192.168.1.84:8001")!
     
-    let serverUrl = NSURL(string: "http://54.93.109.96:8001")!
+//    let serverUrl = NSURL(string: "http://54.93.109.96:8001")!
+    
+    
+    enum NewsSource: String {
+        case Bubbla = "bubbla", Corax = "corax"
+    }
+    
+    
+    let newsSource: NewsSource = .Corax
     
     func newsForCategory(category: String?, callback: Response<[BubblaNews]> -> Void) {
-        urlService.jsonFromUrl(serverUrl.URLByAppendingPathComponent("news")) {
+        
+        
+        urlService.jsonFromUrl(NSURL(string: "news?source=\(newsSource.rawValue)", relativeToURL: serverUrl)!) {
             callback($0 >>= { json in
                 var newsItems = [BubblaNews]()
                 if let jsonArray = json as? [AnyObject] {

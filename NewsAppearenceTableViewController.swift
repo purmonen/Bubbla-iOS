@@ -38,7 +38,7 @@ class NewsAppearenceTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
+        if section == 1 {
             return 1
         } else {
             return NewsItemTableViewCell.Appearance.All.count
@@ -47,7 +47,7 @@ class NewsAppearenceTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        if indexPath.section == 0 {
+        if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCellWithIdentifier("NewsItemTableViewCell") as! NewsItemTableViewCell
             if let newsItem = newsItem {
                 cell.newsItem = newsItem

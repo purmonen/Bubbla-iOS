@@ -65,12 +65,14 @@ extension NSDate {
     var readableString: String {
         let time = self.format("HH:mm")
         
+        let locale = NSLocale(localeIdentifier: "sv")
+        
         if self.isToday {
-            return "Idag \(time)"
+            return "\(NSLocalizedString("Idag", comment: "")) \(time)"
         } else if self.isTomorrow {
-            return "Imorgon \(time)"
+            return "\(NSLocalizedString("Imorgon", comment: "")) \(time)"
         } else if self.isYesterDay {
-            return "Igår \(time)"
+            return "\(NSLocalizedString("Igår", comment: "")) \(time)"
         }
         
         let day = Int(self.format("dd"))!
@@ -78,7 +80,7 @@ extension NSDate {
         let year = self.format("yyyy")
         
         let dateFormatter = NSDateFormatter()
-        dateFormatter.locale = NSLocale(localeIdentifier: "sv")
+        dateFormatter.locale = locale
         dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
         
         if year == NSDate().format("yyyy") {

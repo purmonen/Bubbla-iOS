@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		260634AB1C73E4B7006B36BD /* NewsSourceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 260634AA1C73E4B7006B36BD /* NewsSourceTableViewController.swift */; };
+		260A25201CDC16A500733281 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 260A251F1CDC16A500733281 /* Localizable.strings */; };
 		260DDA261BD59AE700E3DC5F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 260DDA251BD59AE700E3DC5F /* AppDelegate.swift */; };
 		260DDA2B1BD59AE700E3DC5F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 260DDA291BD59AE700E3DC5F /* Main.storyboard */; };
 		260DDA2D1BD59AE700E3DC5F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 260DDA2C1BD59AE700E3DC5F /* Assets.xcassets */; };
@@ -49,6 +50,8 @@
 
 /* Begin PBXFileReference section */
 		260634AA1C73E4B7006B36BD /* NewsSourceTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsSourceTableViewController.swift; sourceTree = "<group>"; };
+		260A251E1CDC139700733281 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		260A251F1CDC16A500733281 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		260DDA221BD59AE700E3DC5F /* Bubbla.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bubbla.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		260DDA251BD59AE700E3DC5F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		260DDA2A1BD59AE700E3DC5F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -138,6 +141,7 @@
 				263D41D81CAD81EC006ADE9E /* NewsAppearenceTableViewController.swift */,
 				26254AD41C2DA37D0041776E /* PushNotificationsTableViewController.swift */,
 				26254AD61C2DA3920041776E /* PushNotificationTableViewCell.swift */,
+				260A251F1CDC16A500733281 /* Localizable.strings */,
 				260634AA1C73E4B7006B36BD /* NewsSourceTableViewController.swift */,
 				26A9A54D1BDE7BCC00140E67 /* CategoryTableViewController.swift */,
 				26C4AF9D1C0E8B670027379A /* CategoryTableViewCell.swift */,
@@ -280,6 +284,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				260DDA301BD59AE700E3DC5F /* LaunchScreen.storyboard in Resources */,
+				260A25201CDC16A500733281 /* Localizable.strings in Resources */,
 				260DDA2D1BD59AE700E3DC5F /* Assets.xcassets in Resources */,
 				260DDA2B1BD59AE700E3DC5F /* Main.storyboard in Resources */,
 			);
@@ -360,6 +365,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				260DDA2A1BD59AE700E3DC5F /* Base */,
+				260A251E1CDC139700733281 /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

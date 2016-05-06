@@ -1,0 +1,17 @@
+/* 
+  Localizable.strings
+  Bubbla
+
+  Created by Sami Purmonen on 06/05/16.
+  Copyright © 2016 Sami Purmonen. All rights reserved.
+*/
+"Idag" = "Today";
+"Igår" = "Yesterday";
+"Imorgon" = "Tomorrow";
+
+"Senaste" = "Latest news";
+"Toppnyheter" = "Top news";
+
+"Inga nyheter" = "No news";
+
+"Sök i" = "Search in";
