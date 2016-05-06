@@ -163,10 +163,10 @@
             </objects>
             <point key="canvasLocation" x="2601" y="425"/>
         </scene>
-        <!--News Source Table View Controller-->
+        <!--Sources-->
         <scene sceneID="Ua4-tr-2Yg">
             <objects>
-                <tableViewController id="P20-xT-WPU" customClass="NewsSourceTableViewController" customModule="Bubbla" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Sources" id="P20-xT-WPU" customClass="NewsSourceTableViewController" customModule="Bubbla" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="yov-S0-hcw">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

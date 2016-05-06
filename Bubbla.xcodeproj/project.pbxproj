@@ -42,6 +42,7 @@
 		26AD62971CDCF04300929C14 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 26AD629A1CDCF04300929C14 /* Localizable.strings */; };
 		26AD629D1CDCF35B00929C14 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 260DDA291BD59AE700E3DC5F /* Main.storyboard */; };
 		26AD629E1CDCF35F00929C14 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 26AD629A1CDCF04300929C14 /* Localizable.strings */; };
+		26AD629F1CDD04A700929C14 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262246681C00D228009FCDDD /* WebViewController.swift */; };
 		26C4AF9E1C0E8B670027379A /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C4AF9D1C0E8B670027379A /* CategoryTableViewCell.swift */; };
 		26D3E7F11C2AE67D006EA2D6 /* news.json in Resources */ = {isa = PBXBuildFile; fileRef = 26D3E7F01C2AE67D006EA2D6 /* news.json */; };
 		26D3E7F31C2AF49D006EA2D6 /* SearchableList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D3E7F21C2AF49D006EA2D6 /* SearchableList.swift */; };
@@ -432,6 +433,7 @@
 				26AD627F1CDCE5C800929C14 /* BubblaApi.swift in Sources */,
 				26AD62821CDCE5E000929C14 /* SearchableList.swift in Sources */,
 				26AD628E1CDCE60800929C14 /* CategoryTableViewCell.swift in Sources */,
+				26AD629F1CDD04A700929C14 /* WebViewController.swift in Sources */,
 				26AD62831CDCE5EA00929C14 /* Extensions.swift in Sources */,
 				26AD628D1CDCE60800929C14 /* CategoryTableViewController.swift in Sources */,
 			);

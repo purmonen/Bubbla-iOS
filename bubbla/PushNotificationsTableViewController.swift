@@ -18,7 +18,6 @@ class PushNotificationsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.showEmptyMessage(categories.isEmpty, message: NSLocalizedString("No categories", comment: ""))
         BubblaApi.newsForCategory(nil) {
             switch $0 {
             case .Success(let news):
