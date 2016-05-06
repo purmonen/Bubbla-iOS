@@ -19,7 +19,7 @@ class NewsSourceTableViewController: UITableViewController {
 
     
     var newsSources = [NewsSource]()
-    
+    var newsItems = [BubblaNews]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +28,7 @@ class NewsSourceTableViewController: UITableViewController {
             NSOperationQueue.mainQueue().addOperationWithBlock {
                 switch response {
                 case .Success(let newsItems):
+                    self.newsItems = newsItems
                     var newsSourceCount = [String: Int]()
                     for newsItem in newsItems {
                         if newsSourceCount[newsItem.domain] == nil {
@@ -90,6 +91,10 @@ class NewsSourceTableViewController: UITableViewController {
         cell.textLabel?.text = newsSource.name
         cell.detailTextLabel?.text = String(format: "%.01f", newsSource.percentage * 100) + "%"
         return cell
+    }
+    
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return String(format: NSLocalizedString("The %d latest posts came from %d different sources", comment: ""), newsItems.count, newsSources.count)
     }
     
 
