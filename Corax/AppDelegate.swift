@@ -15,6 +15,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Sound, .Alert, .Badge], categories: nil))
         window?.tintColor = UIColor(hex: 0xA79A00) // Yellow
         BubblaApi.newsSource = .Corax
+        
+        NSUserDefaults.standardUserDefaults().setObject(["sv"], forKey: "AppleLanguages")
+        NSUserDefaults.standardUserDefaults().synchronize()
         return true
     }
     

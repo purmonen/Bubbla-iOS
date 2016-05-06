@@ -77,11 +77,11 @@ extension NSDate {
         let locale = NSLocale(localeIdentifier: "sv")
         
         if self.isToday {
-            return "\(NSLocalizedString("Idag", comment: "")) \(time)"
+            return "\(NSLocalizedString("Today", comment: "")) \(time)"
         } else if self.isTomorrow {
-            return "\(NSLocalizedString("Imorgon", comment: "")) \(time)"
+            return "\(NSLocalizedString("Tomorrow", comment: "")) \(time)"
         } else if self.isYesterDay {
-            return "\(NSLocalizedString("Igår", comment: "")) \(time)"
+            return "\(NSLocalizedString("Yesterday", comment: "")) \(time)"
         }
         
         let day = Int(self.format("dd"))!

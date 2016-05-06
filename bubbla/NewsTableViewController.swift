@@ -40,7 +40,7 @@ class NewsTableViewController: UITableViewController {
         refreshControl?.addTarget(self, action: "refresh:", forControlEvents: .ValueChanged)
         registerForPreviewingWithDelegate(self, sourceView: view)
         title = category
-        searchBar.placeholder = NSLocalizedString("Sök", comment: "")
+        searchBar.placeholder = NSLocalizedString("Search", comment: "")
         refresh()
     }
     
@@ -176,7 +176,7 @@ class NewsTableViewController: UITableViewController {
     }
     
     func showEmptyMessageIfNeeded() {
-        showEmptyMessage(newsItems.isEmpty, message: NSLocalizedString("Inga nyheter", comment: ""))
+        showEmptyMessage(newsItems.isEmpty, message: NSLocalizedString("No news", comment: ""))
     }
 }
 

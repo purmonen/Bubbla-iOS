@@ -18,7 +18,22 @@ class PushNotificationsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.showEmptyMessage(categories.isEmpty, message: "Inga kategorier")
+        self.showEmptyMessage(categories.isEmpty, message: NSLocalizedString("No categories", comment: ""))
+        BubblaApi.newsForCategory(nil) {
+            switch $0 {
+            case .Success(let news):
+                NSOperationQueue.mainQueue().addOperationWithBlock {
+                    self.categories = Array(Set(news.map({ $0.category }))).sort()
+                    self.tableView.reloadData()
+                }
+            case .Error(let error):
+                if self.categories.isEmpty {
+                    self.showEmptyMessage(true, message: (error as NSError).localizedDescription)
+                } else {
+                    print(error)
+                }
+            }
+        }
     }
     
     

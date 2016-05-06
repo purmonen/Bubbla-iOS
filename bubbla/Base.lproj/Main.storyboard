@@ -31,8 +31,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ingen nyhet vald" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B2J-eR-GAJ">
-                                <rect key="frame" x="190" y="282" width="220" height="36"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="No news selected" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B2J-eR-GAJ">
+                                <rect key="frame" x="173" y="282" width="237" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -173,7 +173,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewsSourceTableViewCell" textLabel="zCa-Lc-v1W" detailTextLabel="Sap-ay-sEd" style="IBUITableViewCellStyleValue1" id="tMb-Oy-imv">
-                                <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tMb-Oy-imv" id="uyt-Au-4qB">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
@@ -207,7 +207,7 @@
             </objects>
             <point key="canvasLocation" x="2601" y="-1641"/>
         </scene>
-        <!--Kategorier-->
+        <!--Categories-->
         <scene sceneID="8eY-vD-RO7">
             <objects>
                 <tableViewController id="8DA-C5-Mrp" customClass="CategoryTableViewController" customModule="Bubbla" customModuleProvider="target" sceneMemberID="viewController">
@@ -257,10 +257,10 @@
                             <outlet property="delegate" destination="8DA-C5-Mrp" id="7Nn-4P-eaZ"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Kategorier" id="adX-yG-SyI">
-                        <barButtonItem key="leftBarButtonItem" title="Källor" id="7X4-13-SUU">
+                    <navigationItem key="navigationItem" title="Categories" id="adX-yG-SyI">
+                        <barButtonItem key="leftBarButtonItem" title="Sources" id="7X4-13-SUU">
                             <connections>
-                                <segue destination="P20-xT-WPU" kind="showDetail" id="ahO-m7-NRx"/>
+                                <segue destination="P20-xT-WPU" kind="show" id="ahO-m7-NRx"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="cog" id="YFl-an-NAU">
@@ -322,18 +322,11 @@
                             <outlet property="delegate" destination="afc-LO-RBg" id="2fO-6d-ole"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Pushnotiser" id="DNj-he-VkJ">
-                        <barButtonItem key="rightBarButtonItem" title="Klar" style="done" id="hkH-9o-rlh">
-                            <connections>
-                                <segue destination="5fI-ov-TgO" kind="unwind" unwindAction="unwind:" id="yN6-cK-nQu"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Push notifications" id="DNj-he-VkJ"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oCR-vy-pWM" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="5fI-ov-TgO" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="4288" y="-493"/>
+            <point key="canvasLocation" x="3493" y="-527"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="KGk-aC-aQd">
@@ -389,7 +382,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="567" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Pushnotiser" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mTt-zh-LLg">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Push notifications" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mTt-zh-LLg">
                                                     <rect key="frame" x="15" y="0.0" width="550" height="43"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -399,7 +392,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="2uY-vV-jx4" kind="show" id="ide-nt-cHc"/>
+                                            <segue destination="afc-LO-RBg" kind="show" id="u2z-oN-s3X"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="1Xe-Cq-Ujr" style="IBUITableViewCellStyleDefault" id="JJs-Kc-5Ex">
@@ -409,7 +402,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="567" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Visningsalternativ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1Xe-Cq-Ujr">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Display options" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1Xe-Cq-Ujr">
                                                     <rect key="frame" x="15" y="0.0" width="550" height="43"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -435,28 +428,10 @@
             </objects>
             <point key="canvasLocation" x="2750" y="-516"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="i0F-6U-lhI">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="2uY-vV-jx4" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ca5-tZ-IKs">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="afc-LO-RBg" kind="relationship" relationship="rootViewController" id="AOo-5O-YGi"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="EZY-Ah-abR" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3574" y="-499"/>
-        </scene>
-        <!--News Appearence Table View Controller-->
+        <!--Display options-->
         <scene sceneID="ZcG-rG-mNy">
             <objects>
-                <tableViewController id="0bU-vp-RJW" customClass="NewsAppearenceTableViewController" customModule="Bubbla" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Display options" id="0bU-vp-RJW" customClass="NewsAppearenceTableViewController" customModule="Bubbla" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="UFP-rh-Cu2">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
