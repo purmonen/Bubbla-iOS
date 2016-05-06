@@ -2,6 +2,13 @@ import UIKit
 
 var DeviceToken: String?
 
+struct ColorScheme {
+    static let pink = UIColor(red: 204/255.0, green: 100/255.0, blue: 237/255.0, alpha: 1)
+    static let yellow = UIColor(hex: 0xA79A00)
+    
+    static let tint = ColorScheme.yellow
+}
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
@@ -14,7 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.registerForRemoteNotifications()
         application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Sound, .Alert, .Badge], categories: nil))
         
-        
+        window?.tintColor = ColorScheme.tint
+    
 
         return true
     }

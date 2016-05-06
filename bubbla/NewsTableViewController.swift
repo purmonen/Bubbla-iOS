@@ -1,7 +1,7 @@
 import UIKit
 import SafariServices
 
-let pinkColor = UIColor(red: 204/255.0, green: 100/255.0, blue: 237/255.0, alpha: 1)
+
 
 
 
@@ -40,7 +40,7 @@ class NewsTableViewController: UITableViewController {
         refreshControl?.addTarget(self, action: "refresh:", forControlEvents: .ValueChanged)
         registerForPreviewingWithDelegate(self, sourceView: view)
         title = category
-        searchBar.placeholder = "\(NSLocalizedString("Sök i", comment: "")) \((category).lowercaseString)"
+        searchBar.placeholder = NSLocalizedString("Sök", comment: "")
         refresh()
     }
     
@@ -172,7 +172,7 @@ class NewsTableViewController: UITableViewController {
     func safariViewControllerForUrl(url: NSURL, entersReaderIfAvailable: Bool) -> UIViewController {
         let viewController = SFSafariViewController(URL: url, entersReaderIfAvailable: entersReaderIfAvailable)
         viewController.delegate = categoryTableViewController
-        viewController.view.tintColor = pinkColor
+        viewController.view.tintColor = ColorScheme.tint
         return viewController
     }
     

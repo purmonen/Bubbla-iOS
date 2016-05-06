@@ -217,7 +217,7 @@
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="CategoryCell" id="WIp-Ag-wKw">
-                                <rect key="frame" x="0.0" y="114" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="113.5" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WIp-Ag-wKw" id="yYJ-jt-3Wf">
                                     <rect key="frame" x="0.0" y="0.0" width="567" height="44"/>
@@ -228,7 +228,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="CategoryTableViewCell" id="YoL-al-M6E" customClass="CategoryTableViewCell" customModule="Bubbla" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="158" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="157.5" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="YoL-al-M6E" id="c6x-CT-4tu">
                                     <rect key="frame" x="0.0" y="0.0" width="567" height="44"/>
@@ -463,7 +463,7 @@
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="NewsItemTableViewCell" rowHeight="350" id="J3m-sm-wGB" customClass="NewsItemTableViewCell" customModule="Bubbla" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="114" width="600" height="350"/>
+                                <rect key="frame" x="0.0" y="113.5" width="600" height="350"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="J3m-sm-wGB" id="rOs-a2-NIo">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="350"/>
@@ -544,7 +544,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="PushNotificationTableViewCell" id="6gg-ir-TaD" customClass="PushNotificationTableViewCell" customModule="Bubbla" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="464" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="463.5" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="6gg-ir-TaD" id="A5M-9A-aWU">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
@@ -594,5 +594,4 @@
     <inferredMetricsTieBreakers>
         <segue reference="Uic-3g-ps3"/>
     </inferredMetricsTieBreakers>
-    <color key="tintColor" red="0.80000000000000004" green="0.3921568627" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
 </document>

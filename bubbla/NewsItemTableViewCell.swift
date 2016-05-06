@@ -46,6 +46,8 @@ class NewsItemTableViewCell: UITableViewCell {
             urlLabel.text = newsItem.domain
             urlLabel.hidden = Appearance.Domain.hidden
             unreadIndicator.hidden = newsItem.isRead
+            
+            unreadIndicator.textColor = ColorScheme.tint
             newsImageView.image = nil
             newsImageView.hidden = newsItem.imageUrl == nil
 //            facebookButton.tag = indexPath.row
