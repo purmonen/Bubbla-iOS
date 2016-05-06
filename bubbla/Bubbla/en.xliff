@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
+  <file original="BubblaTests/Info.plist" source-language="en" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.3.1" build-num="7D1014"/>
+    </header>
+    <body>
+      <trans-unit id="CFBundleName">
+        <source>$(PRODUCT_NAME)</source>
+      </trans-unit>
+      <trans-unit id="CFBundleShortVersionString">
+        <source>1.0</source>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="BubblaUITests/Info.plist" source-language="en" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.3.1" build-num="7D1014"/>
+    </header>
+    <body>
+      <trans-unit id="CFBundleName">
+        <source>$(PRODUCT_NAME)</source>
+      </trans-unit>
+      <trans-unit id="CFBundleShortVersionString">
+        <source>1.0</source>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="bubbla/Base.lproj/LaunchScreen.storyboard" source-language="en" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.3.1" build-num="7D1014"/>
+    </header>
+    <body/>
+  </file>
+  <file original="bubbla/Base.lproj/Main.storyboard" source-language="en" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.3.1" build-num="7D1014"/>
+    </header>
+    <body>
+      <trans-unit id="1QT-Gv-ZBa.text">
+        <source>Title</source>
+        <note>Class = "UILabel"; text = "Title"; ObjectID = "1QT-Gv-ZBa";</note>
+      </trans-unit>
+      <trans-unit id="1Xe-Cq-Ujr.text">
+        <source>Display options</source>
+        <note>Class = "UILabel"; text = "Visningsalternativ"; ObjectID = "1Xe-Cq-Ujr";</note>
+      </trans-unit>
+      <trans-unit id="7X4-13-SUU.title">
+        <source>Sources</source>
+        <note>Class = "UIBarButtonItem"; title = "Källor"; ObjectID = "7X4-13-SUU";</note>
+      </trans-unit>
+      <trans-unit id="9nd-F1-s0l.title">
+        <source>Senaste</source>
+        <note>Class = "UINavigationItem"; title = "Senaste"; ObjectID = "9nd-F1-s0l";</note>
+      </trans-unit>
+      <trans-unit id="B2J-eR-GAJ.text">
+        <source>No news selected</source>
+        <note>Class = "UILabel"; text = "Ingen nyhet vald"; ObjectID = "B2J-eR-GAJ";</note>
+      </trans-unit>
+      <trans-unit id="Co3-wq-v4H.text">
+        <source>Bild</source>
+        <note>Class = "UILabel"; text = "Bild"; ObjectID = "Co3-wq-v4H";</note>
+      </trans-unit>
+      <trans-unit id="DNj-he-VkJ.title">
+        <source>Push notifications</source>
+        <note>Class = "UINavigationItem"; title = "Pushnotiser"; ObjectID = "DNj-he-VkJ";</note>
+      </trans-unit>
+      <trans-unit id="H0f-9a-7By.text">
+        <source>Ekonomi</source>
+        <note>Class = "UILabel"; text = "Ekonomi"; ObjectID = "H0f-9a-7By";</note>
+      </trans-unit>
+      <trans-unit id="JvA-hy-VvU.text">
+        <source>Label</source>
+        <note>Class = "UILabel"; text = "Label"; ObjectID = "JvA-hy-VvU";</note>
+      </trans-unit>
+      <trans-unit id="KBr-uf-4Y9.text">
+        <source>Title</source>
+        <note>Class = "UILabel"; text = "Title"; ObjectID = "KBr-uf-4Y9";</note>
+      </trans-unit>
+      <trans-unit id="NLG-Gc-Tbz.text">
+        <source>●</source>
+        <note>Class = "UILabel"; text = "●"; ObjectID = "NLG-Gc-Tbz";</note>
+      </trans-unit>
+      <trans-unit id="O1x-WM-aIe.text">
+        <source>Label</source>
+        <note>Class = "UILabel"; text = "Label"; ObjectID = "O1x-WM-aIe";</note>
+      </trans-unit>
+      <trans-unit id="RKO-Ou-cDk.text">
+        <source>Ekonomi</source>
+        <note>Class = "UILabel"; text = "Ekonomi"; ObjectID = "RKO-Ou-cDk";</note>
+      </trans-unit>
+      <trans-unit id="Sap-ay-sEd.text">
+        <source>Detail</source>
+        <note>Class = "UILabel"; text = "Detail"; ObjectID = "Sap-ay-sEd";</note>
+      </trans-unit>
+      <trans-unit id="adX-yG-SyI.title">
+        <source>Categories</source>
+        <note>Class = "UINavigationItem"; title = "Kategorier"; ObjectID = "adX-yG-SyI";</note>
+      </trans-unit>
+      <trans-unit id="afc-LO-RBg.title">
+        <source>Pushnotiser</source>
+        <note>Class = "UITableViewController"; title = "Pushnotiser"; ObjectID = "afc-LO-RBg";</note>
+      </trans-unit>
+      <trans-unit id="daT-PT-zQ9.text">
+        <source>Label</source>
+        <note>Class = "UILabel"; text = "Label"; ObjectID = "daT-PT-zQ9";</note>
+      </trans-unit>
+      <trans-unit id="gf2-sw-xia.text">
+        <source>●</source>
+        <note>Class = "UILabel"; text = "●"; ObjectID = "gf2-sw-xia";</note>
+      </trans-unit>
+      <trans-unit id="hkH-9o-rlh.title">
+        <source>Klar</source>
+        <note>Class = "UIBarButtonItem"; title = "Klar"; ObjectID = "hkH-9o-rlh";</note>
+      </trans-unit>
+      <trans-unit id="idag">
+        <source>YOLO</source>
+      </trans-unit>
+      <trans-unit id="mTt-zh-LLg.text">
+        <source>Push notifications</source>
+        <note>Class = "UILabel"; text = "Pushnotiser"; ObjectID = "mTt-zh-LLg";</note>
+      </trans-unit>
+      <trans-unit id="shQ-e7-NIO.text">
+        <source>Label</source>
+        <note>Class = "UILabel"; text = "Label"; ObjectID = "shQ-e7-NIO";</note>
+      </trans-unit>
+      <trans-unit id="zCa-Lc-v1W.text">
+        <source>Title</source>
+        <note>Class = "UILabel"; text = "Title"; ObjectID = "zCa-Lc-v1W";</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="bubbla/Info.plist" source-language="en" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.3.1" build-num="7D1014"/>
+    </header>
+    <body>
+      <trans-unit id="CFBundleName">
+        <source>$(PRODUCT_NAME)</source>
+      </trans-unit>
+      <trans-unit id="CFBundleShortVersionString">
+        <source>1.3</source>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="bubbla/Localizable.strings" source-language="en" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.3.1" build-num="7D1014"/>
+    </header>
+    <body>
+      <trans-unit id="idag">
+        <source>idag</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

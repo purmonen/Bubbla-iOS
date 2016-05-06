@@ -13,8 +13,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.registerUserNotificationSettings(settings)
         application.registerForRemoteNotifications()
         application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Sound, .Alert, .Badge], categories: nil))
-        window?.tintColor = UIColor(red: 204/255.0, green: 100/255.0, blue: 237/255.0, alpha: 1) // Pink
-        BubblaApi.newsSource = .Bubbla
+        window?.tintColor = UIColor(hex: 0xA79A00) // Yellow
+        BubblaApi.newsSource = .Corax
         return true
     }
     
@@ -59,4 +59,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
 }
+
 

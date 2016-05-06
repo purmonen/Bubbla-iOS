@@ -74,7 +74,7 @@ class NewsSourceTableViewController: UITableViewController {
         let url = NSURL(string: "http://\(newsSource.name)")!
         let viewController = SFSafariViewController(URL: url, entersReaderIfAvailable: false)
 //        viewController.delegate = self
-        viewController.view.tintColor = ColorScheme.tint
+        viewController.view.tintColor = UIApplication.sharedApplication().windows.first?.tintColor
         presentViewController(viewController, animated: true, completion: nil)
     }
 

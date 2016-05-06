@@ -79,7 +79,6 @@ class NewsTableViewController: UITableViewController {
                     } else {
                         print("Updating table")
                         self.tableView.updateFromItems(self.newsItems.map { $0.id }, oldItems: oldItems.map({ $0.id }))
-                        
                     }
                     UIApplication.sharedApplication().applicationIconBadgeNumber = 0
                     self.showEmptyMessageIfNeeded()
@@ -172,7 +171,7 @@ class NewsTableViewController: UITableViewController {
     func safariViewControllerForUrl(url: NSURL, entersReaderIfAvailable: Bool) -> UIViewController {
         let viewController = SFSafariViewController(URL: url, entersReaderIfAvailable: entersReaderIfAvailable)
         viewController.delegate = categoryTableViewController
-        viewController.view.tintColor = ColorScheme.tint
+        viewController.view.tintColor = UIApplication.sharedApplication().windows.first?.tintColor
         return viewController
     }
     

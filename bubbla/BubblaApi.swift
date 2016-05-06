@@ -191,7 +191,7 @@ class _BubblaApi {
     }
     
     
-    let newsSource: NewsSource = .Corax
+    var newsSource: NewsSource = .Corax
     
     func newsForCategory(category: String?, callback: Response<[BubblaNews]> -> Void) {
         
