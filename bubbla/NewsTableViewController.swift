@@ -171,7 +171,7 @@ class NewsTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         var newsItem = newsItems[indexPath.row]
-        return [UITableViewRowAction(style: UITableViewRowActionStyle.Normal, title: newsItem.isRead ? "Oläst" : "Läst") {
+        return [UITableViewRowAction(style: UITableViewRowActionStyle.Normal, title: newsItem.isRead ? NSLocalizedString("Unread", comment: "") : NSLocalizedString("Read", comment: "")) {
             (action, indexPath) in
             self.newsForIndexPath(indexPath, isRead: !newsItem.isRead)
             tableView.setEditing(false, animated: true)
