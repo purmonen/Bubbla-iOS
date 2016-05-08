@@ -184,7 +184,7 @@ class _BubblaApi {
     
 //        let serverUrl = NSURL(string: "http://192.168.1.84:8001")!
     
-    let serverUrl = NSURL(string: "http://samipurmonen.com:8001")!
+    let serverUrl = NSURL(string: "https://samipurmonen.com")!
     
     
     enum NewsSource: String {
