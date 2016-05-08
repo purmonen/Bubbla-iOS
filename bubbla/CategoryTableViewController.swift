@@ -98,10 +98,9 @@ class CategoryTableViewController: UITableViewController, UISplitViewControllerD
                 category = categories[indexPath.section].categories[indexPath.row]
                 tableView.deselectRowAtIndexPath(indexPath, animated: false)
             } else {
-                category = _BubblaApi.selectedCategory ?? CategoryTableViewController.recentString
+                category = CategoryTableViewController.recentString
             }
             viewController.category = category
-            _BubblaApi.selectedCategory = category
         }
 
         if let navigationController = segue.destinationViewController as? UINavigationController,

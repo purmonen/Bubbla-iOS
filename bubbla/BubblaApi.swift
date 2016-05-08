@@ -158,19 +158,19 @@ class _BubblaApi {
         }
     }
     
-    class var selectedCategory: String? {
-        get {
-        return NSUserDefaults.standardUserDefaults()["selectedCategory"] as? String
-        }
-        
-        set {
-            NSUserDefaults.standardUserDefaults()["selectedCategory"] = newValue
-        }
-    }
+//    class var selectedCategory: String? {
+//        get {
+//        return NSUserDefaults.standardUserDefaults()["selectedCategory"] as? String
+//        }
+//        
+//        set {
+//            NSUserDefaults.standardUserDefaults()["selectedCategory"] = newValue
+//        }
+//    }
     
     func registerDevice(deviceToken: String, excludeCategories categories: [String], callback: Response<Void> -> Void) {
         do {
-            let json = ["token": deviceToken, "excludedCategories": categories]
+            let json = ["token": deviceToken, "excludedCategories": categories, "operativeSystem": "iOS"]
             let body = try NSJSONSerialization.dataWithJSONObject(json, options: [])
             
             urlService.dataFromUrl(NSURL(string: "registerDevice?source=\(newsSource.rawValue)", relativeToURL: serverUrl)!, body: body) {

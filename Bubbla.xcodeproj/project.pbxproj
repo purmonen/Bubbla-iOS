@@ -316,6 +316,11 @@
 					26AD626B1CDCE45D00929C14 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = U8JUVSFVME;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					26ED028D1C1CA6A400663A21 = {
 						CreatedOnToolsVersion = 7.2;

@@ -205,10 +205,12 @@
                             <outlet property="delegate" destination="P20-xT-WPU" id="Zq7-Jl-STu"/>
                         </connections>
                     </tableView>
+                    <toolbarItems/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bZ5-YA-kml" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3393" y="345"/>
+            <point key="canvasLocation" x="3980" y="221"/>
         </scene>
         <!--Categories-->
         <scene sceneID="8eY-vD-RO7">
@@ -367,10 +369,10 @@
             </objects>
             <point key="canvasLocation" x="931" y="708"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Settings-->
         <scene sceneID="Jjp-Cr-App">
             <objects>
-                <tableViewController id="w4k-U0-VHy" sceneMemberID="viewController">
+                <tableViewController title="Settings" id="w4k-U0-VHy" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="sIb-Ns-5cR">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
