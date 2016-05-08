@@ -87,7 +87,6 @@ class NewsTableViewController: UITableViewController {
                     if oldItems.isEmpty {
                         self.tableView.reloadData()
                     } else {
-                        print("Updating table")
                         self.tableView.updateFromItems(self.newsItems.map { $0.id }, oldItems: oldItems.map({ $0.id }))
                     }
                     UIApplication.sharedApplication().applicationIconBadgeNumber = 0
