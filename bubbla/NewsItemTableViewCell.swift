@@ -5,8 +5,6 @@ class NewsItemTableViewCell: UITableViewCell {
     
     static var imageForNewsItem = [BubblaNews: UIImage]()
     static var bubblaNewsWithFailedImages = Set<BubblaNews>()
-    
-    
     weak var newsTableViewController: NewsTableViewController? = nil
     
     enum Appearance: String {
@@ -30,7 +28,6 @@ class NewsItemTableViewCell: UITableViewCell {
         }
         
         static var All = [Image, FacebookLink, Domain, TimeAndCategory]
-        
     }
     
     var newsItem: BubblaNews! {

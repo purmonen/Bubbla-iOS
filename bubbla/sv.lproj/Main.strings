@@ -1,23 +1,26 @@
 
+/* Class = "UITableViewController"; title = "Display options"; ObjectID = "0bU-vp-RJW"; */
+"0bU-vp-RJW.title" = "Visningsalternativ";
+
 /* Class = "UILabel"; text = "Title"; ObjectID = "1QT-Gv-ZBa"; */
 "1QT-Gv-ZBa.text" = "Title";
 
-/* Class = "UILabel"; text = "Visningsalternativ"; ObjectID = "1Xe-Cq-Ujr"; */
+/* Class = "UILabel"; text = "Display options"; ObjectID = "1Xe-Cq-Ujr"; */
 "1Xe-Cq-Ujr.text" = "Visningsalternativ";
 
-/* Class = "UIBarButtonItem"; title = "Källor"; ObjectID = "7X4-13-SUU"; */
+/* Class = "UIBarButtonItem"; title = "Sources"; ObjectID = "7X4-13-SUU"; */
 "7X4-13-SUU.title" = "Källor";
 
 /* Class = "UINavigationItem"; title = "Senaste"; ObjectID = "9nd-F1-s0l"; */
 "9nd-F1-s0l.title" = "Senaste";
 
-/* Class = "UILabel"; text = "Ingen nyhet vald"; ObjectID = "B2J-eR-GAJ"; */
+/* Class = "UILabel"; text = "No news selected"; ObjectID = "B2J-eR-GAJ"; */
 "B2J-eR-GAJ.text" = "Ingen nyhet vald";
 
 /* Class = "UILabel"; text = "Bild"; ObjectID = "Co3-wq-v4H"; */
 "Co3-wq-v4H.text" = "Bild";
 
-/* Class = "UINavigationItem"; title = "Pushnotiser"; ObjectID = "DNj-he-VkJ"; */
+/* Class = "UINavigationItem"; title = "Push notifications"; ObjectID = "DNj-he-VkJ"; */
 "DNj-he-VkJ.title" = "Pushnotiser";
 
 /* Class = "UILabel"; text = "Ekonomi"; ObjectID = "H0f-9a-7By"; */
@@ -35,23 +38,20 @@
 /* Class = "UILabel"; text = "Label"; ObjectID = "O1x-WM-aIe"; */
 "O1x-WM-aIe.text" = "Label";
 
+/* Class = "UITableViewController"; title = "Sources"; ObjectID = "P20-xT-WPU"; */
+"P20-xT-WPU.title" = "Källor";
+
 /* Class = "UILabel"; text = "Ekonomi"; ObjectID = "RKO-Ou-cDk"; */
 "RKO-Ou-cDk.text" = "Ekonomi";
 
 /* Class = "UILabel"; text = "Detail"; ObjectID = "Sap-ay-sEd"; */
 "Sap-ay-sEd.text" = "Detail";
 
-/* Class = "UINavigationItem"; title = "Kategorier"; ObjectID = "adX-yG-SyI"; */
+/* Class = "UINavigationItem"; title = "Categories"; ObjectID = "adX-yG-SyI"; */
 "adX-yG-SyI.title" = "Kategorier";
 
 /* Class = "UITableViewController"; title = "Pushnotiser"; ObjectID = "afc-LO-RBg"; */
 "afc-LO-RBg.title" = "Pushnotiser";
-
-"0bU-vp-RJW.title" = "Visningsalternativ";
-
-"P20-xT-WPU.title" = "Källor";
-
-"w4k-U0-VHy.title" = "Inställningar"
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "daT-PT-zQ9"; */
 "daT-PT-zQ9.text" = "Label";
@@ -59,14 +59,14 @@
 /* Class = "UILabel"; text = "●"; ObjectID = "gf2-sw-xia"; */
 "gf2-sw-xia.text" = "●";
 
-/* Class = "UIBarButtonItem"; title = "Klar"; ObjectID = "hkH-9o-rlh"; */
-"hkH-9o-rlh.title" = "Klar";
-
-/* Class = "UILabel"; text = "Pushnotiser"; ObjectID = "mTt-zh-LLg"; */
+/* Class = "UILabel"; text = "Push notifications"; ObjectID = "mTt-zh-LLg"; */
 "mTt-zh-LLg.text" = "Pushnotiser";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "shQ-e7-NIO"; */
 "shQ-e7-NIO.text" = "Label";
+
+/* Class = "UITableViewController"; title = "Settings"; ObjectID = "w4k-U0-VHy"; */
+"w4k-U0-VHy.title" = "Inställningar";
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "zCa-Lc-v1W"; */
 "zCa-Lc-v1W.text" = "Title";
