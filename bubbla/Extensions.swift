@@ -67,14 +67,11 @@ extension NSDate {
         let dateFormatter = NSDateFormatter()
         dateFormatter.timeZone = NSTimeZone.systemTimeZone()
         dateFormatter.dateFormat = format
-        dateFormatter.locale = NSLocale(localeIdentifier: "sv")
         return dateFormatter.stringFromDate(self)
     }
     
     var readableString: String {
         let time = self.format("HH:mm")
-        
-        let locale = NSLocale(localeIdentifier: "sv")
         
         if self.isToday {
             return "\(NSLocalizedString("Today", comment: "")) \(time)"
@@ -89,7 +86,6 @@ extension NSDate {
         let year = self.format("yyyy")
         
         let dateFormatter = NSDateFormatter()
-        dateFormatter.locale = locale
         dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
         
         if year == NSDate().format("yyyy") {
