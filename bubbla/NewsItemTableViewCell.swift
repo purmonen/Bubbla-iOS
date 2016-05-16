@@ -11,12 +11,9 @@ class NewsItemTableViewCell: UITableViewCell {
     
     enum Appearance: String {
         case Image = "NewsItemTableViewCellImage"
-        case FacebookLink = "NewsItemTableViewCellFacebookLink"
-        case TwitterLink = "NewsItemTableViewCellTwitterLink"
         case Domain = "NewsItemTableViewCellDomain"
         case TimeAndCategory = "NewsItemTableViewCellTimeAndCategory"
-        
-        case RadioLink = "NewsItemTableViewCellRadioLink"
+        case SocialMedia = "NewsItemTableViewCellSocialMedia"
         
         var hidden: Bool {
             get { return NSUserDefaults.standardUserDefaults()[rawValue] as? Bool ?? false }
@@ -26,25 +23,20 @@ class NewsItemTableViewCell: UITableViewCell {
         var title: String {
             switch self {
             case Image: return NSLocalizedString("Image", comment: "")
-            case FacebookLink: return NSLocalizedString("Facebook link", comment: "")
             case Domain: return NSLocalizedString("Domain", comment: "")
-            case .TimeAndCategory: return NSLocalizedString("Time and category", comment: "")
-            case .TwitterLink: return NSLocalizedString("Twitter link", comment: "")
-                case .RadioLink: return NSLocalizedString("Radio link", comment: "")
+            case TimeAndCategory: return NSLocalizedString("Time and category", comment: "")
+            case SocialMedia: return NSLocalizedString("Social media", comment: "")
             }
         }
         
-        static var All = [Image, FacebookLink, TwitterLink, RadioLink, Domain, TimeAndCategory]
+        static var All = [Image, SocialMedia, Domain, TimeAndCategory]
     }
     
     var newsItem: BubblaNews! {
         didSet {
-            facebookButton.hidden = newsItem.facebookUrl == nil || Appearance.FacebookLink.hidden
-            twitterButton.hidden = newsItem.twitterUrl == nil || Appearance.TwitterLink.hidden
-            
-            radioButton.alpha = newsItem.radioUrl == nil || Appearance.RadioLink.hidden ? 0 : 1
-            
-            
+            facebookButton.hidden = newsItem.facebookUrl == nil || Appearance.SocialMedia.hidden
+            twitterButton.hidden = newsItem.twitterUrl == nil || Appearance.SocialMedia.hidden
+            radioButton.alpha = newsItem.radioUrl == nil || Appearance.SocialMedia.hidden ? 0 : 1
             
             titleLabel.text = newsItem.title
             
