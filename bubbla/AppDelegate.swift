@@ -15,6 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Sound, .Alert, .Badge], categories: nil))
         window?.tintColor = UIColor(red: 204/255.0, green: 100/255.0, blue: 237/255.0, alpha: 1) // Pink
         BubblaApi.newsSource = .Bubbla
+        UIApplication.sharedApplication().openURL(NSURL(string: "corax://")!)
         return true
     }
     
@@ -28,6 +29,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         BubblaApi.registerDevice(deviceTokenString, excludeCategories: disallowPushNotificationsForCategories) {
             print($0)
         }
+        
+        
     }
     
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {

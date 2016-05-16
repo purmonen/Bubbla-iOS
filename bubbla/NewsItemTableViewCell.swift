@@ -10,6 +10,7 @@ class NewsItemTableViewCell: UITableViewCell {
     enum Appearance: String {
         case Image = "NewsItemTableViewCellImage"
         case FacebookLink = "NewsItemTableViewCellFacebookLink"
+        case TwitterLink = "NewsItemTableViewCellTwitterLink"
         case Domain = "NewsItemTableViewCellDomain"
         case TimeAndCategory = "NewsItemTableViewCellTimeAndCategory"
         
@@ -24,15 +25,21 @@ class NewsItemTableViewCell: UITableViewCell {
             case FacebookLink: return NSLocalizedString("Facebook link", comment: "")
             case Domain: return NSLocalizedString("Domain", comment: "")
             case .TimeAndCategory: return NSLocalizedString("Time and category", comment: "")
+            case .TwitterLink: return NSLocalizedString("Twitter link", comment: "")
             }
         }
         
-        static var All = [Image, FacebookLink, Domain, TimeAndCategory]
+        static var All = [Image, FacebookLink, TwitterLink, Domain, TimeAndCategory]
     }
     
     var newsItem: BubblaNews! {
         didSet {
             facebookButton.hidden = newsItem.facebookUrl == nil || Appearance.FacebookLink.hidden
+            twitterButton.hidden = newsItem.twitterUrl == nil || Appearance.TwitterLink.hidden
+            
+            
+                print("Is social media hidden? \(socialMediaStackView.hidden)")
+            
             titleLabel.text = newsItem.title
             
             let dateFormatter = NSDateFormatter()
@@ -99,6 +106,12 @@ class NewsItemTableViewCell: UITableViewCell {
         }
     }
 
+    @IBAction func twitterButtonClicked(sender: AnyObject) {
+        if let twitterUrl = newsItem.twitterUrl {
+            newsTableViewController?.openUrl(twitterUrl, entersReaderIfAvailable: false)
+        }
+    }
+    @IBOutlet weak var socialMediaStackView: UIStackView!
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var publicationDateLabel: UILabel!

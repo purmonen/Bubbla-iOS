@@ -75,7 +75,6 @@ class NewsTableViewController: UITableViewController {
                     self.showEmptyMessage(false, message: "")
                     let oldItems = self.newsItems
                 
-                    
                     self.newsItems = SearchableList(items: Array(Set(newsItems)).sort { $1.publicationDate < $0.publicationDate }.filter { self.category !=
                         CategoryTableViewController.topNewsString || $0.facebookUrl != nil })
                     

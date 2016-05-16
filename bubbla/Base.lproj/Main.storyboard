@@ -99,7 +99,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="O13-FW-JqE">
-                                                    <rect key="frame" x="0.0" y="295" width="35" height="35"/>
+                                                    <rect key="frame" x="0.0" y="295" width="82" height="35"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bEj-c3-1OJ">
                                                             <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
@@ -113,7 +113,22 @@
                                                                 <action selector="facebookButtonClicked:" destination="g5e-fV-6RV" eventType="touchUpInside" id="BwK-hn-JAH"/>
                                                             </connections>
                                                         </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XZ5-f2-Alp">
+                                                            <rect key="frame" x="47" y="0.0" width="35" height="35"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" secondItem="XZ5-f2-Alp" secondAttribute="height" multiplier="1:1" id="rc8-4c-ji4"/>
+                                                                <constraint firstAttribute="height" priority="999" constant="35" id="vGV-pB-KxG"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <state key="normal" image="twitter"/>
+                                                            <connections>
+                                                                <action selector="twitterButtonClicked:" destination="g5e-fV-6RV" eventType="touchUpInside" id="IyP-Hl-3d0"/>
+                                                            </connections>
+                                                        </button>
                                                     </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="XZ5-f2-Alp" firstAttribute="width" secondItem="XZ5-f2-Alp" secondAttribute="height" multiplier="1:1" id="lrQ-Ns-yTD"/>
+                                                    </constraints>
                                                 </stackView>
                                             </subviews>
                                         </stackView>
@@ -143,7 +158,9 @@
                                     <outlet property="facebookButton" destination="bEj-c3-1OJ" id="Dja-Wo-Y6P"/>
                                     <outlet property="newsImageView" destination="Shu-j1-TZb" id="fLZ-pU-AlH"/>
                                     <outlet property="publicationDateLabel" destination="O1x-WM-aIe" id="fFu-Ra-KSA"/>
+                                    <outlet property="socialMediaStackView" destination="O13-FW-JqE" id="Vda-5d-bjw"/>
                                     <outlet property="titleLabel" destination="KBr-uf-4Y9" id="4TS-Xk-vKR"/>
+                                    <outlet property="twitterButton" destination="XZ5-f2-Alp" id="teX-r8-p85"/>
                                     <outlet property="unreadIndicator" destination="gf2-sw-xia" id="mrP-ju-ZIc"/>
                                     <outlet property="urlLabel" destination="daT-PT-zQ9" id="Pqj-A9-aDM"/>
                                 </connections>
@@ -442,89 +459,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="NewsItemTableViewCell" rowHeight="350" id="J3m-sm-wGB" customClass="NewsItemTableViewCell" customModule="Bubbla" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="114" width="600" height="350"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="J3m-sm-wGB" id="rOs-a2-NIo">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="349"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="B1L-Y4-OUk">
-                                            <rect key="frame" x="40" y="10" width="545" height="330"/>
-                                            <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="255" image="bitcoin" translatesAutoresizingMaskIntoConstraints="NO" id="HNc-yy-ADY">
-                                                    <rect key="frame" x="0.0" y="0.0" width="545" height="150"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" priority="999" constant="150" id="cAP-qO-6fL"/>
-                                                    </constraints>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="240" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1QT-Gv-ZBa">
-                                                    <rect key="frame" x="0.0" y="153" width="38" height="97"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JvA-hy-VvU">
-                                                    <rect key="frame" x="0.0" y="253" width="37" height="18"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
-                                                    <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="shQ-e7-NIO">
-                                                    <rect key="frame" x="0.0" y="274" width="37" height="18"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
-                                                    <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="ieI-qZ-diE">
-                                                    <rect key="frame" x="0.0" y="295" width="35" height="35"/>
-                                                    <subviews>
-                                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QLD-fh-fXY">
-                                                            <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" secondItem="QLD-fh-fXY" secondAttribute="height" multiplier="1:1" id="YMF-lg-6VX"/>
-                                                                <constraint firstAttribute="height" priority="999" constant="35" id="u6d-0z-DCI"/>
-                                                            </constraints>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <state key="normal" image="facebook"/>
-                                                        </button>
-                                                    </subviews>
-                                                </stackView>
-                                            </subviews>
-                                        </stackView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="●" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NLG-Gc-Tbz">
-                                            <rect key="frame" x="19" y="163" width="13" height="24"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                            <color key="textColor" red="0.80000000000000004" green="0.3921568627" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="B1L-Y4-OUk" firstAttribute="leading" secondItem="rOs-a2-NIo" secondAttribute="leading" constant="40" id="AB1-LG-oje"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="B1L-Y4-OUk" secondAttribute="trailing" id="CXS-4s-BuI"/>
-                                        <constraint firstItem="B1L-Y4-OUk" firstAttribute="top" secondItem="rOs-a2-NIo" secondAttribute="topMargin" id="JM1-db-6J2"/>
-                                        <constraint firstItem="1QT-Gv-ZBa" firstAttribute="leading" secondItem="NLG-Gc-Tbz" secondAttribute="trailing" constant="8" id="pYJ-ay-iQi"/>
-                                        <constraint firstItem="NLG-Gc-Tbz" firstAttribute="top" secondItem="1QT-Gv-ZBa" secondAttribute="top" id="rNz-zn-OHX"/>
-                                        <constraint firstItem="NLG-Gc-Tbz" firstAttribute="centerY" secondItem="1QT-Gv-ZBa" secondAttribute="centerY" id="vIj-io-DIC"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="B1L-Y4-OUk" secondAttribute="bottom" id="xQw-3h-ZlF"/>
-                                    </constraints>
-                                    <variation key="default">
-                                        <mask key="constraints">
-                                            <exclude reference="vIj-io-DIC"/>
-                                        </mask>
-                                    </variation>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="facebookButton" destination="QLD-fh-fXY" id="gL5-g2-s1M"/>
-                                    <outlet property="newsImageView" destination="HNc-yy-ADY" id="yXK-oF-Dtu"/>
-                                    <outlet property="publicationDateLabel" destination="shQ-e7-NIO" id="Mye-Qy-eoz"/>
-                                    <outlet property="titleLabel" destination="1QT-Gv-ZBa" id="uGM-yx-ZPt"/>
-                                    <outlet property="unreadIndicator" destination="NLG-Gc-Tbz" id="82p-DF-DCV"/>
-                                    <outlet property="urlLabel" destination="JvA-hy-VvU" id="dWF-tD-gwZ"/>
-                                </connections>
-                            </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="PushNotificationTableViewCell" id="6gg-ir-TaD" customClass="PushNotificationTableViewCell" customModule="Bubbla" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="464" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="114" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="6gg-ir-TaD" id="A5M-9A-aWU">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
@@ -553,6 +489,107 @@
                                     <outlet property="categoryLabel" destination="Co3-wq-v4H" id="b6c-yo-CsF"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewsItemTableViewCell" rowHeight="350" id="rKL-65-c4l" customClass="NewsItemTableViewCell" customModule="Bubbla" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="158" width="600" height="350"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="rKL-65-c4l" id="fld-vs-LJG">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="349"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="3r8-vD-M3j">
+                                            <rect key="frame" x="40" y="10" width="545" height="330"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="255" image="bitcoin" translatesAutoresizingMaskIntoConstraints="NO" id="TIN-Tf-AvE">
+                                                    <rect key="frame" x="0.0" y="0.0" width="545" height="150"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" priority="999" constant="150" id="Kf8-Ih-HNR"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="240" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="trz-YI-jzW">
+                                                    <rect key="frame" x="0.0" y="153" width="38" height="97"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JY8-9J-eLN">
+                                                    <rect key="frame" x="0.0" y="253" width="37" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                                                    <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ZT-wJ-IrJ">
+                                                    <rect key="frame" x="0.0" y="274" width="37" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                                                    <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="4HK-kC-tJj">
+                                                    <rect key="frame" x="0.0" y="295" width="82" height="35"/>
+                                                    <subviews>
+                                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uls-78-2dC">
+                                                            <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" priority="999" constant="35" id="JBC-z1-F9J"/>
+                                                                <constraint firstAttribute="width" secondItem="Uls-78-2dC" secondAttribute="height" multiplier="1:1" id="XQe-ZK-Mfy"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <state key="normal" image="facebook"/>
+                                                            <connections>
+                                                                <action selector="facebookButtonClicked:" destination="rKL-65-c4l" eventType="touchUpInside" id="OxX-WH-E08"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kfc-7g-PMZ">
+                                                            <rect key="frame" x="47" y="0.0" width="35" height="35"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" priority="999" constant="35" id="Bif-hw-mVE"/>
+                                                                <constraint firstAttribute="width" secondItem="kfc-7g-PMZ" secondAttribute="height" multiplier="1:1" id="j3C-C5-FC7"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <state key="normal" image="twitter"/>
+                                                            <connections>
+                                                                <action selector="twitterButtonClicked:" destination="rKL-65-c4l" eventType="touchUpInside" id="Bs3-A1-Akq"/>
+                                                            </connections>
+                                                        </button>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="kfc-7g-PMZ" firstAttribute="width" secondItem="kfc-7g-PMZ" secondAttribute="height" multiplier="1:1" id="IGJ-wN-Sf3"/>
+                                                    </constraints>
+                                                </stackView>
+                                            </subviews>
+                                        </stackView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="●" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="siI-7a-k8F">
+                                            <rect key="frame" x="19" y="163" width="13" height="24"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                            <color key="textColor" red="0.80000000000000004" green="0.3921568627" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="siI-7a-k8F" firstAttribute="centerY" secondItem="trz-YI-jzW" secondAttribute="centerY" id="4nu-3n-b4t"/>
+                                        <constraint firstItem="3r8-vD-M3j" firstAttribute="leading" secondItem="fld-vs-LJG" secondAttribute="leading" constant="40" id="Ans-6h-N6i"/>
+                                        <constraint firstItem="trz-YI-jzW" firstAttribute="leading" secondItem="siI-7a-k8F" secondAttribute="trailing" constant="8" id="G0E-p6-xww"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="3r8-vD-M3j" secondAttribute="bottom" id="Jrt-VV-Sks"/>
+                                        <constraint firstItem="siI-7a-k8F" firstAttribute="top" secondItem="trz-YI-jzW" secondAttribute="top" id="UhA-YQ-B7h"/>
+                                        <constraint firstItem="3r8-vD-M3j" firstAttribute="top" secondItem="fld-vs-LJG" secondAttribute="topMargin" id="dDc-SX-ygK"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="3r8-vD-M3j" secondAttribute="trailing" id="edd-Oq-FPI"/>
+                                    </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="4nu-3n-b4t"/>
+                                        </mask>
+                                    </variation>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="facebookButton" destination="Uls-78-2dC" id="fIX-8P-Txp"/>
+                                    <outlet property="newsImageView" destination="TIN-Tf-AvE" id="SSO-Ng-s7o"/>
+                                    <outlet property="publicationDateLabel" destination="7ZT-wJ-IrJ" id="aSX-93-jvk"/>
+                                    <outlet property="socialMediaStackView" destination="4HK-kC-tJj" id="kmu-cA-1JN"/>
+                                    <outlet property="titleLabel" destination="trz-YI-jzW" id="fHb-J8-lSk"/>
+                                    <outlet property="twitterButton" destination="kfc-7g-PMZ" id="0j6-ON-vDH"/>
+                                    <outlet property="unreadIndicator" destination="siI-7a-k8F" id="tDo-ln-Dty"/>
+                                    <outlet property="urlLabel" destination="JY8-9J-eLN" id="E8s-TM-o94"/>
+                                </connections>
+                            </tableViewCell>
                         </prototypes>
                         <sections/>
                         <connections>
@@ -570,6 +607,7 @@
         <image name="bitcoin" width="1024" height="585"/>
         <image name="cog" width="22" height="22"/>
         <image name="facebook" width="128" height="128"/>
+        <image name="twitter" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="mQc-zv-j5u"/>
