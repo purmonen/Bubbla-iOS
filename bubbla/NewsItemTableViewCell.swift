@@ -35,8 +35,11 @@ class NewsItemTableViewCell: UITableViewCell {
     var newsItem: BubblaNews! {
         didSet {
             facebookButton.hidden = newsItem.facebookUrl == nil || Appearance.SocialMedia.hidden
-            twitterButton.hidden = newsItem.twitterUrl == nil || Appearance.SocialMedia.hidden
+            twitterButton.alpha = newsItem.twitterUrl == nil || Appearance.SocialMedia.hidden ? 0 : 1
             radioButton.alpha = newsItem.radioUrl == nil || Appearance.SocialMedia.hidden ? 0 : 1
+            
+            
+            let newsHasChanged = titleLabel.text != newsItem.title
             
             titleLabel.text = newsItem.title
             
@@ -49,7 +52,10 @@ class NewsItemTableViewCell: UITableViewCell {
             unreadIndicator.hidden = newsItem.isRead
             
             unreadIndicator.textColor = UIApplication.sharedApplication().windows.first?.tintColor
-            newsImageView.image = nil
+            
+            if newsHasChanged {
+                newsImageView.image = nil
+            }
             newsImageView.hidden = newsItem.imageUrl == nil
             
             if let imageUrl = newsItem.imageUrl where !NewsItemTableViewCell.bubblaNewsWithFailedImages.contains(newsItem) && !Appearance.Image.hidden {
