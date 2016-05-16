@@ -1,5 +1,7 @@
 import UIKit
 import SafariServices
+import AVFoundation
+import AVKit
 
 class NewsItemTableViewCell: UITableViewCell {
     
@@ -14,6 +16,8 @@ class NewsItemTableViewCell: UITableViewCell {
         case Domain = "NewsItemTableViewCellDomain"
         case TimeAndCategory = "NewsItemTableViewCellTimeAndCategory"
         
+        case RadioLink = "NewsItemTableViewCellRadioLink"
+        
         var hidden: Bool {
             get { return NSUserDefaults.standardUserDefaults()[rawValue] as? Bool ?? false }
             set { NSUserDefaults.standardUserDefaults()[rawValue] = newValue }
@@ -26,10 +30,11 @@ class NewsItemTableViewCell: UITableViewCell {
             case Domain: return NSLocalizedString("Domain", comment: "")
             case .TimeAndCategory: return NSLocalizedString("Time and category", comment: "")
             case .TwitterLink: return NSLocalizedString("Twitter link", comment: "")
+                case .RadioLink: return NSLocalizedString("Radio link", comment: "")
             }
         }
         
-        static var All = [Image, FacebookLink, TwitterLink, Domain, TimeAndCategory]
+        static var All = [Image, FacebookLink, TwitterLink, RadioLink, Domain, TimeAndCategory]
     }
     
     var newsItem: BubblaNews! {
@@ -37,8 +42,9 @@ class NewsItemTableViewCell: UITableViewCell {
             facebookButton.hidden = newsItem.facebookUrl == nil || Appearance.FacebookLink.hidden
             twitterButton.hidden = newsItem.twitterUrl == nil || Appearance.TwitterLink.hidden
             
+            radioButton.alpha = newsItem.radioUrl == nil || Appearance.RadioLink.hidden ? 0 : 1
             
-                print("Is social media hidden? \(socialMediaStackView.hidden)")
+            
             
             titleLabel.text = newsItem.title
             
@@ -100,6 +106,8 @@ class NewsItemTableViewCell: UITableViewCell {
         }
     }
     
+    var player: AVPlayer?
+    
     @IBAction func facebookButtonClicked(sender: AnyObject) {
         if let facebookUrl = newsItem.facebookUrl {
             newsTableViewController?.openUrl(facebookUrl, entersReaderIfAvailable: false)
@@ -111,8 +119,14 @@ class NewsItemTableViewCell: UITableViewCell {
             newsTableViewController?.openUrl(twitterUrl, entersReaderIfAvailable: false)
         }
     }
+    @IBAction func radioLinkClicked(sender: AnyObject) {
+        if let radioUrl = newsItem.radioUrl {
+            newsTableViewController?.openUrl(radioUrl, entersReaderIfAvailable: false)
+        }
+    }
     @IBOutlet weak var socialMediaStackView: UIStackView!
     
+    @IBOutlet weak var radioButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var publicationDateLabel: UILabel!
     @IBOutlet weak var urlLabel: UILabel!

@@ -64,75 +64,89 @@
                             <textInputTraits key="textInputTraits"/>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewsItemTableViewCell" rowHeight="350" id="g5e-fV-6RV" customClass="NewsItemTableViewCell" customModule="Bubbla" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewsItemTableViewCell" rowHeight="350" id="tDG-OA-N9h" customClass="NewsItemTableViewCell" customModule="Bubbla" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="136" width="600" height="350"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="g5e-fV-6RV" id="TTb-jL-UNo">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="tDG-OA-N9h" id="tJk-l9-Ea3">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="349"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="oCm-5l-K5U">
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="f2c-tQ-g04">
                                             <rect key="frame" x="40" y="10" width="545" height="330"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="255" image="bitcoin" translatesAutoresizingMaskIntoConstraints="NO" id="Shu-j1-TZb">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="255" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XeG-sA-w8s">
                                                     <rect key="frame" x="0.0" y="0.0" width="545" height="150"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" priority="999" constant="150" id="wDB-MX-iav"/>
+                                                        <constraint firstAttribute="height" priority="999" constant="150" id="AWF-i2-cgT"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="240" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KBr-uf-4Y9">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="240" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cxh-JA-oWA">
                                                     <rect key="frame" x="0.0" y="153" width="38" height="97"/>
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="daT-PT-zQ9">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Lb-lF-kIy">
                                                     <rect key="frame" x="0.0" y="253" width="37" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                                     <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O1x-WM-aIe">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="klu-EV-0as">
                                                     <rect key="frame" x="0.0" y="274" width="37" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                                     <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="O13-FW-JqE">
-                                                    <rect key="frame" x="0.0" y="295" width="82" height="35"/>
+                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="uly-kO-gDy">
+                                                    <rect key="frame" x="0.0" y="295" width="129" height="35"/>
                                                     <subviews>
-                                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bEj-c3-1OJ">
+                                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aAb-fP-c3z">
                                                             <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" priority="999" constant="35" id="Q6M-Ps-hmk"/>
-                                                                <constraint firstAttribute="width" secondItem="bEj-c3-1OJ" secondAttribute="height" multiplier="1:1" id="Xz6-Zz-rk4"/>
+                                                                <constraint firstAttribute="height" priority="999" constant="35" id="2aI-7O-zq1"/>
+                                                                <constraint firstAttribute="width" secondItem="aAb-fP-c3z" secondAttribute="height" multiplier="1:1" id="w4h-3D-duX"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <state key="normal" image="facebook"/>
                                                             <connections>
-                                                                <action selector="facebookButtonClicked:" destination="g5e-fV-6RV" eventType="touchUpInside" id="BwK-hn-JAH"/>
+                                                                <action selector="facebookButtonClicked:" destination="tDG-OA-N9h" eventType="touchUpInside" id="4yB-B3-6J7"/>
                                                             </connections>
                                                         </button>
-                                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XZ5-f2-Alp">
+                                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OL1-cv-R8f">
                                                             <rect key="frame" x="47" y="0.0" width="35" height="35"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" secondItem="XZ5-f2-Alp" secondAttribute="height" multiplier="1:1" id="rc8-4c-ji4"/>
-                                                                <constraint firstAttribute="height" priority="999" constant="35" id="vGV-pB-KxG"/>
+                                                                <constraint firstAttribute="height" priority="999" constant="35" id="47R-aw-CKV"/>
+                                                                <constraint firstAttribute="width" secondItem="OL1-cv-R8f" secondAttribute="height" multiplier="1:1" id="iO4-Y2-Cfy"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <state key="normal" image="twitter"/>
                                                             <connections>
-                                                                <action selector="twitterButtonClicked:" destination="g5e-fV-6RV" eventType="touchUpInside" id="IyP-Hl-3d0"/>
+                                                                <action selector="twitterButtonClicked:" destination="tDG-OA-N9h" eventType="touchUpInside" id="iKr-Py-XqE"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DYG-Vk-ThQ">
+                                                            <rect key="frame" x="94" y="0.0" width="35" height="35"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" priority="999" constant="35" id="JHh-LE-rhr"/>
+                                                                <constraint firstAttribute="width" secondItem="DYG-Vk-ThQ" secondAttribute="height" multiplier="1:1" id="TzH-an-lvy"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <state key="normal" image="radio"/>
+                                                            <connections>
+                                                                <action selector="radioLinkClicked:" destination="tDG-OA-N9h" eventType="touchUpInside" id="yqR-cx-p06"/>
                                                             </connections>
                                                         </button>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstItem="XZ5-f2-Alp" firstAttribute="width" secondItem="XZ5-f2-Alp" secondAttribute="height" multiplier="1:1" id="lrQ-Ns-yTD"/>
+                                                        <constraint firstItem="DYG-Vk-ThQ" firstAttribute="width" secondItem="DYG-Vk-ThQ" secondAttribute="height" multiplier="1:1" id="Pid-Oa-a6L"/>
+                                                        <constraint firstItem="DYG-Vk-ThQ" firstAttribute="width" secondItem="DYG-Vk-ThQ" secondAttribute="height" multiplier="1:1" id="wQG-jz-l3v"/>
+                                                        <constraint firstItem="OL1-cv-R8f" firstAttribute="width" secondItem="OL1-cv-R8f" secondAttribute="height" multiplier="1:1" id="xqi-9f-sfY"/>
                                                     </constraints>
                                                 </stackView>
                                             </subviews>
                                         </stackView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="●" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gf2-sw-xia">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="●" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5wf-zd-baE">
                                             <rect key="frame" x="19" y="163" width="13" height="24"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                             <color key="textColor" red="0.80000000000000004" green="0.3921568627" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -140,29 +154,30 @@
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="trailingMargin" secondItem="oCm-5l-K5U" secondAttribute="trailing" id="FpG-Wt-uUf"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="oCm-5l-K5U" secondAttribute="bottom" id="IsA-e9-sz4"/>
-                                        <constraint firstItem="KBr-uf-4Y9" firstAttribute="leading" secondItem="gf2-sw-xia" secondAttribute="trailing" constant="8" id="OJs-sm-in2"/>
-                                        <constraint firstItem="gf2-sw-xia" firstAttribute="top" secondItem="KBr-uf-4Y9" secondAttribute="top" id="axa-Fb-eJL"/>
-                                        <constraint firstItem="oCm-5l-K5U" firstAttribute="top" secondItem="TTb-jL-UNo" secondAttribute="topMargin" id="fjv-P3-kf3"/>
-                                        <constraint firstItem="gf2-sw-xia" firstAttribute="centerY" secondItem="KBr-uf-4Y9" secondAttribute="centerY" id="g8Q-Sr-3Yt"/>
-                                        <constraint firstItem="oCm-5l-K5U" firstAttribute="leading" secondItem="TTb-jL-UNo" secondAttribute="leading" constant="40" id="sCx-S6-C6C"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="f2c-tQ-g04" secondAttribute="trailing" id="2E1-WC-rTK"/>
+                                        <constraint firstItem="f2c-tQ-g04" firstAttribute="leading" secondItem="tJk-l9-Ea3" secondAttribute="leading" constant="40" id="PCn-Mh-66b"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="f2c-tQ-g04" secondAttribute="bottom" id="TZy-qa-IVW"/>
+                                        <constraint firstItem="5wf-zd-baE" firstAttribute="centerY" secondItem="cxh-JA-oWA" secondAttribute="centerY" id="UnD-X2-tPw"/>
+                                        <constraint firstItem="5wf-zd-baE" firstAttribute="top" secondItem="cxh-JA-oWA" secondAttribute="top" id="b9L-h4-8L0"/>
+                                        <constraint firstItem="f2c-tQ-g04" firstAttribute="top" secondItem="tJk-l9-Ea3" secondAttribute="topMargin" id="laX-me-Nbd"/>
+                                        <constraint firstItem="cxh-JA-oWA" firstAttribute="leading" secondItem="5wf-zd-baE" secondAttribute="trailing" constant="8" id="vAI-MH-g9C"/>
                                     </constraints>
                                     <variation key="default">
                                         <mask key="constraints">
-                                            <exclude reference="g8Q-Sr-3Yt"/>
+                                            <exclude reference="UnD-X2-tPw"/>
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="facebookButton" destination="bEj-c3-1OJ" id="Dja-Wo-Y6P"/>
-                                    <outlet property="newsImageView" destination="Shu-j1-TZb" id="fLZ-pU-AlH"/>
-                                    <outlet property="publicationDateLabel" destination="O1x-WM-aIe" id="fFu-Ra-KSA"/>
-                                    <outlet property="socialMediaStackView" destination="O13-FW-JqE" id="Vda-5d-bjw"/>
-                                    <outlet property="titleLabel" destination="KBr-uf-4Y9" id="4TS-Xk-vKR"/>
-                                    <outlet property="twitterButton" destination="XZ5-f2-Alp" id="teX-r8-p85"/>
-                                    <outlet property="unreadIndicator" destination="gf2-sw-xia" id="mrP-ju-ZIc"/>
-                                    <outlet property="urlLabel" destination="daT-PT-zQ9" id="Pqj-A9-aDM"/>
+                                    <outlet property="facebookButton" destination="aAb-fP-c3z" id="HnC-kU-5N0"/>
+                                    <outlet property="newsImageView" destination="XeG-sA-w8s" id="d4J-Eh-A7e"/>
+                                    <outlet property="publicationDateLabel" destination="klu-EV-0as" id="3KZ-mb-89j"/>
+                                    <outlet property="radioButton" destination="DYG-Vk-ThQ" id="Ywv-Pu-RuA"/>
+                                    <outlet property="socialMediaStackView" destination="uly-kO-gDy" id="pVA-bZ-Qlh"/>
+                                    <outlet property="titleLabel" destination="cxh-JA-oWA" id="njF-zy-4Qi"/>
+                                    <outlet property="twitterButton" destination="OL1-cv-R8f" id="GfP-MI-AS1"/>
+                                    <outlet property="unreadIndicator" destination="5wf-zd-baE" id="vaX-h7-8ke"/>
+                                    <outlet property="urlLabel" destination="7Lb-lF-kIy" id="VVo-Wp-xhm"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -499,7 +514,7 @@
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="3r8-vD-M3j">
                                             <rect key="frame" x="40" y="10" width="545" height="330"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="255" image="bitcoin" translatesAutoresizingMaskIntoConstraints="NO" id="TIN-Tf-AvE">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="255" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TIN-Tf-AvE">
                                                     <rect key="frame" x="0.0" y="0.0" width="545" height="150"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" priority="999" constant="150" id="Kf8-Ih-HNR"/>
@@ -524,7 +539,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="4HK-kC-tJj">
-                                                    <rect key="frame" x="0.0" y="295" width="82" height="35"/>
+                                                    <rect key="frame" x="0.0" y="295" width="129" height="35"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uls-78-2dC">
                                                             <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
@@ -550,9 +565,23 @@
                                                                 <action selector="twitterButtonClicked:" destination="rKL-65-c4l" eventType="touchUpInside" id="Bs3-A1-Akq"/>
                                                             </connections>
                                                         </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Glt-jX-C6N">
+                                                            <rect key="frame" x="94" y="0.0" width="35" height="35"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" priority="999" constant="35" id="2fi-jy-P24"/>
+                                                                <constraint firstAttribute="width" secondItem="Glt-jX-C6N" secondAttribute="height" multiplier="1:1" id="WY0-r8-LMi"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <state key="normal" image="radio"/>
+                                                            <connections>
+                                                                <action selector="radioLinkClicked:" destination="rKL-65-c4l" eventType="touchUpInside" id="UHc-wx-caW"/>
+                                                            </connections>
+                                                        </button>
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="kfc-7g-PMZ" firstAttribute="width" secondItem="kfc-7g-PMZ" secondAttribute="height" multiplier="1:1" id="IGJ-wN-Sf3"/>
+                                                        <constraint firstItem="Glt-jX-C6N" firstAttribute="width" secondItem="Glt-jX-C6N" secondAttribute="height" multiplier="1:1" id="JhH-2U-Fmb"/>
+                                                        <constraint firstItem="Glt-jX-C6N" firstAttribute="width" secondItem="Glt-jX-C6N" secondAttribute="height" multiplier="1:1" id="MuS-FF-9He"/>
                                                     </constraints>
                                                 </stackView>
                                             </subviews>
@@ -583,6 +612,7 @@
                                     <outlet property="facebookButton" destination="Uls-78-2dC" id="fIX-8P-Txp"/>
                                     <outlet property="newsImageView" destination="TIN-Tf-AvE" id="SSO-Ng-s7o"/>
                                     <outlet property="publicationDateLabel" destination="7ZT-wJ-IrJ" id="aSX-93-jvk"/>
+                                    <outlet property="radioButton" destination="Glt-jX-C6N" id="MHs-H0-m2V"/>
                                     <outlet property="socialMediaStackView" destination="4HK-kC-tJj" id="kmu-cA-1JN"/>
                                     <outlet property="titleLabel" destination="trz-YI-jzW" id="fHb-J8-lSk"/>
                                     <outlet property="twitterButton" destination="kfc-7g-PMZ" id="0j6-ON-vDH"/>
@@ -604,9 +634,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="bitcoin" width="1024" height="585"/>
         <image name="cog" width="22" height="22"/>
         <image name="facebook" width="128" height="128"/>
+        <image name="radio" width="128" height="128"/>
         <image name="twitter" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>

@@ -1,5 +1,6 @@
 import UIKit
 
+
 public struct BubblaNews: Hashable {
     let title: String
     let url: NSURL
@@ -10,6 +11,7 @@ public struct BubblaNews: Hashable {
     let imageUrl: NSURL?
     let facebookUrl: NSURL?
     let twitterUrl: NSURL?
+    let radioUrl: NSURL?
     
     public var hashValue: Int { return id }
     
@@ -196,7 +198,6 @@ class _BubblaApi {
     
     func newsForCategory(category: String?, callback: Response<[BubblaNews]> -> Void) {
         
-        
         urlService.jsonFromUrl(NSURL(string: "news?source=\(newsSource.rawValue)", relativeToURL: serverUrl)!) {
             callback($0 >>= { json in
                 var newsItems = [BubblaNews]()
@@ -216,7 +217,10 @@ class _BubblaApi {
                                 let facebookUrl: NSURL? = facebookUrlString != nil ? NSURL(string: facebookUrlString!) : nil
                                 let twitterUrlString = item["tweetUrl"] as? String
                                 let twitterUrl: NSURL? = twitterUrlString != nil ? NSURL(string: twitterUrlString!) : nil
-                                newsItems.append(BubblaNews(title: title, url: url, publicationDate: publicationDate, category: category, categoryType: categoryType, id: id, imageUrl: imageUrl, facebookUrl: facebookUrl, twitterUrl: twitterUrl))
+                            
+                                let radioUrlString = item["radioUrl"] as? String
+                                let radioUrl: NSURL? = radioUrlString != nil ? NSURL(string: radioUrlString!) : nil
+                                newsItems.append(BubblaNews(title: title, url: url, publicationDate: publicationDate, category: category, categoryType: categoryType, id: id, imageUrl: imageUrl, facebookUrl: facebookUrl, twitterUrl: twitterUrl, radioUrl: radioUrl))
                         }
                     }
                 }
