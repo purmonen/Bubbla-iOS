@@ -1240,11 +1240,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "bubbla/PhotoStreamViewController.swift"
-            timestampString = "487731739.62797"
+            timestampString = "487732277.406036"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
+            startingLineNumber = "125"
+            endingLineNumber = "125"
             landmarkName = "collectionView(_:heightForAnnotationAtIndexPath:withWidth:)"
             landmarkType = "5">
          </BreakpointContent>

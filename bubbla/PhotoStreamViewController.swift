@@ -78,8 +78,18 @@ extension PhotoStreamViewController {
     return cell
   }
     
+    
+    override func collectionView(collectionView: UICollectionView, didHighlightItemAtIndexPath indexPath: NSIndexPath) {
+        collectionView.cellForItemAtIndexPath(indexPath)?.contentView.backgroundColor = UIColor(hex: 0xF0F0F0)
+    }
+    
+    override func collectionView(collectionView: UICollectionView, didUnhighlightItemAtIndexPath indexPath: NSIndexPath) {
+        collectionView.cellForItemAtIndexPath(indexPath)?.contentView.backgroundColor = UIColor.clearColor()
+    }
+    
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let newsItem = newsItems[indexPath.item]
+    
         presentViewController(safariViewControllerForUrl(newsItem.url, entersReaderIfAvailable: true), animated: true, completion: nil)
         
         
