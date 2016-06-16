@@ -40,7 +40,7 @@ class NewsTableViewController: UITableViewController {
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 40, bottom: 0, right: 0)
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: "refresh:", forControlEvents: .ValueChanged)
-        registerForPreviewingWithDelegate(self, sourceView: view)
+//        registerForPreviewingWithDelegate(self, sourceView: view)
         title = newsSource ?? category
         searchBar.placeholder = NSLocalizedString("Search", comment: "")
         refresh()
@@ -188,6 +188,7 @@ class NewsTableViewController: UITableViewController {
     }
 }
 
+/*
 extension NewsTableViewController: UIViewControllerPreviewingDelegate {
     func previewingContext(previewingContext: UIViewControllerPreviewing,
         viewControllerForLocation location: CGPoint) -> UIViewController? {
@@ -202,6 +203,7 @@ extension NewsTableViewController: UIViewControllerPreviewingDelegate {
         presentViewController(viewControllerToCommit, animated: true, completion: nil)
     }
 }
+ */
 
 extension NewsTableViewController: UISearchBarDelegate {
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {

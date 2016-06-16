@@ -21,6 +21,8 @@
 		26254AD51C2DA37D0041776E /* PushNotificationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26254AD41C2DA37D0041776E /* PushNotificationsTableViewController.swift */; };
 		26254AD71C2DA3920041776E /* PushNotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26254AD61C2DA3920041776E /* PushNotificationTableViewCell.swift */; };
 		263D41D91CAD81EC006ADE9E /* NewsAppearenceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263D41D81CAD81EC006ADE9E /* NewsAppearenceTableViewController.swift */; };
+		26607FE11CED500C0055421F /* NewsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26607FE01CED500C0055421F /* NewsCollectionViewController.swift */; };
+		26607FE31CED50920055421F /* NewsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26607FE21CED50920055421F /* NewsCollectionViewCell.swift */; };
 		2666F09A1C04BA8600B453F7 /* BubblaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2666F0991C04BA8600B453F7 /* BubblaTests.swift */; };
 		2689203D1CDEC35F00BB0706 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 260DDA291BD59AE700E3DC5F /* Main.storyboard */; };
 		26A9A54E1BDE7BCC00140E67 /* CategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A9A54D1BDE7BCC00140E67 /* CategoryTableViewController.swift */; };
@@ -46,6 +48,8 @@
 		26C4AF9E1C0E8B670027379A /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C4AF9D1C0E8B670027379A /* CategoryTableViewCell.swift */; };
 		26D3E7F11C2AE67D006EA2D6 /* news.json in Resources */ = {isa = PBXBuildFile; fileRef = 26D3E7F01C2AE67D006EA2D6 /* news.json */; };
 		26D3E7F31C2AF49D006EA2D6 /* SearchableList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D3E7F21C2AF49D006EA2D6 /* SearchableList.swift */; };
+		26E003511D12166B0009CB07 /* PinterestLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E003501D12166B0009CB07 /* PinterestLayout.swift */; };
+		26E003531D1216730009CB07 /* PhotoStreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E003521D1216730009CB07 /* PhotoStreamViewController.swift */; };
 		26E231671BF6FF1300639E70 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26E231661BF6FF1300639E70 /* SafariServices.framework */; };
 		26ED02911C1CA6A400663A21 /* BubblaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26ED02901C1CA6A400663A21 /* BubblaUITests.swift */; };
 /* End PBXBuildFile section */
@@ -84,6 +88,8 @@
 		26254AD41C2DA37D0041776E /* PushNotificationsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationsTableViewController.swift; sourceTree = "<group>"; };
 		26254AD61C2DA3920041776E /* PushNotificationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationTableViewCell.swift; sourceTree = "<group>"; };
 		263D41D81CAD81EC006ADE9E /* NewsAppearenceTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NewsAppearenceTableViewController.swift; path = ../NewsAppearenceTableViewController.swift; sourceTree = "<group>"; };
+		26607FE01CED500C0055421F /* NewsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsCollectionViewController.swift; sourceTree = "<group>"; };
+		26607FE21CED50920055421F /* NewsCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsCollectionViewCell.swift; sourceTree = "<group>"; };
 		2666F0971C04BA8500B453F7 /* BubblaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BubblaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2666F0991C04BA8600B453F7 /* BubblaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubblaTests.swift; sourceTree = "<group>"; };
 		2666F09B1C04BA8600B453F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -98,6 +104,8 @@
 		26C4AF9D1C0E8B670027379A /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
 		26D3E7F01C2AE67D006EA2D6 /* news.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = news.json; sourceTree = "<group>"; };
 		26D3E7F21C2AF49D006EA2D6 /* SearchableList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchableList.swift; sourceTree = "<group>"; };
+		26E003501D12166B0009CB07 /* PinterestLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinterestLayout.swift; sourceTree = "<group>"; };
+		26E003521D1216730009CB07 /* PhotoStreamViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoStreamViewController.swift; sourceTree = "<group>"; };
 		26E231661BF6FF1300639E70 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		26ED028E1C1CA6A400663A21 /* BubblaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BubblaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		26ED02901C1CA6A400663A21 /* BubblaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubblaUITests.swift; sourceTree = "<group>"; };
@@ -171,11 +179,15 @@
 				26D3E7F21C2AF49D006EA2D6 /* SearchableList.swift */,
 				260DDA401BD5A38000E3DC5F /* NewsTableViewController.swift */,
 				260DDA421BD5A4F100E3DC5F /* NewsItemTableViewCell.swift */,
+				26E003501D12166B0009CB07 /* PinterestLayout.swift */,
 				263D41D81CAD81EC006ADE9E /* NewsAppearenceTableViewController.swift */,
 				26254AD41C2DA37D0041776E /* PushNotificationsTableViewController.swift */,
+				26E003521D1216730009CB07 /* PhotoStreamViewController.swift */,
 				26254AD61C2DA3920041776E /* PushNotificationTableViewCell.swift */,
 				26AD629A1CDCF04300929C14 /* Localizable.strings */,
 				260634AA1C73E4B7006B36BD /* NewsSourceTableViewController.swift */,
+				26607FE01CED500C0055421F /* NewsCollectionViewController.swift */,
+				26607FE21CED50920055421F /* NewsCollectionViewCell.swift */,
 				26A9A54D1BDE7BCC00140E67 /* CategoryTableViewController.swift */,
 				26C4AF9D1C0E8B670027379A /* CategoryTableViewCell.swift */,
 				260DDA291BD59AE700E3DC5F /* Main.storyboard */,
@@ -404,9 +416,13 @@
 				260DDA381BD59B0700E3DC5F /* BubblaApi.swift in Sources */,
 				26233E491BD6EBC900C754C8 /* Extensions.swift in Sources */,
 				263D41D91CAD81EC006ADE9E /* NewsAppearenceTableViewController.swift in Sources */,
+				26E003531D1216730009CB07 /* PhotoStreamViewController.swift in Sources */,
+				26607FE11CED500C0055421F /* NewsCollectionViewController.swift in Sources */,
 				260DDA411BD5A38000E3DC5F /* NewsTableViewController.swift in Sources */,
+				26607FE31CED50920055421F /* NewsCollectionViewCell.swift in Sources */,
 				26254AD51C2DA37D0041776E /* PushNotificationsTableViewController.swift in Sources */,
 				26233E471BD6EB0A00C754C8 /* Response.swift in Sources */,
+				26E003511D12166B0009CB07 /* PinterestLayout.swift in Sources */,
 				262246691C00D228009FCDDD /* WebViewController.swift in Sources */,
 				26C4AF9E1C0E8B670027379A /* CategoryTableViewCell.swift in Sources */,
 			);
