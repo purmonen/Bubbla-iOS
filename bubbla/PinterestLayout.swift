@@ -44,7 +44,7 @@ class PinterestLayout: UICollectionViewLayout {
   var delegate:PinterestLayoutDelegate!
   
   //2. Configurable properties
-  var numberOfColumns = 3
+  var numberOfColumns = 2
   var cellPadding: CGFloat = 0.0
   
   //3. Array to keep a cache of attributes.

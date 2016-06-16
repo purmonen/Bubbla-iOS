@@ -124,7 +124,7 @@ extension PhotoStreamViewController : PinterestLayoutDelegate {
     
     let font = UIFont.systemFontOfSize(20)
     let titleHeight = heightForComment(newsItem.title, font: font, width: width)
-    let height = stackViewPadding + otherInformationHeight + socialImagesHeight + titleHeight
+    let height = stackViewPadding + otherInformationHeight + socialImagesHeight + titleHeight + 7
     return height
   }
 }
