@@ -317,6 +317,7 @@
 					26AD626B1CDCE45D00929C14 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = Q533QG7433;
+						LastSwiftMigration = 0810;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -672,6 +673,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Monafide.Corax;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -688,6 +690,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Monafide.Corax;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

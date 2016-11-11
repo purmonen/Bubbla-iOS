@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.shared.openURL(URL(string: "corax://")!)
         return true
     }
-    
+
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let characterSet: CharacterSet = CharacterSet( charactersIn: "<>" )
         let deviceTokenString: String = ( deviceToken.description as NSString )
@@ -29,8 +29,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         BubblaApi.registerDevice(deviceTokenString, excludeCategories: disallowPushNotificationsForCategories) {
             print($0)
         }
-        
-        
     }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {

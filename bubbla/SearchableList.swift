@@ -18,7 +18,7 @@ class SearchableList<T: SearchableListProtocol>: Collection {
     /// - Parameter i: A valid index of the collection. `i` must be less than
     ///   `endIndex`.
     /// - Returns: The index value immediately after `i`.
-    public func index(after i: Int) -> Int {
+    open func index(after i: Int) -> Int {
         return i + 1
     }
 
