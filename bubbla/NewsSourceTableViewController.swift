@@ -25,25 +25,25 @@ class NewsSourceTableViewController: UITableViewController {
         super.viewDidLoad()
         BubblaApi.newsForCategory(nil) {
             response in
-            NSOperationQueue.mainQueue().addOperationWithBlock {
+            OperationQueue.main.addOperation {
                 switch response {
-                case .Success(let newsItems):
+                case .success(let newsItems):
                     self.newsItems = newsItems
                     var newsSourceCount = [String: Int]()
                     for newsItem in newsItems {
                         if newsSourceCount[newsItem.domain] == nil {
                            newsSourceCount[newsItem.domain] = 0
                         }
-                        newsSourceCount[newsItem.domain]!++
+                        newsSourceCount[newsItem.domain]! += 1
                     }
                     var newsSources = [NewsSource]()
                     for (newsSource, count) in newsSourceCount {
                         newsSources += [NewsSource(name: newsSource, percentage: Double(count) / Double(newsItems.count))]
                     }
-                    newsSources = newsSources.sort { $0.percentage > $1.percentage }
+                    newsSources = newsSources.sorted { $0.percentage > $1.percentage }
                     self.newsSources = newsSources
                     self.tableView.reloadData()
-                case .Error:
+                case .error:
                     break
                     
                 }
@@ -65,7 +65,7 @@ class NewsSourceTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
@@ -81,28 +81,28 @@ class NewsSourceTableViewController: UITableViewController {
     }
  */
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let newsTableViewController = segue.destinationViewController as? NewsTableViewController,
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let newsTableViewController = segue.destination as? NewsTableViewController,
             let indexPath = tableView.indexPathForSelectedRow {
             newsTableViewController.newsSource = newsSources[indexPath.row].name
         }
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return newsSources.count
     }
 
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("NewsSourceTableViewCell", forIndexPath: indexPath)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "NewsSourceTableViewCell", for: indexPath)
         let newsSource = newsSources[indexPath.row]
         cell.textLabel?.text = newsSource.name
         cell.detailTextLabel?.text = String(format: "%.01f", newsSource.percentage * 100) + "%"
         return cell
     }
     
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return String(format: NSLocalizedString("The %d latest posts came from %d different sources", comment: ""), newsItems.count, newsSources.count)
     }
     

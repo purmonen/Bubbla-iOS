@@ -12,25 +12,25 @@ class CategoryTableViewController: UITableViewController, UISplitViewControllerD
     override func viewDidLoad() {
         super.viewDidLoad()
         refreshControl = UIRefreshControl()
-        refreshControl?.addTarget(self, action: "refresh:", forControlEvents: .ValueChanged)
+        refreshControl?.addTarget(self, action: #selector(CategoryTableViewController.refresh(_:)), for: .valueChanged)
         refresh()
         
-        performSegueWithIdentifier("NewsSegue", sender: self)
+        performSegue(withIdentifier: "NewsSegue", sender: self)
         splitViewController?.maximumPrimaryColumnWidth = 350
         splitViewController?.delegate = self
     }
     
-    func refresh(refreshControl: UIRefreshControl? = nil) {
+    func refresh(_ refreshControl: UIRefreshControl? = nil) {
         refreshControl?.beginRefreshing()
         BubblaApi.newsForCategory(nil) { response in
-            NSOperationQueue.mainQueue().addOperationWithBlock {
+            OperationQueue.main.addOperation {
                 switch response {
-                case .Success(let newsItems):
+                case .success(let newsItems):
                     self.showEmptyMessage(false, message: "")
                     let categories = BubblaNews.categoriesWithTypesFromNewsItems(newsItems)
                     self.categories = [(categoryType: "", categories: [CategoryTableViewController.recentString, CategoryTableViewController.topNewsString])] + categories
                     self.tableView.reloadData()                    
-                case .Error(let error):
+                case .error(let error):
                     if self.categories.isEmpty {
                         let errorMessage = (error as NSError).localizedDescription
                         self.showEmptyMessage(true, message: errorMessage)
@@ -43,46 +43,46 @@ class CategoryTableViewController: UITableViewController, UISplitViewControllerD
         }
     }
     
-    func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController: UIViewController, ontoPrimaryViewController primaryViewController: UIViewController) -> Bool {
+    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
         if secondaryViewController is SFSafariViewController {
             return false
         }
         return true
     }
     
-    @IBAction func unwind(segue: UIStoryboardSegue) {}
+    @IBAction func unwind(_ segue: UIStoryboardSegue) {}
     
     func noNewsChosenViewController() -> UIViewController {
-        return storyboard!.instantiateViewControllerWithIdentifier("NoNewsChosenViewController")
+        return storyboard!.instantiateViewController(withIdentifier: "NoNewsChosenViewController")
     }
     
-    func splitViewController(splitViewController: UISplitViewController, separateSecondaryViewControllerFromPrimaryViewController primaryViewController: UIViewController) -> UIViewController? {
+    func splitViewController(_ splitViewController: UISplitViewController, separateSecondaryFrom primaryViewController: UIViewController) -> UIViewController? {
         if !(primaryViewController.childViewControllers.last is SFSafariViewController) {
             return noNewsChosenViewController()
         }
         return nil
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         deselectSelectedCell()
     }
     
     // MARK: - Table view data source
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return categories.count
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return categories[section].categories.count
     }
     
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return categories[section].categoryType
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("CategoryTableViewCell", forIndexPath: indexPath) as! CategoryTableViewCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryTableViewCell", for: indexPath) as! CategoryTableViewCell
         
         
         let category = categories[indexPath.section].categories[indexPath.row]
@@ -90,30 +90,30 @@ class CategoryTableViewController: UITableViewController, UISplitViewControllerD
         return cell
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let viewController = segue.destinationViewController as? NewsTableViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let viewController = segue.destination as? NewsTableViewController {
             viewController.categoryTableViewController = self
             let category: String
             if let indexPath = tableView.indexPathForSelectedRow {
                 category = categories[indexPath.section].categories[indexPath.row]
-                tableView.deselectRowAtIndexPath(indexPath, animated: false)
+                tableView.deselectRow(at: indexPath, animated: false)
             } else {
                 category = CategoryTableViewController.recentString
             }
             viewController.category = category
         }
 
-        if let navigationController = segue.destinationViewController as? UINavigationController,
+        if let navigationController = segue.destination as? UINavigationController,
             let viewController = navigationController.childViewControllers.first as? PushNotificationsTableViewController {
-            viewController.categories = Array(Set(categories.dropFirst().flatMap { $0.categories })).sort()
+            viewController.categories = Array(Set(categories.dropFirst().flatMap { $0.categories })).sorted()
         }
     }
 }
 
 extension CategoryTableViewController: SFSafariViewControllerDelegate {
-    func safariViewControllerDidFinish(controller: SFSafariViewController) {
-        let barButtonItem = splitViewController!.displayModeButtonItem()
-        UIApplication.sharedApplication().sendAction(barButtonItem.action, to: barButtonItem.target, from: nil, forEvent: nil)
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        let barButtonItem = splitViewController!.displayModeButtonItem
+        UIApplication.shared.sendAction(barButtonItem.action!, to: barButtonItem.target, from: nil, for: nil)
         
     }
 }

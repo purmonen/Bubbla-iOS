@@ -3,27 +3,27 @@ import UIKit
 
 public struct BubblaNews: Hashable {
     let title: String
-    let url: NSURL
-    let publicationDate: NSDate
+    let url: URL
+    let publicationDate: Date
     let category: String
     let categoryType: String
     let id: Int
-    let imageUrl: NSURL?
-    let facebookUrl: NSURL?
-    let twitterUrl: NSURL?
-    let radioUrl: NSURL?
+    let imageUrl: URL?
+    let facebookUrl: URL?
+    let twitterUrl: URL?
+    let radioUrl: URL?
     
     public var hashValue: Int { return id }
     
     
-    var facebookPostUrl: NSURL? {
+    var facebookPostUrl: URL? {
         if let facebookUrl = facebookUrl,
-            let path = facebookUrl.absoluteString.componentsSeparatedByString("/").last {
-                let pageIdAndPostIdSplit = path.componentsSeparatedByString("_")
+            let path = facebookUrl.absoluteString.components(separatedBy: "/").last {
+                let pageIdAndPostIdSplit = path.components(separatedBy: "_")
                 if  pageIdAndPostIdSplit.count == 2 {
                     let pageId = pageIdAndPostIdSplit[0]
                     let postId = pageIdAndPostIdSplit[1]
-                    return NSURL(string: "https://www.facebook.com/\(pageId)/posts/\(postId)")
+                    return URL(string: "https://www.facebook.com/\(pageId)/posts/\(postId)")
                 }
         }
         return nil
@@ -43,19 +43,19 @@ public struct BubblaNews: Hashable {
     }
     
     public var domain: String {
-        let urlComponents = url.absoluteString.componentsSeparatedByString("/")
+        let urlComponents = url.absoluteString.components(separatedBy: "/")
         var domain = ""
         if urlComponents.count > 2 {
-            domain = urlComponents[2].stringByReplacingOccurrencesOfString("www.", withString: "")
+            domain = urlComponents[2].replacingOccurrences(of: "www.", with: "")
         }
         return domain
     }
     
-    public static func categoriesWithTypesFromNewsItems(newsItems: [BubblaNews]) -> [(categoryType: String, categories: [String])] {
+    public static func categoriesWithTypesFromNewsItems(_ newsItems: [BubblaNews]) -> [(categoryType: String, categories: [String])] {
         let categoryTypes = Array(Set(newsItems.map { $0.categoryType }))
         var categories = [(categoryType: String, categories: [String])]()
         for categoryType in categoryTypes {
-            categories.append((categoryType: categoryType, categories: Array(Set(newsItems.filter({ $0.categoryType == categoryType }).map({ $0.category}))).sort()))
+            categories.append((categoryType: categoryType, categories: Array(Set(newsItems.filter({ $0.categoryType == categoryType }).map({ $0.category}))).sorted()))
         }
         return categories
     }
@@ -66,30 +66,30 @@ public func ==(x: BubblaNews, y: BubblaNews) -> Bool {
 }
 
 public protocol UrlService {
-    func dataFromUrl(url: NSURL, callback: Response<NSData> -> Void)
-    func dataFromUrl(url: NSURL, body: NSData, callback: Response<NSData> -> Void)
+    func dataFromUrl(_ url: URL, callback: @escaping (Response<Data>) -> Void)
+    func dataFromUrl(_ url: URL, body: Data, callback: @escaping (Response<Data>) -> Void)
 }
 
 extension UrlService {
     
-    func imageFromUrl(url: NSURL, callback: Response<UIImage> -> Void) {
+    func imageFromUrl(_ url: URL, callback: @escaping (Response<UIImage>) -> Void) {
         dataFromUrl(url) {
             callback($0 >>= { data in
                 if let image = UIImage(data: data) {
-                    return .Success(image)
+                    return .success(image)
                 }
-                return .Error(NSError(domain: "imageFromUrl", code: 1337, userInfo: nil))
+                return .error(NSError(domain: "imageFromUrl", code: 1337, userInfo: nil))
                 })
         }
     }
     
-    func jsonFromUrl(url: NSURL, callback: Response<AnyObject> -> Void) {
+    func jsonFromUrl(_ url: URL, callback: @escaping (Response<Any>) -> Void) {
         dataFromUrl(url) {
             callback($0 >>= { data in
                 do {
-                    return .Success(try NSJSONSerialization.JSONObjectWithData(data, options: []))
+                    return .success(try JSONSerialization.jsonObject(with: data, options: []))
                 } catch {
-                    return .Error(error)
+                    return .error(error)
                 }
                 })
         }
@@ -98,39 +98,39 @@ extension UrlService {
 }
 
 class BubblaUrlService: UrlService {
-    func dataFromUrl(url: NSURL, callback: Response<NSData> -> Void) {
-        let session = NSURLSession.sharedSession()
-        let request = NSMutableURLRequest(URL: url)
-        let dataTask = session.dataTaskWithRequest(request) {
+    func dataFromUrl(_ url: URL, callback: @escaping (Response<Data>) -> Void) {
+        let session = URLSession.shared
+        let request = URLRequest(url: url)
+        let dataTask = session.dataTask(with: request, completionHandler: {
             (data, response, error) in
             if let data = data {
-                callback(.Success(data))
+                callback(.success(data))
             } else if let error = error {
-                callback(.Error(error))
+                callback(.error(error))
             } else {
-                callback(.Error(NSError(domain: "dataFromUrl", code: 1337, userInfo: nil)))
+                callback(.error(NSError(domain: "dataFromUrl", code: 1337, userInfo: nil)))
             }
-        }
+        }) 
         dataTask.resume()
     }
     
-    func dataFromUrl(url: NSURL, body: NSData, callback: Response<NSData> -> Void) {
-        let session = NSURLSession.sharedSession()
-        let request = NSMutableURLRequest(URL: url)
-        request.HTTPBody = body
-        request.HTTPMethod = "POST"
+    func dataFromUrl(_ url: URL, body: Data, callback: @escaping (Response<Data>) -> Void) {
+        let session = URLSession.shared
+        var request = URLRequest(url: url)
+        request.httpBody = body
+        request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        let dataTask = session.dataTaskWithRequest(request) {
+        let dataTask = session.dataTask(with: request, completionHandler: {
             (data, response, error) in
             if let data = data {
-                callback(.Success(data))
+                callback(.success(data))
             } else if let error = error {
-                callback(.Error(error))
+                callback(.error(error))
             } else {
-                callback(.Error(NSError(domain: "dataFromUrl", code: 1337, userInfo: nil)))
+                callback(.error(NSError(domain: "dataFromUrl", code: 1337, userInfo: nil)))
             }
-        }
+        }) 
         dataTask.resume()
     }
     
@@ -146,17 +146,17 @@ class _BubblaApi {
         self.urlService = urlService
         let cacheSizeDisk = 500*1024*1024
         let cacheSizeMemory = 500*1024*1024
-        let urlCache = NSURLCache(memoryCapacity: cacheSizeMemory, diskCapacity: cacheSizeDisk, diskPath: "bubblaUrlCache")
-        NSURLCache.setSharedURLCache(urlCache)
+        let urlCache = URLCache(memoryCapacity: cacheSizeMemory, diskCapacity: cacheSizeDisk, diskPath: "bubblaUrlCache")
+        URLCache.shared = urlCache
     }
     
-    private class var readNewsItemIds: [Int] {
+    fileprivate class var readNewsItemIds: [Int] {
         get {
-        return (NSUserDefaults.standardUserDefaults()["readNewsItemsIds"] as? [Int] ?? [])
+        return (UserDefaults.standard["readNewsItemsIds"] as? [Int] ?? [])
         }
         
         set {
-            NSUserDefaults.standardUserDefaults()["readNewsItemsIds"] = newValue
+            UserDefaults.standard["readNewsItemsIds"] = newValue as AnyObject?
         }
     }
     
@@ -170,12 +170,12 @@ class _BubblaApi {
 //        }
 //    }
     
-    func registerDevice(deviceToken: String, excludeCategories categories: [String], callback: Response<Void> -> Void) {
+    func registerDevice(_ deviceToken: String, excludeCategories categories: [String], callback: @escaping (Response<Void>) -> Void) {
         do {
-            let json = ["token": deviceToken, "excludedCategories": categories, "operativeSystem": "iOS"]
-            let body = try NSJSONSerialization.dataWithJSONObject(json, options: [])
+            let json = ["token": deviceToken, "excludedCategories": categories, "operativeSystem": "iOS"] as [String : Any]
+            let body = try JSONSerialization.data(withJSONObject: json, options: [])
             
-            urlService.dataFromUrl(NSURL(string: "registerDevice?source=\(newsSource.rawValue)", relativeToURL: serverUrl)!, body: body) {
+            urlService.dataFromUrl(URL(string: "registerDevice?source=\(newsSource.rawValue)", relativeTo: serverUrl)!, body: body) {
                 print($0)
                 callback($0.map( {_ in return }))
             }
@@ -186,7 +186,7 @@ class _BubblaApi {
     
 //        let serverUrl = NSURL(string: "http://192.168.1.84:8001")!
     
-    let serverUrl = NSURL(string: "https://samipurmonen.com:8443")!
+    let serverUrl = URL(string: "https://samipurmonen.com:8443")!
     
     
     enum NewsSource: String {
@@ -196,35 +196,35 @@ class _BubblaApi {
     
     var newsSource: NewsSource = .Corax
     
-    func newsForCategory(category: String?, callback: Response<[BubblaNews]> -> Void) {
+    func newsForCategory(_ category: String?, callback: @escaping (Response<[BubblaNews]>) -> Void) {
         
-        urlService.jsonFromUrl(NSURL(string: "news?source=\(newsSource.rawValue)", relativeToURL: serverUrl)!) {
+        urlService.jsonFromUrl(URL(string: "news?source=\(newsSource.rawValue)", relativeTo: serverUrl)!) {
             callback($0 >>= { json in
                 var newsItems = [BubblaNews]()
                 if let jsonArray = json as? [AnyObject] {
                     for item in jsonArray {
                         if let title = item["title"] as? String,
                             let urlString = item["url"] as? String,
-                            let url = NSURL(string: urlString),
+                            let url = URL(string: urlString),
                             let category = item["category"] as? String,
                             let categoryType = item["categoryType"] as? String,
-                            let publicationDateTimestamp = item["publicationDate"] as? NSTimeInterval,
+                            let publicationDateTimestamp = item["publicationDate"] as? TimeInterval,
                             let id = item["id"] as? Int {
-                                let publicationDate = NSDate(timeIntervalSince1970: publicationDateTimestamp)
+                                let publicationDate = Date(timeIntervalSince1970: publicationDateTimestamp)
                                 let imageUrlString = item["imageUrl"] as? String
-                                let imageUrl: NSURL? = imageUrlString != nil ? NSURL(string: imageUrlString!) : nil
+                                let imageUrl: URL? = imageUrlString != nil ? URL(string: imageUrlString!) : nil
                                 let facebookUrlString = item["facebookUrl"] as? String
-                                let facebookUrl: NSURL? = facebookUrlString != nil ? NSURL(string: facebookUrlString!) : nil
+                                let facebookUrl: URL? = facebookUrlString != nil ? URL(string: facebookUrlString!) : nil
                                 let twitterUrlString = item["tweetUrl"] as? String
-                                let twitterUrl: NSURL? = twitterUrlString != nil ? NSURL(string: twitterUrlString!) : nil
+                                let twitterUrl: URL? = twitterUrlString != nil ? URL(string: twitterUrlString!) : nil
                             
                                 let radioUrlString = item["radioUrl"] as? String
-                                let radioUrl: NSURL? = radioUrlString != nil ? NSURL(string: radioUrlString!) : nil
+                                let radioUrl: URL? = radioUrlString != nil ? URL(string: radioUrlString!) : nil
                                 newsItems.append(BubblaNews(title: title, url: url, publicationDate: publicationDate, category: category, categoryType: categoryType, id: id, imageUrl: imageUrl, facebookUrl: facebookUrl, twitterUrl: twitterUrl, radioUrl: radioUrl))
                         }
                     }
                 }
-                return .Success(newsItems.filter { $0.category == category || category == nil })
+                return .success(newsItems.filter { $0.category == category || category == nil })
                 })
         }
     }

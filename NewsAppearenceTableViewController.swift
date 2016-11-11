@@ -10,34 +10,34 @@ class NewsAppearenceTableViewController: UITableViewController {
         
         BubblaApi.newsForCategory(nil) { response in
             switch response {
-            case .Success(let news):
+            case .success(let news):
                 if let newsItem = news.filter({ $0.imageUrl != nil && $0.facebookUrl != nil }).first {
                     self.newsItem = newsItem
-                    NSOperationQueue.mainQueue().addOperationWithBlock {
+                    OperationQueue.main.addOperation {
                         self.tableView.reloadData()
                     }
                 }
-            case .Error(let error):
+            case .error(_):
                 break
             }
         }
         //        newsImageSwitch.on = NewsItemTableViewCell.showImage
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
     }
     
-    override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
     }
     
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 1 {
             return 1
         } else {
@@ -45,19 +45,19 @@ class NewsAppearenceTableViewController: UITableViewController {
         }
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.section == 1 {
-            let cell = tableView.dequeueReusableCellWithIdentifier("NewsItemTableViewCell") as! NewsItemTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "NewsItemTableViewCell") as! NewsItemTableViewCell
             if let newsItem = newsItem {
                 cell.newsItem = newsItem
             }
             return cell
         } else {
-            let cell = tableView.dequeueReusableCellWithIdentifier("PushNotificationTableViewCell") as! PushNotificationTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "PushNotificationTableViewCell") as! PushNotificationTableViewCell
             let appearance = NewsItemTableViewCell.Appearance.All[indexPath.row]
-            cell.allowPushNotificationsSwitch.on = !appearance.hidden
-            cell.allowPushNotificationsSwitch.addTarget(self, action: Selector("appearanceChanged:"), forControlEvents: .ValueChanged)
+            cell.allowPushNotificationsSwitch.isOn = !appearance.hidden
+            cell.allowPushNotificationsSwitch.addTarget(self, action: #selector(NewsAppearenceTableViewController.appearanceChanged(_:)), for: .valueChanged)
             cell.allowPushNotificationsSwitch.tag = indexPath.row
             cell.categoryLabel.text = appearance.title
             
@@ -67,8 +67,8 @@ class NewsAppearenceTableViewController: UITableViewController {
     }
     
     
-    func appearanceChanged(sender: UISwitch) {
-        NewsItemTableViewCell.Appearance.All[sender.tag].hidden = !sender.on
-        tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: .None)
+    func appearanceChanged(_ sender: UISwitch) {
+        NewsItemTableViewCell.Appearance.All[sender.tag].hidden = !sender.isOn
+        tableView.reloadSections(IndexSet(integer: 1), with: .none)
     }
 }

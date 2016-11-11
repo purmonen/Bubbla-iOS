@@ -16,16 +16,16 @@ class NewsItemTableViewCell: UITableViewCell {
         case SocialMedia = "NewsItemTableViewCellSocialMedia"
         
         var hidden: Bool {
-            get { return NSUserDefaults.standardUserDefaults()[rawValue] as? Bool ?? false }
-            set { NSUserDefaults.standardUserDefaults()[rawValue] = newValue }
+            get { return UserDefaults.standard[rawValue] as? Bool ?? false }
+            set { UserDefaults.standard[rawValue] = newValue as AnyObject? }
         }
         
         var title: String {
             switch self {
-            case Image: return NSLocalizedString("Image", comment: "")
-            case Domain: return NSLocalizedString("Domain", comment: "")
-            case TimeAndCategory: return NSLocalizedString("Time and category", comment: "")
-            case SocialMedia: return NSLocalizedString("Social media", comment: "")
+            case .Image: return NSLocalizedString("Image", comment: "")
+            case .Domain: return NSLocalizedString("Domain", comment: "")
+            case .TimeAndCategory: return NSLocalizedString("Time and category", comment: "")
+            case .SocialMedia: return NSLocalizedString("Social media", comment: "")
             }
         }
         
@@ -34,7 +34,7 @@ class NewsItemTableViewCell: UITableViewCell {
     
     var newsItem: BubblaNews! {
         didSet {
-            facebookButton.hidden = newsItem.facebookUrl == nil || Appearance.SocialMedia.hidden
+            facebookButton.isHidden = newsItem.facebookUrl == nil || Appearance.SocialMedia.hidden
             twitterButton.alpha = newsItem.twitterUrl == nil || Appearance.SocialMedia.hidden ? 0 : 1
             radioButton.alpha = newsItem.radioUrl == nil || Appearance.SocialMedia.hidden ? 0 : 1
             
@@ -43,51 +43,51 @@ class NewsItemTableViewCell: UITableViewCell {
             
             titleLabel.text = newsItem.title
             
-            let dateFormatter = NSDateFormatter()
+            let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "dd MMMM, HH:mm"
             publicationDateLabel.text = newsItem.publicationDate.readableString + " · \(newsItem.category)"
-            publicationDateLabel.hidden = Appearance.TimeAndCategory.hidden
+            publicationDateLabel.isHidden = Appearance.TimeAndCategory.hidden
             urlLabel.text = newsItem.domain
-            urlLabel.hidden = Appearance.Domain.hidden
-            unreadIndicator.hidden = newsItem.isRead
+            urlLabel.isHidden = Appearance.Domain.hidden
+            unreadIndicator.isHidden = newsItem.isRead
             
-            unreadIndicator.textColor = UIApplication.sharedApplication().windows.first?.tintColor
+            unreadIndicator.textColor = UIApplication.shared.windows.first?.tintColor
             
             if newsHasChanged {
                 newsImageView.image = nil
             }
-            newsImageView.hidden = newsItem.imageUrl == nil
+            newsImageView.isHidden = newsItem.imageUrl == nil
             
-            if let imageUrl = newsItem.imageUrl where !NewsItemTableViewCell.bubblaNewsWithFailedImages.contains(newsItem) && !Appearance.Image.hidden {
+            if let imageUrl = newsItem.imageUrl, !NewsItemTableViewCell.bubblaNewsWithFailedImages.contains(newsItem) && !Appearance.Image.hidden {
                 if let image = NewsItemTableViewCell.imageForNewsItem[newsItem] {
                     newsImageView.image = image
                 } else {
-                    NSOperationQueue().addOperationWithBlock {
-                        if let image = UIImage(data: NSURLCache.sharedURLCache().cachedResponseForRequest(NSURLRequest(URL: imageUrl))?.data ?? NSData()) {
-                            NSOperationQueue.mainQueue().addOperationWithBlock {
+                    OperationQueue().addOperation {
+                        if let image = UIImage(data: URLCache.shared.cachedResponse(for: URLRequest(url: imageUrl as URL))?.data ?? Data()) {
+                            OperationQueue.main.addOperation {
                                 if self.newsItem.imageUrl == imageUrl {
                                     self.newsImageView.image = image
                                 }
                                 
                             }
                         } else {
-                            NSOperationQueue.mainQueue().addOperationWithBlock {
+                            OperationQueue.main.addOperation {
                                 if self.newsItem.imageUrl == imageUrl {
                                     self.newsImageView.startActivityIndicator()
                                     self.newsImageView.image = UIImage(named: "blank")
                                 }
                             }
                             BubblaUrlService().imageFromUrl(imageUrl) { response in
-                                NSOperationQueue.mainQueue().addOperationWithBlock {
+                                OperationQueue.main.addOperation {
                                     switch response {
-                                    case .Success(let image):
+                                    case .success(let image):
                                         if self.newsItem.imageUrl == imageUrl {
                                             self.newsImageView.image = image
                                         }
-                                    case .Error:
+                                    case .error:
                                         NewsItemTableViewCell.bubblaNewsWithFailedImages.insert(self.newsItem)
                                         if self.newsItem.imageUrl == imageUrl {
-                                            self.newsImageView.hidden = true
+                                            self.newsImageView.isHidden = true
                                         }
                                     }
                                     if self.newsItem.imageUrl == imageUrl {
@@ -99,25 +99,25 @@ class NewsItemTableViewCell: UITableViewCell {
                     }
                 }
             } else {
-                self.newsImageView.hidden = true
+                self.newsImageView.isHidden = true
             }
         }
     }
     
     var player: AVPlayer?
     
-    @IBAction func facebookButtonClicked(sender: AnyObject) {
+    @IBAction func facebookButtonClicked(_ sender: AnyObject) {
         if let facebookUrl = newsItem.facebookUrl {
             newsTableViewController?.openUrl(facebookUrl, entersReaderIfAvailable: false)
         }
     }
 
-    @IBAction func twitterButtonClicked(sender: AnyObject) {
+    @IBAction func twitterButtonClicked(_ sender: AnyObject) {
         if let twitterUrl = newsItem.twitterUrl {
             newsTableViewController?.openUrl(twitterUrl, entersReaderIfAvailable: false)
         }
     }
-    @IBAction func radioLinkClicked(sender: AnyObject) {
+    @IBAction func radioLinkClicked(_ sender: AnyObject) {
         if let radioUrl = newsItem.radioUrl {
             newsTableViewController?.openUrl(radioUrl, entersReaderIfAvailable: false)
         }

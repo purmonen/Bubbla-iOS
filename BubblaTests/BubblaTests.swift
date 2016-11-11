@@ -2,7 +2,7 @@ import XCTest
 @testable import Bubbla
 
 extension String: SearchableListProtocol {
-    var textToBeSearched: String { return self }
+    public var textToBeSearched: String { return self }
 }
 
 class BubblaTests: XCTestCase {
@@ -12,7 +12,7 @@ class BubblaTests: XCTestCase {
     }
     
     func testBubblaNews() {
-        var news1 = BubblaNews(title: "", url: NSURL(string: "http://google.com")!, publicationDate: NSDate(), category: "Världen", categoryType: "Geografiskt område", id: 0, imageUrl: nil, facebookUrl: nil, twitterUrl: nil)
+        var news1 = BubblaNews(title: "", url: URL(string: "http://google.com")!, publicationDate: Date(), category: "Världen", categoryType: "Geografiskt område", id: 0, imageUrl: nil, facebookUrl: nil, twitterUrl: nil)
         assert(!news1.isRead)
         news1.isRead = true
         assert(news1.isRead)
@@ -24,25 +24,25 @@ class BubblaTests: XCTestCase {
     func testNewsFromServer() {
         
         class MockUrlService: UrlService {
-            func dataFromUrl(url: NSURL, callback: Response<NSData> -> Void) {
-                let data = NSData(contentsOfURL: NSBundle(forClass: self.dynamicType).URLForResource("news", withExtension: "json")!)!
-                callback(.Success(data))
+            func dataFromUrl(_ url: URL, callback: @escaping (Response<Data>) -> Void) {
+                let data = try! Data(contentsOf: Bundle(for: type(of: self)).url(forResource: "news", withExtension: "json")!)
+                callback(.success(data))
             }
             
-            func dataFromUrl(url: NSURL, body: NSData, callback: Response<NSData> -> Void) {}
+            func dataFromUrl(_ url: URL, body: Data, callback: (Response<Data>) -> Void) {}
         }
         
-        let expectation = expectationWithDescription("Url Service")
+        let expectation = self.expectation(description: "Url Service")
         
         _BubblaApi(urlService: MockUrlService()).newsForCategory(nil) {
-            if case .Success(let newsItems) = $0 {
+            if case .success(let newsItems) = $0 {
                 XCTAssert(newsItems.count == 5)
                 let firstItem = newsItems[0]
                 XCTAssert(firstItem.title == "Länsstyrelsen stoppar byggandet av 520 lägenheter i Hjorthagen, risk för störande buller från Värtabanan")
                 XCTAssert(firstItem.category == "Sverige")
-                XCTAssert(firstItem.url == NSURL(string: "http://mitti.se/520-lagenheter-stoppas/"))
+                XCTAssert(firstItem.url == URL(string: "http://mitti.se/520-lagenheter-stoppas/"))
                 XCTAssert(firstItem.id == 204375)
-                XCTAssert(firstItem.imageUrl == NSURL(string: "http://images.mitti.se/np/178395/512"))
+                XCTAssert(firstItem.imageUrl == URL(string: "http://images.mitti.se/np/178395/512"))
                 XCTAssert(firstItem.domain == "mitti.se")
                 
                 
@@ -60,7 +60,7 @@ class BubblaTests: XCTestCase {
             expectation.fulfill()
         }
         
-        waitForExpectationsWithTimeout(5) {
+        waitForExpectations(timeout: 5) {
             error in
             XCTAssertNil(error)
         }

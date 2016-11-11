@@ -301,7 +301,8 @@
 				TargetAttributes = {
 					260DDA211BD59AE700E3DC5F = {
 						CreatedOnToolsVersion = 7.0.1;
-						DevelopmentTeam = U8JUVSFVME;
+						DevelopmentTeam = Q533QG7433;
+						LastSwiftMigration = 0810;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -310,11 +311,12 @@
 					};
 					2666F0961C04BA8500B453F7 = {
 						CreatedOnToolsVersion = 7.1.1;
+						LastSwiftMigration = 0810;
 						TestTargetID = 260DDA211BD59AE700E3DC5F;
 					};
 					26AD626B1CDCE45D00929C14 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = U8JUVSFVME;
+						DevelopmentTeam = Q533QG7433;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -323,6 +325,7 @@
 					};
 					26ED028D1C1CA6A400663A21 = {
 						CreatedOnToolsVersion = 7.2;
+						LastSwiftMigration = 0810;
 						TestTargetID = 260DDA211BD59AE700E3DC5F;
 					};
 				};
@@ -583,6 +586,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = Q533QG7433;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/bubbla",
@@ -593,6 +597,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = Monafide.bubbla;
 				PRODUCT_NAME = Bubbla;
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -603,6 +608,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = Q533QG7433;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/bubbla",
@@ -613,6 +619,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = Monafide.bubbla;
 				PRODUCT_NAME = Bubbla;
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -630,6 +637,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Monafide.BubblaTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Bubbla.app/Bubbla";
 			};
 			name = Debug;
@@ -647,6 +655,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Monafide.BubblaTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Bubbla.app/Bubbla";
 			};
 			name = Release;
@@ -657,6 +666,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = CoraxAppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = Q533QG7433;
 				INFOPLIST_FILE = Corax/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -672,6 +682,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = CoraxAppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = Q533QG7433;
 				INFOPLIST_FILE = Corax/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -689,6 +700,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Monafide.BubblaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = Bubbla;
 				USES_XCTRUNNER = YES;
 			};
@@ -702,6 +714,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Monafide.BubblaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = Bubbla;
 				USES_XCTRUNNER = YES;
 			};

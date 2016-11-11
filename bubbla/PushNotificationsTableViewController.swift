@@ -4,11 +4,11 @@ import UIKit
 
 var disallowPushNotificationsForCategories: [String] {
 get {
-    return NSUserDefaults.standardUserDefaults()["disallowPushNotificationsForCategories"] as? [String] ?? []
+    return UserDefaults.standard["disallowPushNotificationsForCategories"] as? [String] ?? []
 }
 
 set {
-    NSUserDefaults.standardUserDefaults()["disallowPushNotificationsForCategories"] = newValue
+    UserDefaults.standard["disallowPushNotificationsForCategories"] = newValue as AnyObject?
 }
 }
 
@@ -20,12 +20,12 @@ class PushNotificationsTableViewController: UITableViewController {
         super.viewDidLoad()
         BubblaApi.newsForCategory(nil) {
             switch $0 {
-            case .Success(let news):
-                NSOperationQueue.mainQueue().addOperationWithBlock {
-                    self.categories = Array(Set(news.map({ $0.category }))).sort()
+            case .success(let news):
+                OperationQueue.main.addOperation {
+                    self.categories = Array(Set(news.map({ $0.category }))).sorted()
                     self.tableView.reloadData()
                 }
-            case .Error(let error):
+            case .error(let error):
                 if self.categories.isEmpty {
                     self.showEmptyMessage(true, message: (error as NSError).localizedDescription)
                 } else {
@@ -36,7 +36,7 @@ class PushNotificationsTableViewController: UITableViewController {
     }
     
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if let deviceToken = DeviceToken {
             BubblaApi.registerDevice(deviceToken, excludeCategories: disallowPushNotificationsForCategories) {
@@ -47,31 +47,31 @@ class PushNotificationsTableViewController: UITableViewController {
     
     // MARK: - Table view data source
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return categories.count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("PushNotificationTableViewCell", forIndexPath: indexPath) as! PushNotificationTableViewCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PushNotificationTableViewCell", for: indexPath) as! PushNotificationTableViewCell
         
         let category = categories[indexPath.row]
         cell.categoryLabel.text = category
-        cell.allowPushNotificationsSwitch.on = !disallowPushNotificationsForCategories.contains(category)
-        cell.allowPushNotificationsSwitch.addTarget(self, action: "switchChanged:", forControlEvents: .ValueChanged)
+        cell.allowPushNotificationsSwitch.isOn = !disallowPushNotificationsForCategories.contains(category)
+        cell.allowPushNotificationsSwitch.addTarget(self, action: #selector(PushNotificationsTableViewController.switchChanged(_:)), for: .valueChanged)
         cell.allowPushNotificationsSwitch.tag = indexPath.row
         
         return cell
     }
     
-    func switchChanged(sender: UISwitch) {
+    func switchChanged(_ sender: UISwitch) {
         print("SWITCH CHAGNED! \(sender.tag)")
         let category = categories[sender.tag]
         
-        if sender.on {
+        if sender.isOn {
             disallowPushNotificationsForCategories = disallowPushNotificationsForCategories.filter { $0 != category }
         } else {
             if !disallowPushNotificationsForCategories.contains(category) {
