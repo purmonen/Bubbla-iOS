@@ -1,33 +1,33 @@
 import Foundation
 
 public enum Response<T> {
-    case Success(T)
-    case Error(ErrorType)
+    case success(T)
+    case error(Error)
     
-    func map<G>(transform: T -> G) -> Response<G> {
+    func map<G>(_ transform: (T) -> G) -> Response<G> {
         switch self {
-        case .Success(let value):
-            return .Success(transform(value))
-        case .Error(let error):
-            return .Error(error)
+        case .success(let value):
+            return .success(transform(value))
+        case .error(let error):
+            return .error(error)
         }
     }
     
-    static func flatten<T>(response: Response<Response<T>>) -> Response<T> {
+    static func flatten<T>(_ response: Response<Response<T>>) -> Response<T> {
         switch response {
-        case .Success(let innerResponse):
+        case .success(let innerResponse):
             return innerResponse
-        case .Error(let error):
-            return .Error(error)
+        case .error(let error):
+            return .error(error)
         }
     }
     
-    func flatMap<G>(transform: T -> Response<G>) -> Response<G> {
+    func flatMap<G>(_ transform: (T) -> Response<G>) -> Response<G> {
         return Response.flatten(map(transform))
     }
 }
 
 infix operator >>= {}
-func >>=<T, G>(response: Response<T>, transform: T -> Response<G>) -> Response<G> {
+func >>=<T, G>(response: Response<T>, transform: (T) -> Response<G>) -> Response<G> {
     return response.flatMap(transform)
 }

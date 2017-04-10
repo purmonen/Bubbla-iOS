@@ -232,6 +232,7 @@
 					260DDA211BD59AE700E3DC5F = {
 						CreatedOnToolsVersion = 7.0.1;
 						DevelopmentTeam = U8JUVSFVME;
+						LastSwiftMigration = 0830;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -240,10 +241,12 @@
 					};
 					2666F0961C04BA8500B453F7 = {
 						CreatedOnToolsVersion = 7.1.1;
+						LastSwiftMigration = 0830;
 						TestTargetID = 260DDA211BD59AE700E3DC5F;
 					};
 					26ED028D1C1CA6A400663A21 = {
 						CreatedOnToolsVersion = 7.2;
+						LastSwiftMigration = 0830;
 						TestTargetID = 260DDA211BD59AE700E3DC5F;
 					};
 				};
@@ -466,6 +469,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = Monafide.bubbla;
 				PRODUCT_NAME = Bubbla;
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -486,6 +490,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = Monafide.bubbla;
 				PRODUCT_NAME = Bubbla;
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -503,6 +508,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Monafide.BubblaTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Bubbla.app/Bubbla";
 			};
 			name = Debug;
@@ -520,6 +526,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Monafide.BubblaTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Bubbla.app/Bubbla";
 			};
 			name = Release;
@@ -532,6 +539,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Monafide.BubblaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = Bubbla;
 				USES_XCTRUNNER = YES;
 			};
@@ -545,6 +553,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Monafide.BubblaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = Bubbla;
 				USES_XCTRUNNER = YES;
 			};
