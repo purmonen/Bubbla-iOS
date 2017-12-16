@@ -23,7 +23,7 @@ class NewsSourceTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        BubblaApi.newsForCategory(nil) {
+        BubblaApi.news() {
             response in
             OperationQueue.main.addOperation {
                 switch response {

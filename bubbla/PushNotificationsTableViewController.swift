@@ -18,7 +18,7 @@ class PushNotificationsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        BubblaApi.newsForCategory(nil) {
+        BubblaApi.news() {
             switch $0 {
             case .success(let news):
                 OperationQueue.main.addOperation {

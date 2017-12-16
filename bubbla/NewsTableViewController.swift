@@ -66,7 +66,7 @@ class NewsTableViewController: UITableViewController {
     
     func refresh(_ refreshControl: UIRefreshControl? = nil) {
         refreshControl?.beginRefreshing()
-        BubblaApi.newsForCategory(category == CategoryTableViewController.recentString || category == CategoryTableViewController.topNewsString || newsSource != nil ? nil : category) {
+        BubblaApi.news() {
             response in
             OperationQueue.main.addOperation {
                 switch response {
@@ -74,14 +74,25 @@ class NewsTableViewController: UITableViewController {
                     self.searchBar.isHidden = false
                     self.showEmptyMessage(false, message: "")
                     let oldItems = self.newsItems
-                
-                    self.newsItems = SearchableList(items: Array(Set(newsItems)).sorted { $1.publicationDate < $0.publicationDate }.filter { self.category !=
-                        CategoryTableViewController.topNewsString || $0.facebookUrl != nil })
-                    
+					let filteredNewsItems: [BubblaNews]
+					switch self.category {
+					case CategoryTableViewController.topNewsString:
+						filteredNewsItems = newsItems.filter { $0.facebookUrl != nil }
+					case CategoryTableViewController.radioNewsString:
+						filteredNewsItems = newsItems.filter { $0.radioUrl != nil }
+					case CategoryTableViewController.recentString:
+						filteredNewsItems = newsItems
+					default:
+						if self.newsSource != nil {
+							filteredNewsItems = newsItems
+						} else {
+							filteredNewsItems = newsItems.filter { $0.category == self.category }
+						}
+					}
+                    self.newsItems = SearchableList(items: Array(Set(filteredNewsItems)).sorted { $1.publicationDate < $0.publicationDate })
                     if let newsSource = self.newsSource {
                         self.newsItems = SearchableList(items: newsItems.sorted { $1.publicationDate < $0.publicationDate }.filter { $0.domain == newsSource })
                     }
-                    
                     self.newsItems.updateFilteredItemsToMatchSearchText(self.searchBar.text ?? "")
                     if oldItems.isEmpty {
                         self.tableView.reloadData()

@@ -8,7 +8,7 @@ class NewsAppearenceTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        BubblaApi.newsForCategory(nil) { response in
+        BubblaApi.news() { response in
             switch response {
             case .success(let news):
                 if let newsItem = news.filter({ $0.imageUrl != nil && $0.facebookUrl != nil }).first {

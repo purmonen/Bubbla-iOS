@@ -8,6 +8,8 @@ class CategoryTableViewController: UITableViewController, UISplitViewControllerD
     static let recentString = NSLocalizedString("Latest news", comment: "")
     
     static let topNewsString = NSLocalizedString("Top news", comment: "")
+	
+	static let radioNewsString = NSLocalizedString("Radio news", comment: "")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,13 +24,13 @@ class CategoryTableViewController: UITableViewController, UISplitViewControllerD
     
     func refresh(_ refreshControl: UIRefreshControl? = nil) {
         refreshControl?.beginRefreshing()
-        BubblaApi.newsForCategory(nil) { response in
+        BubblaApi.news() { response in
             OperationQueue.main.addOperation {
                 switch response {
                 case .success(let newsItems):
                     self.showEmptyMessage(false, message: "")
                     let categories = BubblaNews.categoriesWithTypesFromNewsItems(newsItems)
-                    self.categories = [(categoryType: "", categories: [CategoryTableViewController.recentString, CategoryTableViewController.topNewsString])] + categories
+                    self.categories = [(categoryType: "", categories: [CategoryTableViewController.recentString, CategoryTableViewController.topNewsString, CategoryTableViewController.radioNewsString])] + categories
                     self.tableView.reloadData()                    
                 case .error(let error):
                     if self.categories.isEmpty {

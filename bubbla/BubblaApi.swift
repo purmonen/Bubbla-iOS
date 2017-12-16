@@ -196,7 +196,7 @@ class _BubblaApi {
     
     var newsSource: NewsSource = .Corax
     
-    func newsForCategory(_ category: String?, callback: @escaping (Response<[BubblaNews]>) -> Void) {
+    func news(callback: @escaping (Response<[BubblaNews]>) -> Void) {
         
         urlService.jsonFromUrl(URL(string: "news?source=\(newsSource.rawValue)", relativeTo: serverUrl)!) {
             callback($0 >>= { json in
@@ -224,7 +224,7 @@ class _BubblaApi {
                         }
                     }
                 }
-                return .success(newsItems.filter { $0.category == category || category == nil })
+                return .success(newsItems)
                 })
         }
     }
