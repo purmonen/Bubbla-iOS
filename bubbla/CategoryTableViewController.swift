@@ -30,7 +30,11 @@ class CategoryTableViewController: UITableViewController, UISplitViewControllerD
                 case .success(let newsItems):
                     self.showEmptyMessage(false, message: "")
                     let categories = BubblaNews.categoriesWithTypesFromNewsItems(newsItems)
-                    self.categories = [(categoryType: "", categories: [CategoryTableViewController.recentString, CategoryTableViewController.topNewsString, CategoryTableViewController.radioNewsString])] + categories
+					var fixedCategories = [CategoryTableViewController.recentString, CategoryTableViewController.topNewsString]
+					if BubblaApi.newsSource == .Bubbla {
+						fixedCategories += [CategoryTableViewController.radioNewsString]
+					}
+					self.categories = [(categoryType: "", fixedCategories)] + categories
                     self.tableView.reloadData()                    
                 case .error(let error):
                     if self.categories.isEmpty {

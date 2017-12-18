@@ -18,17 +18,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        let characterSet: CharacterSet = CharacterSet( charactersIn: "<>" )
-        let deviceTokenString: String = ( deviceToken.description as NSString )
-            .trimmingCharacters( in: characterSet )
-            .replacingOccurrences( of: " ", with: "" ) as String
-        print(deviceTokenString)
-        DeviceToken = deviceTokenString
-        BubblaApi.registerDevice(deviceTokenString, excludeCategories: disallowPushNotificationsForCategories) {
-            print($0)
-        }
-    }
+	func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+		DeviceToken =  deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
+		BubblaApi.registerDevice(DeviceToken!, excludeCategories: disallowPushNotificationsForCategories) {
+			print($0)
+		}
+	}
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         print(error)
