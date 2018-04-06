@@ -7,13 +7,13 @@ public struct BubblaNews: Hashable {
     let publicationDate: Date
     let category: String
     let categoryType: String
-    let id: Int
+    let id: String
     let imageUrl: URL?
     let facebookUrl: URL?
     let twitterUrl: URL?
     let radioUrl: URL?
     
-    public var hashValue: Int { return id }
+    public var hashValue: Int { return id.hashValue }
     
     
     var facebookPostUrl: URL? {
@@ -150,9 +150,9 @@ class _BubblaApi {
         URLCache.shared = urlCache
     }
     
-    fileprivate class var readNewsItemIds: [Int] {
+    fileprivate class var readNewsItemIds: [String] {
         get {
-        return (UserDefaults.standard["readNewsItemsIds"] as? [Int] ?? [])
+        return (UserDefaults.standard["readNewsItemsIds"] as? [String] ?? [])
         }
         
         set {
@@ -174,7 +174,24 @@ class _BubblaApi {
         do {
             let json = ["token": deviceToken, "excludedCategories": categories, "operativeSystem": "iOS"] as [String : Any]
             let body = try JSONSerialization.data(withJSONObject: json, options: [])
-            
+//			let sns = AWSSNS.default()
+//			let request = AWSSNSCreatePlatformEndpointInput()
+//			request?.token = deviceToken
+//			request?.platformApplicationArn = "arn:aws:sns:us-east-1:312328711982:app/APNS_SANDBOX/bubbla-dev"
+//			
+//			sns.createPlatformEndpoint(request!).continueWith(executor: AWSExecutor.mainThread(), block: { (task: AWSTask!) -> AnyObject! in
+//				if task.error != nil {
+//					print("Error: \(String(describing: task.error))")
+//				} else {
+//					let createEndpointResponse = task.result! as AWSSNSCreateEndpointResponse
+//					if let endpointArnForSNS = createEndpointResponse.endpointArn {
+//						print("endpointArn: \(endpointArnForSNS)")
+//						UserDefaults.standard.set(endpointArnForSNS, forKey: "endpointArnForSNS")
+//					}
+//				}
+//				return nil
+//			})
+					
             urlService.dataFromUrl(URL(string: "registerDevice?source=\(newsSource.rawValue)", relativeTo: serverUrl)!, body: body) {
                 print($0)
                 callback($0.map( {_ in return }))
@@ -186,7 +203,7 @@ class _BubblaApi {
     
 //        let serverUrl = NSURL(string: "http://192.168.1.84:8001")!
     
-    let serverUrl = URL(string: "https://samipurmonen.com:8443")!
+    let serverUrl = URL(string: "https://s3.eu-central-1.amazonaws.com/bubbla-news/bubbla.json")!
     
     
     enum NewsSource: String {
@@ -197,35 +214,34 @@ class _BubblaApi {
     var newsSource: NewsSource = .Corax
     
     func news(callback: @escaping (Response<[BubblaNews]>) -> Void) {
-        
-        urlService.jsonFromUrl(URL(string: "news?source=\(newsSource.rawValue)", relativeTo: serverUrl)!) {
-            callback($0 >>= { json in
-                var newsItems = [BubblaNews]()
-                if let jsonArray = json as? [AnyObject] {
-                    for item in jsonArray {
-                        if let title = item["title"] as? String,
-                            let urlString = item["url"] as? String,
-                            let url = URL(string: urlString),
-                            let category = item["category"] as? String,
-                            let categoryType = item["categoryType"] as? String,
-                            let publicationDateTimestamp = item["publicationDate"] as? TimeInterval,
-                            let id = item["id"] as? Int {
-                                let publicationDate = Date(timeIntervalSince1970: publicationDateTimestamp)
-                                let imageUrlString = item["imageUrl"] as? String
-                                let imageUrl: URL? = imageUrlString != nil ? URL(string: imageUrlString!) : nil
-                                let facebookUrlString = item["facebookUrl"] as? String
-                                let facebookUrl: URL? = facebookUrlString != nil ? URL(string: facebookUrlString!) : nil
-                                let twitterUrlString = item["tweetUrl"] as? String
-                                let twitterUrl: URL? = twitterUrlString != nil ? URL(string: twitterUrlString!) : nil
-                            
-                                let radioUrlString = item["radioUrl"] as? String
-                                let radioUrl: URL? = radioUrlString != nil ? URL(string: radioUrlString!) : nil
-                                newsItems.append(BubblaNews(title: title, url: url, publicationDate: publicationDate, category: category, categoryType: categoryType, id: id, imageUrl: imageUrl, facebookUrl: facebookUrl, twitterUrl: twitterUrl, radioUrl: radioUrl))
-                        }
-                    }
-                }
-                return .success(newsItems)
-                })
-        }
+//        urlService.jsonFromUrl(serverUrl) {
+//            callback($0 >>= { json in
+//                var newsItems = [BubblaNews]()
+//                if let jsonArray = json as? [AnyObject] {
+//                    for item in jsonArray {
+//                        if let title = item["title"] as? String,
+//                            let urlString = item["url"] as? String,
+//                            let url = URL(string: urlString),
+//                            let category = item["category"] as? String,
+//                            let publicationDateTimestamp = item["publicationDate"] as? TimeInterval,
+//                            let id = item["id"] as? String {
+//								let categoryType = item["categoryType"] as? String ?? "Ämne"
+//                                let publicationDate = Date(timeIntervalSince1970: publicationDateTimestamp)
+//                                let imageUrlString = item["imageUrl"] as? String
+//                                let imageUrl: URL? = imageUrlString != nil ? URL(string: imageUrlString!) : nil
+//                                let facebookUrlString = item["facebookUrl"] as? String
+//                                let facebookUrl: URL? = facebookUrlString != nil ? URL(string: facebookUrlString!) : nil
+//                                let twitterUrlString = item["twitterUrl"] as? String
+//                                let twitterUrl: URL? = twitterUrlString != nil ? URL(string: twitterUrlString!) : nil
+//
+//                                let radioUrlString = item["soundcloudUrl"] as? String
+//                                let radioUrl: URL? = radioUrlString != nil ? URL(string: radioUrlString!) : nil
+//                                newsItems.append(BubblaNews(title: title, url: url, publicationDate: publicationDate, category: category, categoryType: categoryType, id: id, imageUrl: imageUrl, facebookUrl: facebookUrl, twitterUrl: twitterUrl, radioUrl: radioUrl))
+//                        }
+//                    }
+//                }
+//                return .success(newsItems)
+//                })
+//        }
     }
 }
