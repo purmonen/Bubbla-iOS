@@ -111,7 +111,7 @@ class CategoryTableViewController: UITableViewController, UISplitViewControllerD
 
         if let navigationController = segue.destination as? UINavigationController,
             let viewController = navigationController.childViewControllers.first as? PushNotificationsTableViewController {
-            viewController.categories = Array(Set(categories.dropFirst().flatMap { $0.categories })).sorted()
+//            viewController.categories = Array(Set(categories.dropFirst().flatMap { $0.categories })).sorted()
         }
     }
 }

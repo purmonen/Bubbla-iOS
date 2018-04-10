@@ -34,15 +34,13 @@ class NewsItemTableViewCell: UITableViewCell {
     
     var newsItem: BubblaNews! {
         didSet {
-            facebookButton.isHidden = newsItem.facebookUrl == nil || Appearance.SocialMedia.hidden
+			facebookButton.alpha = newsItem.facebookUrl == nil || Appearance.SocialMedia.hidden ? 0 : 1
             twitterButton.alpha = newsItem.twitterUrl == nil || Appearance.SocialMedia.hidden ? 0 : 1
             radioButton.alpha = newsItem.radioUrl == nil || Appearance.SocialMedia.hidden ? 0 : 1
-            
-            
+			facebookButton.isHidden = newsItem.facebookUrl == nil && newsItem.twitterUrl == nil && newsItem.radioUrl == nil || Appearance.SocialMedia.hidden
+			twitterButton.isHidden = true
             let newsHasChanged = titleLabel.text != newsItem.title
-            
             titleLabel.text = newsItem.title
-            
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "dd MMMM, HH:mm"
             publicationDateLabel.text = newsItem.publicationDate.readableString + " · \(newsItem.category)"

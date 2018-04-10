@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.registerForRemoteNotifications()
         application.registerUserNotificationSettings(UIUserNotificationSettings(types: [.sound, .alert, .badge], categories: nil))
         window?.tintColor = UIColor(red: 204/255.0, green: 100/255.0, blue: 237/255.0, alpha: 1) // Pink
-        BubblaApi.newsSource = .Bubbla
+		BubblaApi = _BubblaApi(newsSource: .Bubbla)
         UIApplication.shared.openURL(URL(string: "corax://")!)
         return true
     }
