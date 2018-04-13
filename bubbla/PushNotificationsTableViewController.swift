@@ -62,7 +62,7 @@ class PushNotificationsTableViewController: UITableViewController {
         return cell
     }
     
-    func switchChanged(_ sender: UISwitch) {
+    @objc func switchChanged(_ sender: UISwitch) {
         let category = categories[sender.tag]
         if sender.isOn {
             disallowPushNotificationsForCategories = disallowPushNotificationsForCategories.filter { $0 != category.topicArn }

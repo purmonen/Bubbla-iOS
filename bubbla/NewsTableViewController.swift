@@ -60,11 +60,11 @@ class NewsTableViewController: UITableViewController {
     }
     
     var contentRecieved = false
-    func refreshDummy(_ wtf: AnyObject) {
+    @objc func refreshDummy(_ wtf: AnyObject) {
         refresh()
     }
     
-    func refresh(_ refreshControl: UIRefreshControl? = nil) {
+    @objc func refresh(_ refreshControl: UIRefreshControl? = nil) {
         refreshControl?.beginRefreshing()
         BubblaApi.news() {
             response in

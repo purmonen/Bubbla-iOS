@@ -67,7 +67,7 @@ class NewsAppearenceTableViewController: UITableViewController {
     }
     
     
-    func appearanceChanged(_ sender: UISwitch) {
+    @objc func appearanceChanged(_ sender: UISwitch) {
         NewsItemTableViewCell.Appearance.All[sender.tag].hidden = !sender.isOn
         tableView.reloadSections(IndexSet(integer: 1), with: .none)
     }

@@ -12,7 +12,7 @@ class BubblaTests: XCTestCase {
     }
     
     func testBubblaNews() {
-        var news1 = BubblaNews(title: "", url: URL(string: "http://google.com")!, publicationDate: Date(), category: "Världen", categoryType: "Geografiskt område", id: 0, imageUrl: nil, facebookUrl: nil, twitterUrl: nil)
+		var news1 = BubblaNews(title: "", url: URL(string: "http://google.com")!, publicationDate: Date(), category: "Världen", categoryType: "Geografiskt område", id: "0", imageUrl: nil, facebookUrl: nil, twitterUrl: nil, radioUrl: nil)
         assert(!news1.isRead)
         news1.isRead = true
         assert(news1.isRead)
@@ -23,25 +23,29 @@ class BubblaTests: XCTestCase {
     
     func testNewsFromServer() {
         
-        class MockUrlService: UrlService {
+		class MockUrlService: UrlService {
+			func dataFromUrl(_ url: URL, body: Data, callback: @escaping (Response<Data>) -> Void) {
+				let data = try! Data(contentsOf: Bundle(for: type(of: self)).url(forResource: "news", withExtension: "json")!)
+				callback(.success(data))
+			}
+			
             func dataFromUrl(_ url: URL, callback: @escaping (Response<Data>) -> Void) {
                 let data = try! Data(contentsOf: Bundle(for: type(of: self)).url(forResource: "news", withExtension: "json")!)
                 callback(.success(data))
             }
             
-            func dataFromUrl(_ url: URL, body: Data, callback: (Response<Data>) -> Void) {}
         }
         
         let expectation = self.expectation(description: "Url Service")
         
-        _BubblaApi(urlService: MockUrlService()).newsForCategory(nil) {
+		_BubblaApi(newsSource: .Bubbla, urlService: MockUrlService()).news() {
             if case .success(let newsItems) = $0 {
                 XCTAssert(newsItems.count == 5)
                 let firstItem = newsItems[0]
                 XCTAssert(firstItem.title == "Länsstyrelsen stoppar byggandet av 520 lägenheter i Hjorthagen, risk för störande buller från Värtabanan")
                 XCTAssert(firstItem.category == "Sverige")
                 XCTAssert(firstItem.url == URL(string: "http://mitti.se/520-lagenheter-stoppas/"))
-                XCTAssert(firstItem.id == 204375)
+                XCTAssert(firstItem.id == "204375")
                 XCTAssert(firstItem.imageUrl == URL(string: "http://images.mitti.se/np/178395/512"))
                 XCTAssert(firstItem.domain == "mitti.se")
                 

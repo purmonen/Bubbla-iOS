@@ -22,7 +22,7 @@ class CategoryTableViewController: UITableViewController, UISplitViewControllerD
         splitViewController?.delegate = self
     }
     
-    func refresh(_ refreshControl: UIRefreshControl? = nil) {
+    @objc func refresh(_ refreshControl: UIRefreshControl? = nil) {
         refreshControl?.beginRefreshing()
         BubblaApi.news() { response in
             OperationQueue.main.addOperation {
