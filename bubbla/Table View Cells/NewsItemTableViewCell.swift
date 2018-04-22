@@ -1,7 +1,5 @@
 import UIKit
 import SafariServices
-import AVFoundation
-import AVKit
 
 class NewsItemTableViewCell: UITableViewCell {
     
@@ -38,7 +36,6 @@ class NewsItemTableViewCell: UITableViewCell {
             twitterButton.alpha = newsItem.twitterUrl == nil || Appearance.SocialMedia.hidden ? 0 : 1
             radioButton.alpha = newsItem.radioUrl == nil || Appearance.SocialMedia.hidden ? 0 : 1
 			facebookButton.isHidden = newsItem.facebookUrl == nil && newsItem.twitterUrl == nil && newsItem.radioUrl == nil || Appearance.SocialMedia.hidden
-			twitterButton.isHidden = true
             let newsHasChanged = titleLabel.text != newsItem.title
             titleLabel.text = newsItem.title
             let dateFormatter = DateFormatter()
@@ -101,9 +98,7 @@ class NewsItemTableViewCell: UITableViewCell {
             }
         }
     }
-    
-    var player: AVPlayer?
-    
+	
     @IBAction func facebookButtonClicked(_ sender: AnyObject) {
         if let facebookUrl = newsItem.facebookUrl {
             newsTableViewController?.openUrl(facebookUrl, entersReaderIfAvailable: false)

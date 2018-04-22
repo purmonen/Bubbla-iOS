@@ -1,27 +1,11 @@
 import UIKit
 
 class NewsAppearenceTableViewController: UITableViewController {
-    
-    
+	
     var newsItem: BubblaNews? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        BubblaApi.news() { response in
-            switch response {
-            case .success(let news):
-                if let newsItem = news.filter({ $0.imageUrl != nil && $0.facebookUrl != nil }).first {
-                    self.newsItem = newsItem
-                    OperationQueue.main.addOperation {
-                        self.tableView.reloadData()
-                    }
-                }
-            case .error(_):
-                break
-            }
-        }
-        //        newsImageSwitch.on = NewsItemTableViewCell.showImage
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -46,7 +30,6 @@ class NewsAppearenceTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "NewsItemTableViewCell") as! NewsItemTableViewCell
             if let newsItem = newsItem {
@@ -60,12 +43,9 @@ class NewsAppearenceTableViewController: UITableViewController {
             cell.allowPushNotificationsSwitch.addTarget(self, action: #selector(NewsAppearenceTableViewController.appearanceChanged(_:)), for: .valueChanged)
             cell.allowPushNotificationsSwitch.tag = indexPath.row
             cell.categoryLabel.text = appearance.title
-            
             return cell
         }
-        
     }
-    
     
     @objc func appearanceChanged(_ sender: UISwitch) {
         NewsItemTableViewCell.Appearance.All[sender.tag].hidden = !sender.isOn

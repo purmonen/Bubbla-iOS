@@ -8,19 +8,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        let types: UIUserNotificationType = [UIUserNotificationType.badge, UIUserNotificationType.alert, UIUserNotificationType.sound]
-        let settings: UIUserNotificationSettings = UIUserNotificationSettings( types: types, categories: nil )
+        let settings: UIUserNotificationSettings = UIUserNotificationSettings(types: [.badge, .alert, UIUserNotificationType.sound], categories: nil)
         application.registerUserNotificationSettings(settings)
         application.registerForRemoteNotifications()
-        application.registerUserNotificationSettings(UIUserNotificationSettings(types: [.sound, .alert, .badge], categories: nil))
-        window?.tintColor = UIColor(red: 204/255.0, green: 100/255.0, blue: 237/255.0, alpha: 1) // Pink
+        application.registerUserNotificationSettings(settings)
+		let pinkColor = UIColor(red: 204/255.0, green: 100/255.0, blue: 237/255.0, alpha: 1)
+        window?.tintColor = pinkColor
 		BubblaApi = _BubblaApi(newsSource: .Bubbla)
-        UIApplication.shared.openURL(URL(string: "corax://")!)
         return true
     }
 
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        DeviceToken =  deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
+        DeviceToken = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
         BubblaApi.registerDevice(DeviceToken!, excludeCategories: disallowPushNotificationsForCategories) {
             print($0)
         }

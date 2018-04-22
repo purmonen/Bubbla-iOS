@@ -2,137 +2,91 @@ import UIKit
 import SafariServices
 
 
-
-
-
-extension BubblaNews: SearchableListProtocol {
-    var textToBeSearched: String { return title }
-}
-
-class NewsTableViewController: UITableViewController {
+class NewsTableViewController: RefreshableTableViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
     
     var categoryTableViewController: CategoryTableViewController? = nil
-    var newsItems = SearchableList<BubblaNews>(items: [])
-    
     var category: String = CategoryTableViewController.recentString
-    
     var newsSource: String? = nil
+	
+	func categorizedNewsItems(_ newsItems: [BubblaNews]) -> [BubblaNews] {
+		let filteredNewsItems: [BubblaNews]
+		if let newsSource = self.newsSource {
+			filteredNewsItems = newsItems
+				.sorted { $1.publicationDate < $0.publicationDate }
+				.filter { $0.domain == newsSource }
+		} else {
+			switch self.category {
+			case CategoryTableViewController.topNewsString:
+				filteredNewsItems = newsItems.filter { $0.facebookUrl != nil }
+			case CategoryTableViewController.radioNewsString:
+				filteredNewsItems = newsItems.filter { $0.radioUrl != nil }
+			case CategoryTableViewController.recentString:
+				filteredNewsItems = newsItems
+			default:
+				filteredNewsItems = newsItems.filter { $0.category == self.category }
+			}
+		}
+		return filteredNewsItems
+	}
+	
+	var newsItems = [BubblaNews]() {
+		didSet {
+			data = SearchableList(items: categorizedNewsItems(newsItems))
+		}
+	}
+
+	var data = SearchableList<BubblaNews>(items: []) {
+		didSet {
+			tableView.reloadData()
+		}
+	}
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(NewsTableViewController.refreshDummy(_:)), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
-        showEmptyMessage(true, message: "")
-        searchBar.isHidden = true
-        
-        tableView.contentOffset = CGPoint(x: 0, y: searchBar.frame.height)
-        OperationQueue().addOperation {
-            Thread.sleep(forTimeInterval: 0.3)
-            OperationQueue.main.addOperation {
-                if !self.contentRecieved {
-                    self.view.startActivityIndicator()
-                }
-            }
-        }
         searchBar.delegate = self
-        tableView.separatorInset = UIEdgeInsets(top: 0, left: 40, bottom: 0, right: 0)
-        refreshControl = UIRefreshControl()
-        refreshControl?.addTarget(self, action: #selector(NewsTableViewController.refresh(_:)), for: .valueChanged)
         registerForPreviewing(with: self, sourceView: view)
         title = newsSource ?? category
         searchBar.placeholder = NSLocalizedString("Search", comment: "")
-        refresh()
+		NotificationCenter.default.addObserver(self, selector: #selector(NewsTableViewController.refreshDummy(_:)), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
+
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        deselectSelectedCell()
-    }
+	
+	@objc func refreshDummy(_ wtf: AnyObject) {
+		load()
+	}
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         title = newsSource ?? category
-        if !newsItems.isEmpty {
-            refresh()
-        }
     }
-    
-    var contentRecieved = false
-    @objc func refreshDummy(_ wtf: AnyObject) {
-        refresh()
-    }
-    
-    @objc func refresh(_ refreshControl: UIRefreshControl? = nil) {
-        refreshControl?.beginRefreshing()
-        BubblaApi.news() {
-            response in
-            OperationQueue.main.addOperation {
-                switch response {
-                case .success(let newsItems):
-                    self.searchBar.isHidden = false
-                    self.showEmptyMessage(false, message: "")
-                    let oldItems = self.newsItems
-					let filteredNewsItems: [BubblaNews]
-					switch self.category {
-					case CategoryTableViewController.topNewsString:
-						filteredNewsItems = newsItems.filter { $0.facebookUrl != nil }
-					case CategoryTableViewController.radioNewsString:
-						filteredNewsItems = newsItems.filter { $0.radioUrl != nil }
-					case CategoryTableViewController.recentString:
-						filteredNewsItems = newsItems
-					default:
-						if self.newsSource != nil {
-							filteredNewsItems = newsItems
-						} else {
-							filteredNewsItems = newsItems.filter { $0.category == self.category }
-						}
-					}
-                    self.newsItems = SearchableList(items: Array(Set(filteredNewsItems)).sorted { $1.publicationDate < $0.publicationDate })
-                    if let newsSource = self.newsSource {
-                        self.newsItems = SearchableList(items: newsItems.sorted { $1.publicationDate < $0.publicationDate }.filter { $0.domain == newsSource })
-                    }
-                    self.newsItems.updateFilteredItemsToMatchSearchText(self.searchBar.text ?? "")
-                    if oldItems.isEmpty {
-                        self.tableView.reloadData()
-                    } else {
-                        self.tableView.updateFromItems(self.newsItems.map { $0.id }, oldItems: oldItems.map({ $0.id }))
-                    }
-                    UIApplication.shared.applicationIconBadgeNumber = 0
-                    self.showEmptyMessageIfNeeded()
-                case .error(let error):
-                    if self.newsItems.isEmpty {
-                        let errorMessage = (error as NSError).localizedDescription
-                        self.showEmptyMessage(true, message: errorMessage)
-                    } else {
-                        print(error)
-                    }
-                    
-                }
-                self.contentRecieved = true
-                self.refreshControl?.endRefreshing()
-                self.view.stopActivityIndicator()
-            }
-        }
-    }
+	
+	override func load() {
+		BubblaApi.news { response in
+			OperationQueue.main.addOperation {
+				switch response {
+				case .success(let newsItems):
+					self.newsItems = newsItems
+					self.successfulRefresh()
+				case .error(let error):
+					self.errorRefresh(error: error)
+				}
+			}
+		}
+	}
     
     // MARK: - Table view data source
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return newsItems.count
+        return data.count
     }
     
     var bubblaNewsWithFailedImages = Set<BubblaNews>()
-    
     var imageForNewsItem = [BubblaNews: UIImage]()
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NewsItemTableViewCell", for: indexPath) as! NewsItemTableViewCell
-        let newsItem = newsItems[indexPath.row]
+        let newsItem = data[indexPath.row]
         cell.newsItem = newsItem
         cell.newsTableViewController = self
         return cell
@@ -141,7 +95,7 @@ class NewsTableViewController: UITableViewController {
     
     func facebookButtonClicked(_ sender: AnyObject) {
         if let row = sender.tag,
-            let facebookPostUrl = newsItems[row].facebookPostUrl {
+            let facebookPostUrl = data[row].facebookPostUrl {
                 presentViewController(safariViewControllerForUrl(facebookPostUrl as URL, entersReaderIfAvailable: false))
         }
     }
@@ -155,14 +109,14 @@ class NewsTableViewController: UITableViewController {
     }
     
     func newsForIndexPath(_ indexPath: IndexPath, isRead: Bool) {
-        var newsItem = newsItems[indexPath.row]
+        var newsItem = data[indexPath.row]
         newsItem.isRead = isRead
         (tableView.cellForRow(at: indexPath) as? NewsItemTableViewCell)?.unreadIndicator.isHidden = newsItem.isRead
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         newsForIndexPath(indexPath, isRead: true)
-        presentViewController(safariViewControllerForUrl(newsItems[indexPath.row].url as URL, entersReaderIfAvailable: true))
+        presentViewController(safariViewControllerForUrl(data[indexPath.row].url as URL, entersReaderIfAvailable: true))
     }
     
     func openUrl(_ url: URL, entersReaderIfAvailable: Bool) {
@@ -179,7 +133,7 @@ class NewsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        var newsItem = newsItems[indexPath.row]
+        var newsItem = data[indexPath.row]
         return [UITableViewRowAction(style: UITableViewRowActionStyle.normal, title: newsItem.isRead ? NSLocalizedString("Unread", comment: "") : NSLocalizedString("Read", comment: "")) {
             (action, indexPath) in
             self.newsForIndexPath(indexPath, isRead: !newsItem.isRead)
@@ -190,14 +144,13 @@ class NewsTableViewController: UITableViewController {
     func safariViewControllerForUrl(_ url: URL, entersReaderIfAvailable: Bool) -> UIViewController {
         let viewController = SFSafariViewController(url: url, entersReaderIfAvailable: entersReaderIfAvailable)
         viewController.delegate = categoryTableViewController
-        viewController.view.tintColor = UIApplication.shared.windows.first?.tintColor
+		if #available(iOS 10.0, *) {
+			viewController.preferredControlTintColor = UIApplication.shared.windows.first?.tintColor
+		}
         return viewController
     }
-    
-    func showEmptyMessageIfNeeded() {
-        showEmptyMessage(newsItems.isEmpty, message: NSLocalizedString("No news", comment: ""))
-    }
 }
+
 
 extension NewsTableViewController: UIViewControllerPreviewingDelegate {
     func previewingContext(_ previewingContext: UIViewControllerPreviewing,
@@ -214,13 +167,12 @@ extension NewsTableViewController: UIViewControllerPreviewingDelegate {
     }
 }
 
+
 extension NewsTableViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        newsItems.updateFilteredItemsToMatchSearchText(searchText)
-        showEmptyMessageIfNeeded()
+        data.updateFilteredItemsToMatchSearchText(searchText)
         tableView.reloadData()
     }
-    
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
@@ -240,3 +192,5 @@ extension NewsTableViewController: UISearchBarDelegate {
         searchBar.showsCancelButton = !(searchBar.text ?? "").isEmpty
     }
 }
+
+

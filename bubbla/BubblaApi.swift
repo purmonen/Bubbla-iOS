@@ -28,7 +28,7 @@ let CoraxAwsConfig = AwsConfig(
 	newsJsonUrl: "https://s3.eu-central-1.amazonaws.com/bubbla-news/CoraxNews"
 )
 
-public struct BubblaNews: Hashable {
+public struct BubblaNews {
 	let title: String
 	let url: URL
 	let publicationDate: Date
@@ -39,8 +39,6 @@ public struct BubblaNews: Hashable {
 	let facebookUrl: URL?
 	let twitterUrl: URL?
 	let radioUrl: URL?
-	
-	public var hashValue: Int { return id.hashValue }
 	
 	var facebookPostUrl: URL? {
 		if let facebookUrl = facebookUrl,
@@ -77,13 +75,8 @@ public struct BubblaNews: Hashable {
 		return domain
 	}
 	
-	public static func categoriesWithTypesFromNewsItems(_ newsItems: [BubblaNews]) -> [(categoryType: String, categories: [String])] {
-		let categoryTypes = Array(Set(newsItems.map { $0.categoryType }))
-		var categories = [(categoryType: String, categories: [String])]()
-		for categoryType in categoryTypes {
-			categories.append((categoryType: categoryType, categories: Array(Set(newsItems.filter({ $0.categoryType == categoryType }).map({ $0.category}))).sorted()))
-		}
-		return categories
+	public static func categoriesFromNewsItems(_ newsItems: [BubblaNews]) -> [String] {
+		return Array(Set(newsItems.map { $0.category })).sorted()
 	}
 }
 
@@ -183,7 +176,6 @@ class _BubblaApi {
 		AWSServiceManager.default().defaultServiceConfiguration = defaultServiceConfiguration
 		let sns = AWSSNS.default()
 		self.sns = sns
-		
 	}
 	
 	fileprivate class var readNewsItemIds: [String] {
@@ -195,7 +187,6 @@ class _BubblaApi {
 			UserDefaults.standard["readNewsItemsIds"] = newValue as AnyObject?
 		}
 	}
-	
 	
 	struct Topic {
 		let topicArn: String
@@ -223,7 +214,6 @@ class _BubblaApi {
 							}
 						}
 					}
-					
 					callback(.success(topics))
 				}
 				if let error = task.error {
@@ -332,4 +322,33 @@ class _BubblaApi {
 				})
 		}
 	}
+	
+	struct NewsSourceDistribution {
+		let name: String
+		let count: Int
+		let totalCount: Int
+		
+		var percentage: Double {
+			get {
+				return Double(count) / Double(totalCount)
+			}
+		}
+	}
+
+	
+	func newsSourceDistributionFromNewsItems(_ newsItems: [BubblaNews]) -> [NewsSourceDistribution] {
+		return newsItems
+			.map({$0.domain})
+			.valueCount
+			.map { domain, count in NewsSourceDistribution(name: domain, count: count, totalCount: newsItems.count) }
+			.sorted { $0.percentage > $1.percentage }
+	}
+}
+
+extension BubblaNews: Hashable {
+	public var hashValue: Int { return id.hashValue }
+}
+
+extension BubblaNews: SearchableListProtocol {
+	var textToBeSearched: String { return title }
 }

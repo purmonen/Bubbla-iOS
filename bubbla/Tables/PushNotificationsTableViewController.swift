@@ -1,4 +1,3 @@
-
 import UIKit
 
 
@@ -12,28 +11,27 @@ set {
 }
 }
 
-class PushNotificationsTableViewController: UITableViewController {
-    
-    var categories = [_BubblaApi.Topic]()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-		BubblaApi.listTopics() {
-			switch $0 {
-			case .success(let topics):
-				OperationQueue.main.addOperation {
-					self.categories = topics
-					self.tableView.reloadData()
-				}
-			case .error(let error):
-				if self.categories.isEmpty {
-					self.showEmptyMessage(true, message: (error as NSError).localizedDescription)
-				} else {
-					print(error)
+class PushNotificationsTableViewController: RefreshableTableViewController {
+
+	var data = [_BubblaApi.Topic]() {
+		didSet {
+			tableView.reloadData()
+		}
+	}
+	
+	override func load() {
+		BubblaApi.listTopics() { response in
+			OperationQueue.main.addOperation {
+				switch response {
+				case .success(let topics):
+					self.data = topics
+					self.successfulRefresh()
+				case .error(let error):
+					self.errorRefresh(error: error)
 				}
 			}
 		}
-    }
+	}
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -44,17 +42,9 @@ class PushNotificationsTableViewController: UITableViewController {
         }
     }
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categories.count
-    }
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PushNotificationTableViewCell", for: indexPath) as! PushNotificationTableViewCell
-        let category = categories[indexPath.row]
+        let category = data[indexPath.row]
         cell.categoryLabel.text = category.name.capitalized
         cell.allowPushNotificationsSwitch.isOn = !disallowPushNotificationsForCategories.contains(category.topicArn)
         cell.allowPushNotificationsSwitch.addTarget(self, action: #selector(PushNotificationsTableViewController.switchChanged(_:)), for: .valueChanged)
@@ -63,7 +53,7 @@ class PushNotificationsTableViewController: UITableViewController {
     }
     
     @objc func switchChanged(_ sender: UISwitch) {
-        let category = categories[sender.tag]
+        let category = data[sender.tag]
         if sender.isOn {
             disallowPushNotificationsForCategories = disallowPushNotificationsForCategories.filter { $0 != category.topicArn }
         } else {
@@ -72,4 +62,8 @@ class PushNotificationsTableViewController: UITableViewController {
             }
         }
     }
+	
+	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		return data.count
+	}
 }

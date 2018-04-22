@@ -52,8 +52,7 @@ extension Date {
     var isToday: Bool {
         return isSameDayAsDate(Date())
     }
-    
-    
+	
     var isTomorrow: Bool {
         return isSameDayAsDate(Date().addingTimeInterval(60*60*24))
     }
@@ -90,7 +89,6 @@ extension Date {
         if year == Date().format("yyyy") {
             return "\(day) \(month) \(time)"
         } else {
-            //            return "\(day) \(month) \(time), \(year)"
             return "\(day) \(month) \(year)"
         }
         
@@ -99,8 +97,7 @@ extension Date {
 
 extension UIViewController {
     func showErrorAlert(_ error: Error) {
-        let errorMessage = (error as NSError).localizedDescription
-        let alertController = UIAlertController(title: nil, message: errorMessage, preferredStyle: UIAlertControllerStyle.alert)
+        let alertController = UIAlertController(title: nil, message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
         alertController.addAction(UIAlertAction(title: "Ok", style: .default) {
             action in
             alertController.dismiss(animated: true, completion: nil)
@@ -152,29 +149,40 @@ extension UIView {
 }
 
 
-
-extension UITableViewController {
-    
-    func showEmptyMessage(_ show: Bool, message: String) {
-        if show {
-            let label = UILabel(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: view.bounds.size.height))
-            label.font = UIFont.systemFont(ofSize: 30)
-            label.text = message
-            label.numberOfLines = 0
-            label.textAlignment = .center
-            label.sizeToFit()
-            label.textColor = UIColor.lightGray
-            tableView.backgroundView = label
-            tableView.separatorStyle = UITableViewCellSeparatorStyle.none
-        } else {
-            tableView.backgroundView = nil
-            tableView.separatorStyle = UITableViewCellSeparatorStyle.singleLine
-        }
-    }
-    
-    func deselectSelectedCell() {
-        if let indexPath = tableView.indexPathForSelectedRow {
-            tableView.deselectRow(at: indexPath, animated: true)
-        }
-    }
+extension UITableView {
+	func deselectSelectedRow() {
+		if let indexPath = indexPathForSelectedRow {
+			deselectRow(at: indexPath, animated: true)
+		}
+	}
+	
+	func showEmptyMessage(message: String) {
+		let label = UILabel(frame: CGRect(x: 0, y: 0, width: bounds.size.width, height: bounds.size.height))
+		label.font = UIFont.systemFont(ofSize: 30)
+		label.text = message
+		label.numberOfLines = 0
+		label.textAlignment = .center
+		label.sizeToFit()
+		label.textColor = UIColor.lightGray
+		backgroundView = label
+		separatorStyle = .none
+	}
+	
+	func showContent() {
+		backgroundView = nil
+		separatorStyle = .singleLine
+	}
 }
+
+extension Sequence where Element: Hashable {
+	var valueCount: [Element: Int] {
+		get {
+			var count = [Element: Int]()
+			for value in self {
+				count[value, default: 0] += 1
+			}
+			return count
+		}
+	}
+}
+
