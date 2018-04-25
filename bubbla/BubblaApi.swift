@@ -28,7 +28,7 @@ let CoraxAwsConfig = AwsConfig(
 	newsJsonUrl: "https://s3.eu-central-1.amazonaws.com/bubbla-news/CoraxNews"
 )
 
-public struct BubblaNews {
+public struct BubblaNews: Codable {
 	let title: String
 	let url: URL
 	let publicationDate: Date
@@ -81,6 +81,11 @@ public struct BubblaNews {
 
 public func ==(x: BubblaNews, y: BubblaNews) -> Bool {
 	return x.id == y.id
+}
+
+
+public struct BubblaNewsItems: Codable {
+	let newsItems: [BubblaNews]
 }
 
 public protocol UrlService {
@@ -291,35 +296,19 @@ class _BubblaApi {
 	let newsSource: NewsSource
 	
 	func news(callback: @escaping (Response<[BubblaNews]>) -> Void) {
-		urlService.jsonFromUrl(URL(string: awsConfig.newsJsonUrl)!) {
+		urlService.dataFromUrl(URL(string: awsConfig.newsJsonUrl)!) {
 			callback($0 >>= { json in
-				var newsItems = [BubblaNews]()
-				if let jsonArray = json as? [[String: AnyObject]] {
-					for item in jsonArray {
-						if let title = item["title"] as? String,
-							let urlString = item["url"] as? String,
-							let url = URL(string: urlString),
-							let category = item["category"] as? String,
-							let publicationDateTimestamp = item["publicationDate"] as? TimeInterval,
-							let id = item["id"] as? String {
-
-							let publicationDate = Date(timeIntervalSince1970: publicationDateTimestamp)
-							let imageUrlString = item["imageUrl"] as? String
-							let imageUrl: URL? = imageUrlString != nil ? URL(string: imageUrlString!) : nil
-							let facebookUrlString = item["facebookUrl"] as? String
-							let facebookUrl: URL? = facebookUrlString != nil ? URL(string: facebookUrlString!) : nil
-							let twitterUrlString = item["twitterUrl"] as? String
-							let twitterUrl: URL? = twitterUrlString != nil ? URL(string: twitterUrlString!) : nil
-							
-							let radioUrlString = item["soundcloudUrl"] as? String
-							let radioUrl: URL? = radioUrlString != nil ? URL(string: radioUrlString!) : nil
-							newsItems.append(BubblaNews(title: title, url: url, publicationDate: publicationDate, category: category,
-														id: id, imageUrl: imageUrl, facebookUrl: facebookUrl, twitterUrl: twitterUrl, radioUrl: radioUrl))
-						}
-					}
+				do {
+					let decoder = JSONDecoder()
+					decoder.dateDecodingStrategy = .secondsSince1970
+					let newsItems = try decoder.decode([BubblaNews].self, from: json)
+					return .success(newsItems)
+				} catch (let error) {
+					print(error)
+					return .error(error)
 				}
-				return .success(newsItems)
-				})
+				
+			})
 		}
 	}
 	
