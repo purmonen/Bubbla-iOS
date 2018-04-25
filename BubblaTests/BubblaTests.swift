@@ -12,7 +12,8 @@ class BubblaTests: XCTestCase {
     }
     
     func testBubblaNews() {
-		var news1 = BubblaNews(title: "", url: URL(string: "http://google.com")!, publicationDate: Date(), category: "Världen", categoryType: "Geografiskt område", id: "0", imageUrl: nil, facebookUrl: nil, twitterUrl: nil, radioUrl: nil)
+		var news1 = BubblaNews(title: "", url: URL(string: "http://google.com")!, publicationDate: Date(), category: "Världen",
+							   id: "0", imageUrl: nil, facebookUrl: nil, twitterUrl: nil, radioUrl: nil)
         assert(!news1.isRead)
         news1.isRead = true
         assert(news1.isRead)
@@ -40,22 +41,20 @@ class BubblaTests: XCTestCase {
         
 		_BubblaApi(newsSource: .Bubbla, urlService: MockUrlService()).news() {
             if case .success(let newsItems) = $0 {
-                XCTAssert(newsItems.count == 5)
+                XCTAssertEqual(newsItems.count, 200)
                 let firstItem = newsItems[0]
-                XCTAssert(firstItem.title == "Länsstyrelsen stoppar byggandet av 520 lägenheter i Hjorthagen, risk för störande buller från Värtabanan")
-                XCTAssert(firstItem.category == "Sverige")
-                XCTAssert(firstItem.url == URL(string: "http://mitti.se/520-lagenheter-stoppas/"))
-                XCTAssert(firstItem.id == "204375")
-                XCTAssert(firstItem.imageUrl == URL(string: "http://images.mitti.se/np/178395/512"))
-                XCTAssert(firstItem.domain == "mitti.se")
-                
-                
-                let categories = BubblaNews.categoriesWithTypesFromNewsItems(newsItems)
-                XCTAssert(categories.count == 2)
-                XCTAssert(categories[0].categoryType == "Ämne")
-                XCTAssert(categories[0].categories == ["Ekonomi", "Politik"])
-                XCTAssert(categories[1].categoryType == "Geografiskt område")
-                XCTAssert(categories[1].categories == ["Europa", "Sverige"])
+                XCTAssertEqual(firstItem.title, "Sverigedemokraterna begär återförvisning av propositionen om amnesti för ensamkommande utan asylskäl, kräver en tredjedels stöd i riksdagen och kan innebära att beslut skjuts upp till efter valet")
+                XCTAssertEqual(firstItem.category, "Politik")
+                XCTAssertEqual(firstItem.url, URL(string: "https://www.expressen.se/nyheter/sd-begar-att-regeringens-lagforslag-om-flyktingamnesti-aterforvisas/"))
+                XCTAssertEqual(firstItem.id, "232347bubbla")
+                XCTAssertEqual(firstItem.imageUrl, nil)
+                XCTAssertEqual(firstItem.domain, "expressen.se")
+				
+                let categories = BubblaNews.categoriesFromNewsItems(newsItems)
+                XCTAssertEqual(categories.count,  15)
+				
+                XCTAssertEqual(categories[0], "Afrika")
+                XCTAssertEqual(categories[1], "Asien")
                 
                 
             } else {

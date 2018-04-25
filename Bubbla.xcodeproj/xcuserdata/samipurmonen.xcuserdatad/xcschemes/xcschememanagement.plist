@@ -4,13 +4,24 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Bubbla 2.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
 		<key>Bubbla.xcscheme</key>
 		<dict>
+			<key>isShown</key>
+			<true/>
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
 		<key>Corax.xcscheme</key>
 		<dict>
+			<key>isShown</key>
+			<true/>
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
@@ -23,6 +34,11 @@
 			<true/>
 		</dict>
 		<key>2666F0961C04BA8500B453F7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>26AD626B1CDCE45D00929C14</key>
 		<dict>
 			<key>primary</key>
 			<true/>

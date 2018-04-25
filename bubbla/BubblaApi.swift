@@ -33,7 +33,6 @@ public struct BubblaNews {
 	let url: URL
 	let publicationDate: Date
 	let category: String
-	let categoryType: String
 	let id: String
 	let imageUrl: URL?
 	let facebookUrl: URL?
@@ -303,7 +302,7 @@ class _BubblaApi {
 							let category = item["category"] as? String,
 							let publicationDateTimestamp = item["publicationDate"] as? TimeInterval,
 							let id = item["id"] as? String {
-							let categoryType = item["categoryType"] as? String ?? "Ämne"
+
 							let publicationDate = Date(timeIntervalSince1970: publicationDateTimestamp)
 							let imageUrlString = item["imageUrl"] as? String
 							let imageUrl: URL? = imageUrlString != nil ? URL(string: imageUrlString!) : nil
@@ -314,7 +313,8 @@ class _BubblaApi {
 							
 							let radioUrlString = item["soundcloudUrl"] as? String
 							let radioUrl: URL? = radioUrlString != nil ? URL(string: radioUrlString!) : nil
-							newsItems.append(BubblaNews(title: title, url: url, publicationDate: publicationDate, category: category, categoryType: categoryType, id: id, imageUrl: imageUrl, facebookUrl: facebookUrl, twitterUrl: twitterUrl, radioUrl: radioUrl))
+							newsItems.append(BubblaNews(title: title, url: url, publicationDate: publicationDate, category: category,
+														id: id, imageUrl: imageUrl, facebookUrl: facebookUrl, twitterUrl: twitterUrl, radioUrl: radioUrl))
 						}
 					}
 				}
