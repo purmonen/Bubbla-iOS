@@ -17,7 +17,7 @@ public struct BubblaNews: Codable {
 	let imageUrl: URL?
 	let facebookUrl: URL?
 	let twitterUrl: URL?
-	let radioUrl: URL?
+	let soundcloudUrl: URL?
 	
 	var facebookPostUrl: URL? {
 		if let facebookUrl = facebookUrl,

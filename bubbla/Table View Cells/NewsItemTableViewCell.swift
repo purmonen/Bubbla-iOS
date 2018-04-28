@@ -34,8 +34,8 @@ class NewsItemTableViewCell: UITableViewCell {
         didSet {
 			facebookButton.alpha = newsItem.facebookUrl == nil || Appearance.SocialMedia.hidden ? 0 : 1
             twitterButton.alpha = newsItem.twitterUrl == nil || Appearance.SocialMedia.hidden ? 0 : 1
-            radioButton.alpha = newsItem.radioUrl == nil || Appearance.SocialMedia.hidden ? 0 : 1
-			facebookButton.isHidden = newsItem.facebookUrl == nil && newsItem.twitterUrl == nil && newsItem.radioUrl == nil || Appearance.SocialMedia.hidden
+            radioButton.alpha = newsItem.soundcloudUrl == nil || Appearance.SocialMedia.hidden ? 0 : 1
+			facebookButton.isHidden = newsItem.facebookUrl == nil && newsItem.twitterUrl == nil && newsItem.soundcloudUrl == nil || Appearance.SocialMedia.hidden
             let newsHasChanged = titleLabel.text != newsItem.title
             titleLabel.text = newsItem.title
             let dateFormatter = DateFormatter()
@@ -111,8 +111,8 @@ class NewsItemTableViewCell: UITableViewCell {
         }
     }
     @IBAction func radioLinkClicked(_ sender: AnyObject) {
-        if let radioUrl = newsItem.radioUrl {
-            newsTableViewController?.openUrl(radioUrl, entersReaderIfAvailable: false)
+        if let soundCloudUrl = newsItem.soundcloudUrl {
+            newsTableViewController?.openUrl(soundCloudUrl, entersReaderIfAvailable: false)
         }
     }
     @IBOutlet weak var socialMediaStackView: UIStackView!

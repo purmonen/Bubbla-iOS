@@ -19,17 +19,14 @@ let bubblaPlatformApplicationArn = "arn:aws:sns:eu-central-1:312328711982:app/AP
 let BubblaAwsConfig = AwsConfig(
 	identityPoolId: "eu-central-1:2ff9fe6f-2889-47cf-a9b7-5b97ca80e79c",
 	platformApplicationArn: bubblaPlatformApplicationArn,
-	newsJsonUrl: "https://s3.eu-central-1.amazonaws.com/bubbla-news/bubbla.json"
+	newsJsonUrl: "https://s3.eu-central-1.amazonaws.com/bubbla-news/Bubbla"
 )
 
 let CoraxAwsConfig = AwsConfig(
 	identityPoolId: "eu-central-1:2ff9fe6f-2889-47cf-a9b7-5b97ca80e79c",
 	platformApplicationArn: coraxPlatformApplicationArn,
-	newsJsonUrl: "https://s3.eu-central-1.amazonaws.com/bubbla-news/CoraxNews"
+	newsJsonUrl: "https://s3.eu-central-1.amazonaws.com/bubbla-news/Corax"
 )
-
-
-
 
 
 var BubblaApi = _BubblaApi(newsSource: .Bubbla)
@@ -198,7 +195,6 @@ class _BubblaApi {
 			}
 		}
 	}
-
 	
 	func newsSourceDistributionFromNewsItems(_ newsItems: [BubblaNews]) -> [NewsSourceDistribution] {
 		return newsItems

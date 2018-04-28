@@ -21,7 +21,7 @@ class NewsTableViewController: RefreshableTableViewController {
 			case CategoryTableViewController.topNewsString:
 				filteredNewsItems = newsItems.filter { $0.facebookUrl != nil }
 			case CategoryTableViewController.radioNewsString:
-				filteredNewsItems = newsItems.filter { $0.radioUrl != nil }
+				filteredNewsItems = newsItems.filter { $0.soundcloudUrl != nil }
 			case CategoryTableViewController.recentString:
 				filteredNewsItems = newsItems
 			default:

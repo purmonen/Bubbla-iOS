@@ -13,7 +13,7 @@ class BubblaTests: XCTestCase {
     
     func testBubblaNews() {
 		var news1 = BubblaNews(title: "", url: URL(string: "http://google.com")!, publicationDate: Date(), category: "Världen",
-							   id: "0", imageUrl: nil, facebookUrl: nil, twitterUrl: nil, radioUrl: nil)
+							   id: "0", imageUrl: nil, facebookUrl: nil, twitterUrl: nil, soundcloudUrl: nil)
         assert(!news1.isRead)
         news1.isRead = true
         assert(news1.isRead)
