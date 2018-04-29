@@ -1,38 +1,14 @@
-import UIKit
 import AWSSNS
-
-public struct AwsConfig {
-	let identityPoolId: String
-	let platformApplicationArn: String
-	let newsJsonUrl: String
-}
-
-
-#if DEBUG
-let coraxPlatformApplicationArn = "arn:aws:sns:eu-central-1:312328711982:app/APNS_SANDBOX/BubblaNews"
-let bubblaPlatformApplicationArn = "arn:aws:sns:eu-central-1:312328711982:app/APNS_SANDBOX/BubblaNews"
-#else
-let coraxPlatformApplicationArn = "arn:aws:sns:eu-central-1:312328711982:app/APNS/BubblaNews"
-let bubblaPlatformApplicationArn = "arn:aws:sns:eu-central-1:312328711982:app/APNS/BubblaNews"
-#endif
-
-let BubblaAwsConfig = AwsConfig(
-	identityPoolId: "eu-central-1:2ff9fe6f-2889-47cf-a9b7-5b97ca80e79c",
-	platformApplicationArn: bubblaPlatformApplicationArn,
-	newsJsonUrl: "https://s3.eu-central-1.amazonaws.com/bubbla-news/Bubbla"
-)
-
-let CoraxAwsConfig = AwsConfig(
-	identityPoolId: "eu-central-1:2ff9fe6f-2889-47cf-a9b7-5b97ca80e79c",
-	platformApplicationArn: coraxPlatformApplicationArn,
-	newsJsonUrl: "https://s3.eu-central-1.amazonaws.com/bubbla-news/Corax"
-)
-
 
 var BubblaApi = _BubblaApi(newsSource: .Bubbla)
 
 class _BubblaApi {
 	
+	enum NewsSource: String {
+		case Bubbla = "bubbla", Corax = "corax"
+	}
+	
+	let newsSource: NewsSource
 	let urlService: UrlService
 	let awsConfig: AwsConfig
 	let sns: AWSSNS
@@ -40,10 +16,13 @@ class _BubblaApi {
 	init(newsSource: NewsSource, urlService: UrlService = BubblaUrlService()) {
 		self.newsSource = newsSource
 		self.urlService = urlService
+		
+		// Why do cache stuff here?
 		let cacheSizeDisk = 500*1024*1024
 		let cacheSizeMemory = 500*1024*1024
 		let urlCache = URLCache(memoryCapacity: cacheSizeMemory, diskCapacity: cacheSizeDisk, diskPath: "bubblaUrlCache")
 		URLCache.shared = urlCache
+		
 		self.awsConfig = newsSource == .Bubbla ? BubblaAwsConfig : CoraxAwsConfig
 		let credentialsProvider = AWSCognitoCredentialsProvider(
 			regionType: AWSRegionType.EUCentral1, identityPoolId: awsConfig.identityPoolId)
@@ -53,6 +32,8 @@ class _BubblaApi {
 		let sns = AWSSNS.default()
 		self.sns = sns
 	}
+	
+	
 	
 	class var readNewsItemIds: [String] {
 		get {
@@ -66,7 +47,29 @@ class _BubblaApi {
 	
 	struct Topic {
 		let topicArn: String
-		let name: String
+		var name: String {
+			get {
+				if let topicName = topicArn.split(separator: ":").last {
+					let topicNameSplit = topicName.split(separator: "_")
+					if topicNameSplit.count == 2 {
+						let topicName = String(topicNameSplit[1]).replacingOccurrences(of: "-", with: " ")
+						return topicName
+					}
+				}
+				return topicArn
+			}
+		}
+
+		var newsSource: String {
+			if let topicName = topicArn.split(separator: ":").last {
+				let topicNameSplit = topicName.split(separator: "_")
+				if topicNameSplit.count == 2 {
+					let newsSourceName = topicNameSplit[0]
+					return String(newsSourceName)
+				}
+			}
+			return topicArn
+		}
 	}
 	
 	func listTopics(callback: @escaping (Response<[Topic]>) -> Void) {
@@ -77,16 +80,9 @@ class _BubblaApi {
 					var topics = [Topic]()
 					for topic in resultTopics {
 						if let topicArn = topic.topicArn {
-							if let topicName = topicArn.split(separator: ":").last {
-								let topicNameSplit = topicName.split(separator: "_")
-								if topicNameSplit.count == 2 {
-									let newsSourceName = topicNameSplit[0]
-									let category = String(topicNameSplit[1]).replacingOccurrences(of: "-", with: " ")
-									if newsSourceName == self.newsSource.rawValue {
-										topics.append(Topic(topicArn: topicArn, name: category))
-									}
-								}
-								
+							let topic = Topic(topicArn: topicArn)
+							if topic.newsSource == BubblaApi.newsSource.rawValue {
+								topics.append(Topic(topicArn: topicArn))
 							}
 						}
 					}
@@ -160,12 +156,6 @@ class _BubblaApi {
 			return nil
 		})
 	}
-	
-	enum NewsSource: String {
-		case Bubbla = "bubbla", Corax = "corax"
-	}
-	
-	let newsSource: NewsSource
 	
 	func news(callback: @escaping (Response<[BubblaNews]>) -> Void) {
 		urlService.dataFromUrl(URL(string: awsConfig.newsJsonUrl)!) {

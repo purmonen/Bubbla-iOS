@@ -172,6 +172,11 @@ extension NewsTableViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         data.updateFilteredItemsToMatchSearchText(searchText)
         tableView.reloadData()
+		if data.isEmpty {
+			tableView.showEmptyMessage(message: "No news")
+		} else {
+			tableView.showContent()
+		}
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
