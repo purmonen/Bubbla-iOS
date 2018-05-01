@@ -145,7 +145,9 @@ class NewsTableViewController: RefreshableTableViewController {
         let viewController = SFSafariViewController(url: url, entersReaderIfAvailable: entersReaderIfAvailable)
         viewController.delegate = categoryTableViewController
 		if #available(iOS 10.0, *) {
-			viewController.preferredControlTintColor = UIApplication.shared.windows.first?.tintColor
+			if let tintColor = UIApplication.shared.windows.first?.tintColor {
+				viewController.preferredControlTintColor = tintColor
+			}
 		}
         return viewController
     }

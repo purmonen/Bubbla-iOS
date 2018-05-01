@@ -27,16 +27,11 @@
 		26AD626F1CDCE45D00929C14 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AD626E1CDCE45D00929C14 /* AppDelegate.swift */; };
 		26AD62761CDCE45D00929C14 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26AD62751CDCE45D00929C14 /* Assets.xcassets */; };
 		26AD627F1CDCE5C800929C14 /* BubblaApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 260DDA371BD59B0700E3DC5F /* BubblaApi.swift */; };
-		26AD62801CDCE5CC00929C14 /* NewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 260DDA401BD5A38000E3DC5F /* NewsTableViewController.swift */; };
 		26AD62821CDCE5E000929C14 /* SearchableList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D3E7F21C2AF49D006EA2D6 /* SearchableList.swift */; };
 		26AD62831CDCE5EA00929C14 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26233E481BD6EBC900C754C8 /* Extensions.swift */; };
 		26AD62841CDCE5EE00929C14 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26233E461BD6EB0A00C754C8 /* Response.swift */; };
 		26AD62851CDCE5F800929C14 /* NewsItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 260DDA421BD5A4F100E3DC5F /* NewsItemTableViewCell.swift */; };
-		26AD62861CDCE5FC00929C14 /* NewsAppearenceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263D41D81CAD81EC006ADE9E /* NewsAppearenceTableViewController.swift */; };
-		26AD62871CDCE60000929C14 /* PushNotificationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26254AD41C2DA37D0041776E /* PushNotificationsTableViewController.swift */; };
 		26AD628B1CDCE60800929C14 /* PushNotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26254AD61C2DA3920041776E /* PushNotificationTableViewCell.swift */; };
-		26AD628C1CDCE60800929C14 /* NewsSourceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 260634AA1C73E4B7006B36BD /* NewsSourceTableViewController.swift */; };
-		26AD628D1CDCE60800929C14 /* CategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A9A54D1BDE7BCC00140E67 /* CategoryTableViewController.swift */; };
 		26AD628E1CDCE60800929C14 /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C4AF9D1C0E8B670027379A /* CategoryTableViewCell.swift */; };
 		26AD62931CDCEE2E00929C14 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 260DDA2C1BD59AE700E3DC5F /* Assets.xcassets */; };
 		26AD62971CDCF04300929C14 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 26AD629A1CDCF04300929C14 /* Localizable.strings */; };
@@ -188,6 +183,16 @@
 		E3E3FD722095BA23001094CD /* AwsConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E3FD712095BA23001094CD /* AwsConfig.swift */; };
 		E3E3FD742097C212001094CD /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E3FD732097C212001094CD /* NotificationService.swift */; };
 		E3E3FD762098B260001094CD /* TopicPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E3FD752098B260001094CD /* TopicPreferences.swift */; };
+		E3E3FD7720990B22001094CD /* TopicPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E3FD752098B260001094CD /* TopicPreferences.swift */; };
+		E3E3FD7820990B26001094CD /* AwsConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E3FD712095BA23001094CD /* AwsConfig.swift */; };
+		E3E3FD7920990B2A001094CD /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E3FD732097C212001094CD /* NotificationService.swift */; };
+		E3E3FD7C20990B40001094CD /* NewsAppearenceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263D41D81CAD81EC006ADE9E /* NewsAppearenceTableViewController.swift */; };
+		E3E3FD7D20990B40001094CD /* NewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 260DDA401BD5A38000E3DC5F /* NewsTableViewController.swift */; };
+		E3E3FD7E20990B40001094CD /* ServerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E73F8E2083D2730037FB69 /* ServerTableViewController.swift */; };
+		E3E3FD7F20990B40001094CD /* PushNotificationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26254AD41C2DA37D0041776E /* PushNotificationsTableViewController.swift */; };
+		E3E3FD8020990B40001094CD /* NewsSourceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 260634AA1C73E4B7006B36BD /* NewsSourceTableViewController.swift */; };
+		E3E3FD8120990B40001094CD /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B56780208CDDCC0038568D /* SettingsTableViewController.swift */; };
+		E3E3FD8220990B40001094CD /* CategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A9A54D1BDE7BCC00140E67 /* CategoryTableViewController.swift */; };
 		E3E73F8F2083D2730037FB69 /* ServerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E73F8E2083D2730037FB69 /* ServerTableViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -860,20 +865,25 @@
 			files = (
 				26AD62841CDCE5EE00929C14 /* Response.swift in Sources */,
 				26AD628B1CDCE60800929C14 /* PushNotificationTableViewCell.swift in Sources */,
-				26AD62801CDCE5CC00929C14 /* NewsTableViewController.swift in Sources */,
-				26AD62861CDCE5FC00929C14 /* NewsAppearenceTableViewController.swift in Sources */,
+				E3E3FD8020990B40001094CD /* NewsSourceTableViewController.swift in Sources */,
 				26AD62851CDCE5F800929C14 /* NewsItemTableViewCell.swift in Sources */,
+				E3E3FD7E20990B40001094CD /* ServerTableViewController.swift in Sources */,
 				E37FF19720911A9B00A0D892 /* NewsItem.swift in Sources */,
 				26AD626F1CDCE45D00929C14 /* AppDelegate.swift in Sources */,
-				26AD628C1CDCE60800929C14 /* NewsSourceTableViewController.swift in Sources */,
+				E3E3FD7920990B2A001094CD /* NotificationService.swift in Sources */,
 				E37FF19420911A4700A0D892 /* UrlService.swift in Sources */,
-				26AD62871CDCE60000929C14 /* PushNotificationsTableViewController.swift in Sources */,
 				26AD627F1CDCE5C800929C14 /* BubblaApi.swift in Sources */,
 				26AD62821CDCE5E000929C14 /* SearchableList.swift in Sources */,
+				E3E3FD7F20990B40001094CD /* PushNotificationsTableViewController.swift in Sources */,
+				E3E3FD7C20990B40001094CD /* NewsAppearenceTableViewController.swift in Sources */,
 				26AD628E1CDCE60800929C14 /* CategoryTableViewCell.swift in Sources */,
+				E3E3FD8220990B40001094CD /* CategoryTableViewController.swift in Sources */,
 				26AD629F1CDD04A700929C14 /* WebViewController.swift in Sources */,
+				E3E3FD7D20990B40001094CD /* NewsTableViewController.swift in Sources */,
+				E3E3FD8120990B40001094CD /* SettingsTableViewController.swift in Sources */,
 				26AD62831CDCE5EA00929C14 /* Extensions.swift in Sources */,
-				26AD628D1CDCE60800929C14 /* CategoryTableViewController.swift in Sources */,
+				E3E3FD7720990B22001094CD /* TopicPreferences.swift in Sources */,
+				E3E3FD7820990B26001094CD /* AwsConfig.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
