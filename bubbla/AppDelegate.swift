@@ -14,13 +14,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.registerUserNotificationSettings(settings)
 		let pinkColor = UIColor(red: 204/255.0, green: 100/255.0, blue: 237/255.0, alpha: 1)
         window?.tintColor = pinkColor
-		BubblaApi = _BubblaApi(newsSource: .Bubbla)
+		
+		let cacheSizeDisk = 500*1024*1024
+		let cacheSizeMemory = 500*1024*1024
+		let urlCache = URLCache(memoryCapacity: cacheSizeMemory, diskCapacity: cacheSizeDisk, diskPath: "bubblaUrlCache")
+		URLCache.shared = urlCache
+		
+		BubblaApi = _BubblaApi(newsSource: .Bubbla, notificationService: AwsNotificationService(newsSource: .Bubbla))
         return true
     }
 
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         DeviceToken = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
-        BubblaApi.registerDevice(DeviceToken!, excludeCategories: disallowPushNotificationsForCategories) {
+        BubblaApi.registerDevice(DeviceToken!, topicPreferences: UserDefaultsTopicPreferences) {
             print($0)
         }
     }

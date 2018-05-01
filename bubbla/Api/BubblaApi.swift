@@ -1,7 +1,7 @@
-import AWSSNS
+import Foundation
 
-var BubblaApi = _BubblaApi(newsSource: .Bubbla)
 
+var BubblaApi = _BubblaApi(newsSource: .Bubbla, notificationService: AwsNotificationService(newsSource: .Bubbla))
 class _BubblaApi {
 	
 	enum NewsSource: String {
@@ -11,29 +11,14 @@ class _BubblaApi {
 	let newsSource: NewsSource
 	let urlService: UrlService
 	let awsConfig: AwsConfig
-	let sns: AWSSNS
+	let notificationService: NotificationService
 	
-	init(newsSource: NewsSource, urlService: UrlService = BubblaUrlService()) {
+	init(newsSource: NewsSource, urlService: UrlService = BubblaUrlService(), notificationService: NotificationService) {
 		self.newsSource = newsSource
 		self.urlService = urlService
-		
-		// Why do cache stuff here?
-		let cacheSizeDisk = 500*1024*1024
-		let cacheSizeMemory = 500*1024*1024
-		let urlCache = URLCache(memoryCapacity: cacheSizeMemory, diskCapacity: cacheSizeDisk, diskPath: "bubblaUrlCache")
-		URLCache.shared = urlCache
-		
-		self.awsConfig = newsSource == .Bubbla ? BubblaAwsConfig : CoraxAwsConfig
-		let credentialsProvider = AWSCognitoCredentialsProvider(
-			regionType: AWSRegionType.EUCentral1, identityPoolId: awsConfig.identityPoolId)
-		let defaultServiceConfiguration = AWSServiceConfiguration(
-			region: AWSRegionType.EUCentral1, credentialsProvider: credentialsProvider)
-		AWSServiceManager.default().defaultServiceConfiguration = defaultServiceConfiguration
-		let sns = AWSSNS.default()
-		self.sns = sns
+		self.notificationService = notificationService
+		awsConfig = newsSource == .Bubbla ? BubblaAwsConfig : CoraxAwsConfig
 	}
-	
-	
 	
 	class var readNewsItemIds: [String] {
 		get {
@@ -45,117 +30,68 @@ class _BubblaApi {
 		}
 	}
 	
-	struct Topic {
-		let topicArn: String
-		var name: String {
-			get {
-				if let topicName = topicArn.split(separator: ":").last {
-					let topicNameSplit = topicName.split(separator: "_")
-					if topicNameSplit.count == 2 {
-						let topicName = String(topicNameSplit[1]).replacingOccurrences(of: "-", with: " ")
-						return topicName
-					}
-				}
-				return topicArn
-			}
-		}
 
-		var newsSource: String {
-			if let topicName = topicArn.split(separator: ":").last {
-				let topicNameSplit = topicName.split(separator: "_")
-				if topicNameSplit.count == 2 {
-					let newsSourceName = topicNameSplit[0]
-					return String(newsSourceName)
-				}
-			}
-			return topicArn
-		}
-	}
-	
-	func listTopics(callback: @escaping (Response<[Topic]>) -> Void) {
-		if let listTopicsRequest = AWSSNSListTopicsInput() {
-			sns.listTopics(listTopicsRequest).continueWith(block: { (task: AWSTask<AWSSNSListTopicsResponse>) -> AnyObject? in
-				print("Topics!")
-				if let resultTopics = task.result?.topics {
-					var topics = [Topic]()
-					for topic in resultTopics {
-						if let topicArn = topic.topicArn {
-							let topic = Topic(topicArn: topicArn)
-							if topic.newsSource == BubblaApi.newsSource.rawValue {
-								topics.append(Topic(topicArn: topicArn))
-							}
-						}
-					}
-					callback(.success(topics))
-				}
-				if let error = task.error {
-					callback(.error(error))
-				}
-				return nil
-			})
-		}
-	}
-	
-	func registerDevice(_ deviceToken: String, excludeCategories: [String], callback: @escaping (Response<Void>) -> Void) {
+	// Too complicated, untested mess
+	func registerDevice(_ deviceToken: String, topicPreferences: TopicPreferences, callback: @escaping (Response<Bool>) -> Void) {
 		print("Registering device \(deviceToken)")
-		let request = AWSSNSCreatePlatformEndpointInput()!
-		request.token = deviceToken
-		request.platformApplicationArn = awsConfig.platformApplicationArn
-		sns.createPlatformEndpoint(request).continueWith(executor: AWSExecutor.default(), block: { (task: AWSTask<AWSSNSCreateEndpointResponse>) -> AnyObject? in
-			if task.error != nil {
-				print("Error: \(String(describing: task.error))")
-			} else {
-				let createEndpointResponse = task.result! as AWSSNSCreateEndpointResponse
-				if let endpointArnForSNS = createEndpointResponse.endpointArn {
-					UserDefaults.standard.set(endpointArnForSNS, forKey: "endpointArnForSNS")
-					self.listTopics() {
-						switch $0 {
-						case .success(let topics):
-							for topic in topics {
-								if let subscriptionArn = UserDefaults.standard.string(forKey: topic.topicArn) {
-									if excludeCategories.contains(topic.topicArn) {
-										let unsubscribeRequest = AWSSNSUnsubscribeInput()!
-										unsubscribeRequest.subscriptionArn = subscriptionArn
-										print("Unsubscribing to \(topic.name)")
-										self.sns.unsubscribe(unsubscribeRequest).continueWith(executor: AWSExecutor.mainThread(), block: { (task: AWSTask) -> AnyObject? in
-											if let error = task.error {
-												print("Error in subscribe: \(String(describing: error))")
-											} else {
-												UserDefaults.standard.set(nil, forKey: topic.topicArn)
-											}
-											return nil
-										})
-									}
-								} else {
-									if !excludeCategories.contains(topic.topicArn) {
-										let subscribeRequest = AWSSNSSubscribeInput()!
-										subscribeRequest.topicArn = topic.topicArn
-										subscribeRequest.endpoint = endpointArnForSNS
-										subscribeRequest.protocols = "application"
-										print("Subscribing to \(topic.name)")
-										self.sns.subscribe(subscribeRequest).continueWith(executor: AWSExecutor.mainThread(), block: { (task: AWSTask<AWSSNSSubscribeResponse>) -> AnyObject? in
-											if let subscriptionArn = task.result?.subscriptionArn {
-												UserDefaults.standard.set(subscriptionArn, forKey: topic.topicArn)
-											}
-											if let error = task.error {
-												print("Error in subscribe: \(String(describing: error))")
-											} else {
-											}
-											return nil
-										})
-									}
+		notificationService.createEndpointForDeviceToken(deviceToken) { response in
+			switch response {
+			case .success(let endpointArn):
+				self.notificationService.listTopics() { response in
+					switch response {
+					case .success(let topics):
+						var unsubscribeSubscriptions = [String]()
+						var subscribeToTopics = [Topic]()
+						for topic in topics {
+							let excludeTopic = topicPreferences.excludeTopic(topic)
+							if let subscriptionArn = topicPreferences.subscriptionArnForTopic(topic) {
+								if excludeTopic {
+									unsubscribeSubscriptions.append(subscriptionArn)
 								}
-								
+							} else {
+								if !excludeTopic {
+									subscribeToTopics.append(topic)
+								}
 							}
-						case .error(let err):
-							print(err)
 						}
+						
+						self.notificationService.subscribeEndpointArn(endpointArn, toTopicArns: subscribeToTopics.map { $0.topicArn }) {
+							switch $0 {
+							case .success(let subscriptions):
+								for subscription in subscriptions {
+									print("Subscribed to \(subscription.topicArn)")
+									topicPreferences.setSubscriptionArn(subscription.subscriptionArn, forTopic: Topic(topicArn: subscription.topicArn))
+								}
+							case .error(let _):
+								break
+							}
+							self.notificationService.unsubscribe(subscriptionArns: unsubscribeSubscriptions) {
+								switch $0 {
+								case .success(let unsubscriptions):
+									for subscriptionArn in unsubscriptions {
+										for topic in topics {
+											if topicPreferences.subscriptionArnForTopic(topic) == subscriptionArn {
+												print("Unsubscribed to \(topic.topicArn)")
+												topicPreferences.setSubscriptionArn(nil, forTopic: topic)
+											}
+										}
+									}
+								case .error(let _):
+									break
+								}
+								callback(.success(true))
+							}
+						}
+					case .error(let error):
+						callback(.error(error))
 					}
 				}
+			case .error(let error):
+				callback(.error(error))
 			}
-			return nil
-		})
+		}
 	}
+	
 	
 	func news(callback: @escaping (Response<[BubblaNews]>) -> Void) {
 		urlService.dataFromUrl(URL(string: awsConfig.newsJsonUrl)!) {
@@ -169,7 +105,6 @@ class _BubblaApi {
 					print(error)
 					return .error(error)
 				}
-				
 			})
 		}
 	}

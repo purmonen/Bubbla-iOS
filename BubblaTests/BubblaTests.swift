@@ -18,9 +18,64 @@ class BubblaTests: XCTestCase {
 			callback(.success(data))
 		}
 	}
-    
+	
+	class MockNotificationService: NotificationService {
+		func subscribeEndpointArn(_ endpointArn: String, toTopicArn topicArn: String, callback: @escaping (Response<String>) -> Void) {
+			callback(.success(topicArn))
+		}
+		
+		func unsubscribe(subscriptionArn: String, callback: @escaping (Response<Bool>) -> Void) {
+			callback(.success(true))
+		}
+		
+		func listTopics(callback: @escaping (Response<[Topic]>) -> Void) {
+			let topicArns = [
+				"arn:aws:sns:eu-central-1:312328711982:bubbla_afrika",
+				"arn:aws:sns:eu-central-1:312328711982:bubbla_europa",
+				"arn:aws:sns:eu-central-1:312328711982:bubbla_nordamerika",
+			]
+			callback(.success(topicArns.map { Topic(topicArn: $0) }))
+		}
+		
+		func createEndpointForDeviceToken(_ deviceToken: String, callback: @escaping (Response<String>) -> Void) {
+			callback(.success("endpointArn"))
+		}
+	}
+	
+	class MockTopicPreferences: TopicPreferences {
+		
+		var excludeTopicMap = [String:Bool]()
+		var subscriptionArnToTopicArnMap = [String:String]()
+		
+		func excludeTopic(_ topic: Topic) -> Bool {
+			return excludeTopicMap[topic.topicArn] ?? false
+		}
+		
+		func makeTopic(_ topic: Topic, excluded: Bool) {
+			excludeTopicMap[topic.topicArn] = excluded
+		}
+		
+		func subscriptionArnForTopic(_ topic: Topic) -> String? {
+			return subscriptionArnToTopicArnMap[topic.topicArn]
+		}
+		
+		func setSubscriptionArn(_ subscriptionArn: String?, forTopic topic: Topic) {
+			subscriptionArnToTopicArnMap[topic.topicArn] = subscriptionArn
+		}
+	}
+	
+	var api: _BubblaApi! = nil
+	var topicPreferences: TopicPreferences! = nil
+	
     override func setUp() {
         super.setUp()
+		let notificationService = MockNotificationService()
+		topicPreferences = MockTopicPreferences()
+		api = _BubblaApi(
+			newsSource: .Bubbla,
+			urlService: MockUrlService(),
+			notificationService: notificationService
+		)
     }
     
     func testBubblaNews() {
@@ -36,7 +91,7 @@ class BubblaTests: XCTestCase {
     
     func testNewsFromServer() {
         let expectation = self.expectation(description: "Url Service")
-		_BubblaApi(newsSource: .Bubbla, urlService: MockUrlService()).news() {
+		_BubblaApi(newsSource: .Bubbla, urlService: MockUrlService(), notificationService: MockNotificationService()).news() {
             if case .success(let newsItems) = $0 {
                 XCTAssertEqual(newsItems.count, 200)
                 let firstItem = newsItems[0]
@@ -65,6 +120,64 @@ class BubblaTests: XCTestCase {
             XCTAssertNil(error)
         }
     }
+	
+	func testNotifications() {
+		self.api.registerDevice("deviceToken", topicPreferences: self.topicPreferences) { response in
+			self.api.notificationService.listTopics() {
+				switch $0 {
+				case .success(let topics):
+					for topic in topics {
+						XCTAssertEqual(self.topicPreferences.subscriptionArnForTopic(topic), topic.topicArn)
+					}
+				case .error:
+					break
+				}
+			}
+		}
+	}
+	
+	func testNotifications3() {
+		api.notificationService.listTopics() {
+			switch $0 {
+			case .success(let topics):
+				for topic in topics {
+					self.topicPreferences.makeTopic(topic, excluded: true)
+					self.api.registerDevice("deviceToken", topicPreferences: self.topicPreferences) { response in
+						self.api.notificationService.listTopics() {
+							switch $0 {
+							case .success(let topics):
+								for topic in topics {
+									XCTAssertEqual(self.topicPreferences.subscriptionArnForTopic(topic), nil)
+								}
+							case .error:
+								break
+							}
+						}
+					}
+				}
+			case .error:
+				break
+			}
+		}
+	}
+	
+	func testNotifications2() {
+		api.notificationService.listTopics() {
+			switch $0 {
+			case .success(let topics):
+				for topic in topics {
+					XCTAssertFalse(self.topicPreferences.excludeTopic(topic))
+					self.topicPreferences.makeTopic(topic, excluded: true)
+					XCTAssertTrue(self.topicPreferences.excludeTopic(topic))
+					self.topicPreferences.makeTopic(topic, excluded: false)
+					XCTAssertFalse(self.topicPreferences.excludeTopic(topic))
+				}
+			case .error:
+				break
+			}
+		}
+	}
+
     
     func testSearchableList() {
         let items = ["Apa banan clementine", "Mentolcigg banan och mammut"]
@@ -114,7 +227,7 @@ class BubblaTests: XCTestCase {
 				soundcloudUrl: nil
 			)
 		}
-		let newsSourceDistribution = _BubblaApi(newsSource: .Bubbla, urlService: MockUrlService()).newsSourceDistributionFromNewsItems(newsItems)
+		let newsSourceDistribution = _BubblaApi(newsSource: .Bubbla, urlService: MockUrlService(), notificationService: MockNotificationService()).newsSourceDistributionFromNewsItems(newsItems)
 		XCTAssertEqual(newsSourceDistribution.count, 2)
 		XCTAssertEqual(newsSourceDistribution[0].count, 1)
 		XCTAssertEqual(newsSourceDistribution[0].percentage, 0.5)
@@ -132,12 +245,12 @@ class BubblaTests: XCTestCase {
 	}
 	
 	func testTopics() {
-		let topic = _BubblaApi.Topic(topicArn: "arn:aws:sns:eu-central-1:312328711982:bubbla_afrika")
+		let topic = Topic(topicArn: "arn:aws:sns:eu-central-1:312328711982:bubbla_afrika")
 		XCTAssertEqual(topic.name, "afrika")
 		XCTAssertEqual(topic.newsSource, "bubbla")
 		
 		let strangeTopicName = "arn:aws:sns:eu-central-1:312328711982:ehm"
-		let strangeTopic = _BubblaApi.Topic(topicArn: strangeTopicName)
+		let strangeTopic = Topic(topicArn: strangeTopicName)
 		XCTAssertEqual(strangeTopic.name, strangeTopicName)
 		XCTAssertEqual(strangeTopic.name, strangeTopicName)
 	}

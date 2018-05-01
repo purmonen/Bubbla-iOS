@@ -19,7 +19,11 @@ class CategoryTableViewController: RefreshableTableViewController {
 		}
 	}
 	
-	var data = [[String]]()
+	var data = [[String]]() {
+		didSet {
+			tableView.reloadData()
+		}
+	}
 	
 	override func load() {
 		BubblaApi.news() { response in
@@ -87,7 +91,6 @@ class CategoryTableViewController: RefreshableTableViewController {
 		}
     }
 }
-
 
 
 extension CategoryTableViewController: SFSafariViewControllerDelegate {

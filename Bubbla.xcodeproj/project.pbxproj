@@ -186,6 +186,8 @@
 		E3C58918207ABA1200278497 /* AWSUserPoolsSignIn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3C58877207AB59B00278497 /* AWSUserPoolsSignIn.framework */; };
 		E3C58919207ABA1200278497 /* AWSUserPoolsSignIn.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E3C58877207AB59B00278497 /* AWSUserPoolsSignIn.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E3E3FD722095BA23001094CD /* AwsConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E3FD712095BA23001094CD /* AwsConfig.swift */; };
+		E3E3FD742097C212001094CD /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E3FD732097C212001094CD /* NotificationService.swift */; };
+		E3E3FD762098B260001094CD /* TopicPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E3FD752098B260001094CD /* TopicPreferences.swift */; };
 		E3E73F8F2083D2730037FB69 /* ServerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E73F8E2083D2730037FB69 /* ServerTableViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -369,6 +371,8 @@
 		E3C58894207AB5A000278497 /* AWSDynamoDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSDynamoDB.framework; path = "../../Downloads/aws-ios-sdk-2/frameworks/AWSDynamoDB.framework"; sourceTree = "<group>"; };
 		E3C58895207AB5A000278497 /* AWSGoogleSignIn.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSGoogleSignIn.framework; path = "../../Downloads/aws-ios-sdk-2/frameworks/AWSGoogleSignIn.framework"; sourceTree = "<group>"; };
 		E3E3FD712095BA23001094CD /* AwsConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwsConfig.swift; sourceTree = "<group>"; };
+		E3E3FD732097C212001094CD /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		E3E3FD752098B260001094CD /* TopicPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicPreferences.swift; sourceTree = "<group>"; };
 		E3E73F8E2083D2730037FB69 /* ServerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -582,8 +586,10 @@
 			isa = PBXGroup;
 			children = (
 				260DDA371BD59B0700E3DC5F /* BubblaApi.swift */,
+				E3E3FD752098B260001094CD /* TopicPreferences.swift */,
 				E3E3FD712095BA23001094CD /* AwsConfig.swift */,
 				E37FF19220911A4700A0D892 /* UrlService.swift */,
+				E3E3FD732097C212001094CD /* NotificationService.swift */,
 				E37FF19520911A9B00A0D892 /* NewsItem.swift */,
 			);
 			path = Api;
@@ -823,6 +829,7 @@
 				26A9A54E1BDE7BCC00140E67 /* CategoryTableViewController.swift in Sources */,
 				260DDA431BD5A4F100E3DC5F /* NewsItemTableViewCell.swift in Sources */,
 				E37FF19620911A9B00A0D892 /* NewsItem.swift in Sources */,
+				E3E3FD742097C212001094CD /* NotificationService.swift in Sources */,
 				26D3E7F31C2AF49D006EA2D6 /* SearchableList.swift in Sources */,
 				260DDA381BD59B0700E3DC5F /* BubblaApi.swift in Sources */,
 				26233E491BD6EBC900C754C8 /* Extensions.swift in Sources */,
@@ -830,6 +837,7 @@
 				E3E3FD722095BA23001094CD /* AwsConfig.swift in Sources */,
 				260DDA411BD5A38000E3DC5F /* NewsTableViewController.swift in Sources */,
 				26254AD51C2DA37D0041776E /* PushNotificationsTableViewController.swift in Sources */,
+				E3E3FD762098B260001094CD /* TopicPreferences.swift in Sources */,
 				E3B56781208CDDCC0038568D /* SettingsTableViewController.swift in Sources */,
 				26233E471BD6EB0A00C754C8 /* Response.swift in Sources */,
 				262246691C00D228009FCDDD /* WebViewController.swift in Sources */,
