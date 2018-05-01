@@ -142,16 +142,17 @@ class BubblaTests: XCTestCase {
 			case .success(let topics):
 				for topic in topics {
 					self.topicPreferences.makeTopic(topic, excluded: true)
-					self.api.registerDevice("deviceToken", topicPreferences: self.topicPreferences) { response in
-						self.api.notificationService.listTopics() {
-							switch $0 {
-							case .success(let topics):
-								for topic in topics {
-									XCTAssertEqual(self.topicPreferences.subscriptionArnForTopic(topic), nil)
-								}
-							case .error:
-								break
+					XCTAssertTrue(self.topicPreferences.excludeTopic(topic))
+				}
+				self.api.registerDevice("deviceToken", topicPreferences: self.topicPreferences) { response in
+					self.api.notificationService.listTopics() {
+						switch $0 {
+						case .success(let topics):
+							for topic in topics {
+								XCTAssertEqual(self.topicPreferences.subscriptionArnForTopic(topic), nil)
 							}
+						case .error:
+							break
 						}
 					}
 				}
