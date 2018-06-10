@@ -7,10 +7,10 @@ public struct AwsConfig {
 }
 
 #if DEBUG
-let coraxPlatformApplicationArn = "arn:aws:sns:eu-central-1:312328711982:app/APNS_SANDBOX/BubblaNews"
+let coraxPlatformApplicationArn = "arn:aws:sns:eu-central-1:312328711982:app/APNS_SANDBOX/Corax"
 let bubblaPlatformApplicationArn = "arn:aws:sns:eu-central-1:312328711982:app/APNS_SANDBOX/BubblaNews"
 #else
-let coraxPlatformApplicationArn = "arn:aws:sns:eu-central-1:312328711982:app/APNS/BubblaNews"
+let coraxPlatformApplicationArn = "arn:aws:sns:eu-central-1:312328711982:app/APNS/Corax"
 let bubblaPlatformApplicationArn = "arn:aws:sns:eu-central-1:312328711982:app/APNS/BubblaNews"
 #endif
 

@@ -14,7 +14,7 @@ public struct BubblaNews: Codable {
 	let publicationDate: Date
 	let category: String
 	let id: String
-	let imageUrl: URL?
+	let imageUrl: String?
 	let facebookUrl: URL?
 	let twitterUrl: URL?
 	let soundcloudUrl: URL?

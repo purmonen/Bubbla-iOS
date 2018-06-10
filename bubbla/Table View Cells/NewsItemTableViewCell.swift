@@ -53,39 +53,40 @@ class NewsItemTableViewCell: UITableViewCell {
             }
             newsImageView.isHidden = newsItem.imageUrl == nil
             
-            if let imageUrl = newsItem.imageUrl, !NewsItemTableViewCell.bubblaNewsWithFailedImages.contains(newsItem) && !Appearance.Image.hidden {
+            if let imageUrlString = newsItem.imageUrl,
+				let imageUrl = URL(string: imageUrlString),
+				!NewsItemTableViewCell.bubblaNewsWithFailedImages.contains(newsItem) && !Appearance.Image.hidden {
                 if let image = NewsItemTableViewCell.imageForNewsItem[newsItem] {
                     newsImageView.image = image
                 } else {
                     OperationQueue().addOperation {
-                        if let image = UIImage(data: URLCache.shared.cachedResponse(for: URLRequest(url: imageUrl as URL))?.data ?? Data()) {
+                        if let cachedResponse = URLCache.shared.cachedResponse(for: URLRequest(url: imageUrl)), let image = UIImage(data: cachedResponse.data) {
                             OperationQueue.main.addOperation {
-                                if self.newsItem.imageUrl == imageUrl {
+                                if self.newsItem.imageUrl == imageUrlString {
                                     self.newsImageView.image = image
                                 }
-                                
                             }
                         } else {
                             OperationQueue.main.addOperation {
-                                if self.newsItem.imageUrl == imageUrl {
+                                if self.newsItem.imageUrl == imageUrlString {
                                     self.newsImageView.startActivityIndicator()
                                     self.newsImageView.image = UIImage(named: "blank")
                                 }
                             }
-                            BubblaUrlService().imageFromUrl(imageUrl) { response in
+							BubblaUrlService().imageFromUrl(imageUrl) { response in
                                 OperationQueue.main.addOperation {
                                     switch response {
                                     case .success(let image):
-                                        if self.newsItem.imageUrl == imageUrl {
+                                        if self.newsItem.imageUrl == imageUrlString {
                                             self.newsImageView.image = image
                                         }
                                     case .error:
                                         NewsItemTableViewCell.bubblaNewsWithFailedImages.insert(self.newsItem)
-                                        if self.newsItem.imageUrl == imageUrl {
+                                        if self.newsItem.imageUrl == imageUrlString {
                                             self.newsImageView.isHidden = true
                                         }
                                     }
-                                    if self.newsItem.imageUrl == imageUrl {
+                                    if self.newsItem.imageUrl == imageUrlString {
                                         self.newsImageView.stopActivityIndicator()
                                     }
                                 }
