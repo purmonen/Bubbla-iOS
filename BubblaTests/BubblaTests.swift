@@ -8,12 +8,7 @@ extension String: SearchableListProtocol {
 class BubblaTests: XCTestCase {
 	
 	class MockUrlService: UrlService {
-		func dataFromUrl(_ url: URL, body: Data, callback: @escaping (Response<Data>) -> Void) {
-			let data = try! Data(contentsOf: Bundle(for: type(of: self)).url(forResource: "news", withExtension: "json")!)
-			callback(.success(data))
-		}
-		
-		func dataFromUrl(_ url: URL, callback: @escaping (Response<Data>) -> Void) {
+		func dataFromUrl(_ url: URL, session: URLSession, callback: @escaping (Response<Data>) -> Void) {
 			let data = try! Data(contentsOf: Bundle(for: type(of: self)).url(forResource: "news", withExtension: "json")!)
 			callback(.success(data))
 		}

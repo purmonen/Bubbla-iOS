@@ -62,7 +62,7 @@ class _BubblaApi {
 									print("Subscribed to \(subscription.topicArn)")
 									topicPreferences.setSubscriptionArn(subscription.subscriptionArn, forTopic: Topic(topicArn: subscription.topicArn))
 								}
-							case .error(let _):
+							case .error:
 								break
 							}
 							self.notificationService.unsubscribe(subscriptionArns: unsubscribeSubscriptions) {
@@ -76,7 +76,7 @@ class _BubblaApi {
 											}
 										}
 									}
-								case .error(let _):
+								case .error:
 									break
 								}
 								callback(.success(true))
@@ -94,7 +94,11 @@ class _BubblaApi {
 	
 	
 	func news(callback: @escaping (Response<[BubblaNews]>) -> Void) {
-		urlService.dataFromUrl(URL(string: awsConfig.newsJsonUrl)!) {
+		let configuration = URLSessionConfiguration.default
+		configuration.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
+		configuration.urlCache = nil
+		let session = URLSession(configuration: configuration)
+		urlService.dataFromUrl(URL(string: awsConfig.newsJsonUrl)!, session: session) {
 			callback($0 >>= { json in
 				do {
 					let decoder = JSONDecoder()

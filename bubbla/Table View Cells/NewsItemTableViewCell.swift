@@ -84,6 +84,10 @@ class NewsItemTableViewCell: UITableViewCell {
                                         NewsItemTableViewCell.bubblaNewsWithFailedImages.insert(self.newsItem)
                                         if self.newsItem.imageUrl == imageUrlString {
                                             self.newsImageView.isHidden = true
+											UIView.performWithoutAnimation {
+												self.newsTableViewController?.tableView.beginUpdates()
+												self.newsTableViewController?.tableView.endUpdates()
+											}
                                         }
                                     }
                                     if self.newsItem.imageUrl == imageUrlString {
