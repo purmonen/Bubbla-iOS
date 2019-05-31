@@ -130,4 +130,8 @@ class NewsItemTableViewCell: UITableViewCell {
     @IBOutlet weak var newsImageView: UIImageView!
     @IBOutlet weak var facebookButton: UIButton!
     @IBOutlet weak var twitterButton: UIButton!
+	
+	@IBAction func safariButtonClicked(_ sender: Any) {
+		UIApplication.shared.openURL(newsItem.url)
+	}
 }

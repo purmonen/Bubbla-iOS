@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ImP-OF-jAc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ImP-OF-jAc">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -104,10 +102,23 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="uly-kO-gDy">
-                                                    <rect key="frame" x="0.0" y="293" width="129" height="35"/>
+                                                    <rect key="frame" x="0.0" y="293" width="176" height="35"/>
                                                     <subviews>
-                                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aAb-fP-c3z">
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GFe-2B-qj4">
                                                             <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" secondItem="GFe-2B-qj4" secondAttribute="height" multiplier="1:1" id="92R-PN-9GU"/>
+                                                                <constraint firstAttribute="height" constant="35" id="rsH-Ze-onD"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <inset key="imageEdgeInsets" minX="3" minY="3" maxX="3" maxY="3"/>
+                                                            <state key="normal" image="safari"/>
+                                                            <connections>
+                                                                <action selector="safariButtonClicked:" destination="tDG-OA-N9h" eventType="touchUpInside" id="Tdm-w7-xd9"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aAb-fP-c3z">
+                                                            <rect key="frame" x="47" y="0.0" width="35" height="35"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" priority="999" constant="35" id="2aI-7O-zq1"/>
                                                                 <constraint firstAttribute="width" secondItem="aAb-fP-c3z" secondAttribute="height" multiplier="1:1" id="w4h-3D-duX"/>
@@ -119,7 +130,7 @@
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OL1-cv-R8f">
-                                                            <rect key="frame" x="47" y="0.0" width="35" height="35"/>
+                                                            <rect key="frame" x="94" y="0.0" width="35" height="35"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" priority="999" constant="35" id="47R-aw-CKV"/>
                                                                 <constraint firstAttribute="width" secondItem="OL1-cv-R8f" secondAttribute="height" multiplier="1:1" id="iO4-Y2-Cfy"/>
@@ -131,7 +142,7 @@
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DYG-Vk-ThQ">
-                                                            <rect key="frame" x="94" y="0.0" width="35" height="35"/>
+                                                            <rect key="frame" x="141" y="0.0" width="35" height="35"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" priority="999" constant="35" id="JHh-LE-rhr"/>
                                                                 <constraint firstAttribute="width" secondItem="DYG-Vk-ThQ" secondAttribute="height" multiplier="1:1" id="TzH-an-lvy"/>
@@ -637,6 +648,7 @@
         <image name="cog" width="22" height="22"/>
         <image name="facebook" width="128" height="128"/>
         <image name="radio" width="128" height="128"/>
+        <image name="safari" width="96" height="96"/>
         <image name="twitter" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>

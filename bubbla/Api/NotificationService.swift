@@ -69,7 +69,7 @@ struct AwsNotificationService: NotificationService {
 	
 	func listTopics(callback: @escaping (Response<[Topic]>) -> Void) {
 		if let listTopicsRequest = AWSSNSListTopicsInput() {
-			self.sns.listTopics(listTopicsRequest).continueWith(block: { (task: AWSTask<AWSSNSListTopicsResponse>) -> AnyObject? in
+			self.sns.listTopics(listTopicsRequest).continueWith() { (task: AWSTask<AWSSNSListTopicsResponse>) -> AnyObject? in
 				print("Topics!")
 				if let resultTopics = task.result?.topics {
 					var topics = [Topic]()
@@ -87,20 +87,73 @@ struct AwsNotificationService: NotificationService {
 					callback(.error(error))
 				}
 				return nil
-			})
+			}
 		}
 	}
 	
+	private func endpointArnKeyForToken(_ deviceToken: String) -> String {
+		return "endpointArnKeyForToken_\(deviceToken)"
+	}
+	
+	private func getEndpointArnForToken(_ deviceToken: String) -> String? {
+		return UserDefaults.standard.string(forKey: endpointArnKeyForToken(deviceToken))
+	}
+	
+	private func setEndpointArnForToken(_ deviceToken: String, endpointArn: String) {
+		return UserDefaults.standard.set(endpointArn, forKey: endpointArnKeyForToken(deviceToken))
+	}
 	
 	func createEndpointForDeviceToken(_ deviceToken: String, callback: @escaping (Response<String>) -> Void) {
+		if let endpointArn = getEndpointArnForToken(deviceToken),
+			let attributes = AWSSNSGetEndpointAttributesInput() {
+			attributes.endpointArn = endpointArn
+			sns.getEndpointAttributes(attributes).continueWith() { (task: AWSTask<AWSSNSGetEndpointAttributesResponse>) in
+				if task.error != nil {
+					self.createNewEndpointForDeviceToken(deviceToken, callback: callback)
+				} else {
+					if var endpointAttributes = task.result?.attributes {
+						let tokenKey = "Token"
+						let enabledKey = "Enabled"
+						let trueString = "true"
+						if (endpointAttributes[tokenKey] != deviceToken || endpointAttributes[enabledKey]?.lowercased() != trueString) {
+							endpointAttributes[tokenKey] = deviceToken
+							endpointAttributes[enabledKey] = trueString
+							if let attributesInput = try? AWSSNSSetEndpointAttributesInput(dictionary: endpointAttributes, error: ()) {
+								self.sns.setEndpointAttributes(attributesInput).continueWith() { (task: AWSTask<AnyObject>) in
+									if task.error != nil {
+										self.createNewEndpointForDeviceToken(deviceToken, callback: callback)
+									} else {
+										callback(.success(endpointArn))
+									}
+									return nil
+								}
+							} else {
+								self.createNewEndpointForDeviceToken(deviceToken, callback: callback)
+							}
+						} else {
+							callback(.success(endpointArn))
+						}
+					} else {
+						self.createNewEndpointForDeviceToken(deviceToken, callback: callback)
+					}
+				}
+				return nil
+			}
+		} else {
+			createNewEndpointForDeviceToken(deviceToken, callback: callback)
+		}
+	}
+	
+	private func createNewEndpointForDeviceToken(_ deviceToken: String, callback: @escaping (Response<String>) -> Void) {
 		let request = AWSSNSCreatePlatformEndpointInput()!
 		request.token = deviceToken
 		request.platformApplicationArn = awsConfig.platformApplicationArn
-		sns.createPlatformEndpoint(request).continueWith(executor: AWSExecutor.default()) { (task: AWSTask<AWSSNSCreateEndpointResponse>) in
+		sns.createPlatformEndpoint(request).continueWith() { (task: AWSTask<AWSSNSCreateEndpointResponse>) in
 			if let error = task.error {
 				callback(.error(error))
 			} else {
 				if let endpointArn = task.result?.endpointArn {
+					self.setEndpointArnForToken(deviceToken, endpointArn: endpointArn)
 					callback(.success(endpointArn))
 				} else {
 					callback(.error(NSError(domain: "aws", code: 0, userInfo: [NSLocalizedDescriptionKey: "This should never happen?"])))
@@ -113,7 +166,7 @@ struct AwsNotificationService: NotificationService {
 	func unsubscribe(subscriptionArn: String, callback: @escaping (Response<Bool>) -> Void) {
 		let unsubscribeRequest = AWSSNSUnsubscribeInput()!
 		unsubscribeRequest.subscriptionArn = subscriptionArn
-		self.sns.unsubscribe(unsubscribeRequest).continueWith(executor: AWSExecutor.mainThread(), block: { (task: AWSTask) in
+		self.sns.unsubscribe(unsubscribeRequest).continueWith() { (task: AWSTask) in
 			if let error = task.error {
 				print("Error in subscribe: \(String(describing: error))")
 				callback(.error(error))
@@ -121,7 +174,7 @@ struct AwsNotificationService: NotificationService {
 				callback(.success(true))
 			}
 			return nil
-		})
+		}
 	}
 	
 	func subscribeEndpointArn(_ endpointArn: String, toTopicArn topicArn: String, callback: @escaping (Response<String>) -> Void) {
@@ -129,7 +182,7 @@ struct AwsNotificationService: NotificationService {
 		subscribeRequest.topicArn = topicArn
 		subscribeRequest.endpoint = endpointArn
 		subscribeRequest.protocols = "application"
-		self.sns.subscribe(subscribeRequest).continueWith(executor: AWSExecutor.mainThread(), block: { (task: AWSTask<AWSSNSSubscribeResponse>) in
+		self.sns.subscribe(subscribeRequest).continueWith() { (task: AWSTask<AWSSNSSubscribeResponse>) in
 			if let error = task.error {
 				print("Error in subscribe: \(String(describing: error))")
 				callback(.error(error))
@@ -139,7 +192,7 @@ struct AwsNotificationService: NotificationService {
 				}
 			}
 			return nil
-		})
+		}
 	}
 	
 }
